@@ -30,6 +30,14 @@ OrderMotion<br>
 Autobase<br>
 Elead1<br>
 <br><br>
+<b>Partnership Work:</b>
+<br><br>
+Adobe Analytics
+Adobe Media Optimizer
+Doubleclick Campaign Manager
+Doubeclick Search Ads 360
+Marin
+<br><br>
 <b>Other Projects:</b>
 <br><br>
 Custom Call Routing/IVR<br>
