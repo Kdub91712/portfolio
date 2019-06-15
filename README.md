@@ -32,11 +32,13 @@ Elead1<br>
 <br><br>
 <b>Partnership Work:</b>
 <br><br>
-Adobe Analytics
-Adobe Media Optimizer
-Doubleclick Campaign Manager
-Doubeclick Search Ads 360
-Marin
+Adobe Analytics<br>
+Adobe Media Optimizer<br>
+Amazon Connect<br>
+Doubleclick Campaign Manager<br>
+Doubeclick Search Ads 360<br>
+Marin<br>
+Yext<br>
 <br><br>
 <b>Other Projects:</b>
 <br><br>
