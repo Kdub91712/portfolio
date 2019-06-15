@@ -1,8 +1,7 @@
 portfolio
 =========
 
-My name is Kevin Wilson and I've been working for DialogTech (formerly Ifbyphone) for 4+ years (3 as a Customer Engineer).  My development experience
-consists of the following:
+My name is Kevin Wilson and I worked for DialogTech (formerly Ifbyphone) for 8.5 years (6 as a Software Engineer).  My development experience consists of the following:
 
 <b>Code:</b>
 <br><br>
@@ -13,9 +12,11 @@ MySQL<br>
 Javascript<br>
 jQuery<br>
 AJAX<br>
+React<br>
+Amazon Web Services<br>
 REST API<br>
 SOAP API<br>
-Zend Framework<br>
+Zend Framework 1<br>
 <br><br>
 <b>Custom Integrations:</b>
 <br><br>
