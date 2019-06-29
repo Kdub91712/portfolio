@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -66,3 +67,58 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+=======
+portfolio
+=========
+
+My name is Kevin Wilson and I worked for DialogTech (formerly Ifbyphone) for over 8.5 years (7 as a Software Engineer).  My development experience consists of the following:
+
+<b>Code:</b>
+<br><br>
+PHP (OOP)<br>
+XML<br>
+JSON<br>
+MySQL<br>
+Javascript<br>
+jQuery<br>
+AJAX<br>
+React<br>
+Amazon Web Services<br>
+REST API<br>
+SOAP API<br>
+Zend Framework 1<br>
+<br><br>
+<b>Custom Integrations:</b>
+<br><br>
+Salesforce.com<br>
+Desk.com<br>
+ZenDesk.com<br>
+Evolution1<br>
+Zoho CRM<br>
+Boberdoo<br>
+DispatchTrack<br>
+OrderMotion<br>
+Autobase<br>
+Elead1<br>
+<br><br>
+<b>Partnership Work:</b>
+<br><br>
+Adobe Analytics<br>
+Adobe Media Optimizer<br>
+Amazon Connect<br>
+Doubleclick Campaign Manager<br>
+Doubeclick Search Ads 360<br>
+Marin<br>
+Yext<br>
+<br><br>
+<b>Other Projects:</b>
+<br><br>
+Custom Call Routing/IVR<br>
+Custom Phone Call Email Notifications<br>
+Custom Call Queue Screen Pops<br>
+Custom Reports
+<br><br>
+Here is a link to a project I created for working with the DialogTech SourceTrak API (V1):
+<br>
+https://github.com/Kdub91712/sourcetrakAPI
+>>>>>>> efc6f227456d52969d770f27ec6a5de42616b07b
