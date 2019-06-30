@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -117,8 +116,3 @@ Custom Call Routing/IVR<br>
 Custom Phone Call Email Notifications<br>
 Custom Call Queue Screen Pops<br>
 Custom Reports
-<br><br>
-Here is a link to a project I created for working with the DialogTech SourceTrak API (V1):
-<br>
-https://github.com/Kdub91712/sourcetrakAPI
->>>>>>> efc6f227456d52969d770f27ec6a5de42616b07b
