@@ -11,9 +11,23 @@ export default class Projects extends Component {
                         <p>Projects:</p>
                         <ul>
                             <li>Professional Services</li>
+                            <ul>
+                                {this.props.projects.professional_services &&
+                                    this.props.projects.professional_services.map((project, index) => 
+                                        <li key={index}>{project}</li>
+                                    )
+                                }
+                            </ul>
                         </ul>
                         <ul>
                             <li>Partnerships</li>
+                            <ul>
+                                {this.props.projects.partnerships &&
+                                    this.props.projects.partnerships.map((project, index) => 
+                                        <li key={index}>{project}</li>
+                                    )
+                                }
+                            </ul>
                         </ul>
                     </div>
                 </section>

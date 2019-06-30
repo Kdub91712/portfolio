@@ -6,6 +6,7 @@ import About from './components/about';
 import Projects from './components/projects';
 import Skills from './components/skills';
 import Contact from './components/contact';
+import axios from 'axios'
 
 export default class App extends Component {
 
@@ -14,10 +15,41 @@ export default class App extends Component {
       showAbout: false,
       showProjects: true,
       showSkills: true,
-      showContact: false  
+      showContact: false,
+      data: {
+        projects: [],
+        skills: []
+      }  
     })
   }
 
+  componentDidMount() {
+    this.pullFromApi()
+  }
+
+  pullFromApi = () => {
+
+    axios.get('https://73wg71ijuc.execute-api.us-west-2.amazonaws.com/dev/portfolioLambdaPython', {
+        crossDomain: true
+      }).then(res => {
+        const data = res.data;
+        this.setState({ data })
+      })
+
+  }
+
+  loadHomePage = () => {
+    console.log("loading homepage") 
+
+    this.setState({
+      showAbout: false,
+      showSkills: true,
+      showProjects: true,
+      showContact: false,
+    })
+    
+  }
+  
   innerSectionClassNames = "main-section inner-section"
 
   navLinkHandler = (e, page) => {
@@ -69,9 +101,12 @@ export default class App extends Component {
     return (
       <div className="App">
         
-        <header className="App-header">
-          Kevin Wilson - Full Stack Software Engineer
-        </header>
+        <div onClick={this.loadHomePage}>
+          <header className="App-header">
+            Kevin Wilson - Full Stack Software Engineer
+          </header>
+        </div>
+
         <Navigation
           navLinkHandler = {this.navLinkHandler}
         />
@@ -86,14 +121,14 @@ export default class App extends Component {
         { this.state.showProjects && 
         <div className={this.innerSectionClassNames}>
           <Projects
-
+            projects = {this.state.data.projects}
           />
         </div>
         }
         { this.state.showSkills && 
           <div className={this.innerSectionClassNames}>
             <Skills
-
+              skills = {this.state.data.skills}
             />
           </div>
         }

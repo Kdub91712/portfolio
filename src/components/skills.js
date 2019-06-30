@@ -8,15 +8,15 @@ export default class Skills extends Component {
             <div className="main-section">
                 <section className="sub-section">
                     <p>Skills: </p>
+
                     <ul>
-                        <li>React</li>
-                        <li>PHP</li>
-                        <li>MySQL</li>
-                        <li>Javascript</li>
-                        <li>Linux</li>
-                        <li>Docker</li>
-                        <li>AWS</li>
+                    { this.props.skills &&
+                        this.props.skills.map((skill, index) => 
+                        <li key={index}>{skill}</li>
+                    )
+                    }
                     </ul>
+
                 </section>
             </div>
         )
