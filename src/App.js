@@ -19,6 +19,9 @@ export default class App extends Component {
       data: {
         projects: [],
         skills: []
+      },
+      form: {
+
       }  
     })
   }
@@ -86,6 +89,23 @@ export default class App extends Component {
     }
   }
 
+  formSubmitHandler = (e) => {
+
+    e.preventDefault()
+    console.log(e)
+
+    this.setState({
+      form: {
+        "name" : e.target.name.value,
+        "phone": e.target.phone.value,
+        "email": e.target.email.value,
+        "comments": e.target.comments.value
+      }
+      
+    })
+
+  }
+
   hideAllSections = () => {
 
     this.setState({
@@ -136,7 +156,7 @@ export default class App extends Component {
         { this.state.showContact && 
           <div className={this.innerSectionClassNames}>
             <Contact
-
+              formSubmitHandler = {this.formSubmitHandler}
             />
           </div>
         }

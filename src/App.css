@@ -41,9 +41,10 @@
 }
 
 .nav-links {
-  margin: 3px;
+  margin: 4px;
   font-family: 'Courier New', Courier, monospace;
   font-size: 13px;
+  text-decoration: none;
 }
 
 .text-area {
@@ -53,3 +54,29 @@
 .inner-section {
   /* display: none; */
 }
+
+.contact-form label {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.contact-form div {
+  display: inline-block;
+  width: 40%;
+}
+
+.contact-form input textarea {
+  margin-left: 10px;
+  width: 30%;
+}
+
+.contact-form .submit-button {
+
+  width: 15%;
+  background-color: white;
+  margin-left: 60%
+
+}
+
