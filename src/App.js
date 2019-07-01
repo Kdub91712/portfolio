@@ -16,9 +16,11 @@ export default class App extends Component {
       showProjects: true,
       showSkills: false,
       showContact: false,
+      showMoreProjects: false,
       data: {
         projects: [],
-        skills: []
+        skills: [],
+        some_experience: []
       },
       form: {
 
@@ -27,12 +29,13 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    this.pullFromApi()
+    let dataUrl = 'https://73wg71ijuc.execute-api.us-west-2.amazonaws.com/dev/portfolioLambdaPython'
+    this.pullFromApi(dataUrl)
   }
 
-  pullFromApi = () => {
+  pullFromApi = (dataUrl) => {
 
-    axios.get('https://73wg71ijuc.execute-api.us-west-2.amazonaws.com/dev/portfolioLambdaPython', {
+    axios.get(dataUrl, {
         crossDomain: true
       }).then(res => {
         const data = res.data;
@@ -48,9 +51,17 @@ export default class App extends Component {
       showAbout: false,
       showSkills: false,
       showProjects: true,
-      showContact: false,
+      showContact: false
     })
     
+  }
+
+  showMore = (e) => {
+    e.preventDefault();
+    this.setState({
+      showMoreProjects: !this.state.showMoreProjects
+    })
+
   }
   
   innerSectionClassNames = "main-section inner-section"
@@ -129,6 +140,7 @@ export default class App extends Component {
 
         <Navigation
           navLinkHandler = {this.navLinkHandler}
+          navClasses = {this.state.navClasses}
         />
 
         { this.state.showAbout && 
@@ -142,6 +154,8 @@ export default class App extends Component {
         <div className={this.innerSectionClassNames}>
           <Projects
             projects = {this.state.data.projects}
+            showMoreProjects = {this.state.showMoreProjects}
+            showMore = {this.showMore}
           />
         </div>
         }
@@ -149,6 +163,7 @@ export default class App extends Component {
           <div className={this.innerSectionClassNames}>
             <Skills
               skills = {this.state.data.skills}
+              some_experience = {this.state.data.some_experience}
             />
           </div>
         }

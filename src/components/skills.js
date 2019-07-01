@@ -8,8 +8,7 @@ export default class Skills extends Component {
             <div className="main-section">
                 <section className="sub-section">
                 <div className="text-area">
-                    <p>Skills: </p>
-
+                    <p>Proficient: </p>
                     <ul>
                     { this.props.skills &&
                         this.props.skills.map((skill, index) => 
@@ -17,7 +16,15 @@ export default class Skills extends Component {
                     )
                     }
                     </ul>
-                    </div>
+                    <p>Some Experience: </p>
+                    <ul>
+                    { this.props.some_experience &&
+                        this.props.some_experience.map((experience, index) => 
+                        <li key={index}>{experience}</li>
+                    )
+                    }
+                    </ul>
+                </div>
                 </section>
             </div>
         )

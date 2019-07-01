@@ -19,16 +19,26 @@ export default class Projects extends Component {
                                 }
                             </ul>
                         </ul>
-                        <ul>
-                            <li>Partnerships Work - DialogTech, Chicago, IL</li>
+
+                        {!this.props.showMoreProjects &&
+                            <a href="/" className="show-more" onClick={(e) => this.props.showMore(e)}>Show More Projects...</a>
+                        }
+
+                        {this.props.showMoreProjects &&
+                            <>
+                            <a href="/" className="show-more" onClick={(e) => this.props.showMore(e)}>Show Less Projects...</a>
                             <ul>
-                                {this.props.projects.partnerships &&
-                                    this.props.projects.partnerships.map((project, index) => 
-                                        <li key={index}>{project}</li>
-                                    )
-                                }
+                                <li>Partnerships Work - DialogTech, Chicago, IL</li>
+                                <ul>
+                                    {this.props.projects.partnerships &&
+                                        this.props.projects.partnerships.map((project, index) => 
+                                            <li key={index}>{project}</li>
+                                        )
+                                    }
+                                </ul>
                             </ul>
-                        </ul>
+                            </>
+                        }
                     </div>
                 </section>
             </div>
