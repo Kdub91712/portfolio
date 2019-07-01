@@ -10,7 +10,7 @@ export default class Projects extends Component {
                     <div className="text-area">
                         <p>Projects:</p>
                         <ul>
-                            <li>Professional Services</li>
+                            <li>Professional Services Work - DialogTech, Chicago, IL</li>
                             <ul>
                                 {this.props.projects.professional_services &&
                                     this.props.projects.professional_services.map((project, index) => 
@@ -20,7 +20,7 @@ export default class Projects extends Component {
                             </ul>
                         </ul>
                         <ul>
-                            <li>Partnerships</li>
+                            <li>Partnerships Work - DialogTech, Chicago, IL</li>
                             <ul>
                                 {this.props.projects.partnerships &&
                                     this.props.projects.partnerships.map((project, index) => 

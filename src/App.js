@@ -14,7 +14,7 @@ export default class App extends Component {
     this.setState({
       showAbout: false,
       showProjects: true,
-      showSkills: true,
+      showSkills: false,
       showContact: false,
       data: {
         projects: [],
@@ -46,7 +46,7 @@ export default class App extends Component {
 
     this.setState({
       showAbout: false,
-      showSkills: true,
+      showSkills: false,
       showProjects: true,
       showContact: false,
     })
@@ -63,28 +63,28 @@ export default class App extends Component {
     if (page === 'about') {
       this.hideAllSections()
       this.setState({
-        showAbout: !this.state.showAbout,
+        showAbout: !this.state.showAbout ? true : true
       })
     }
 
     if (page === 'projects') {
       this.hideAllSections()
       this.setState({
-        showProjects: !this.state.showProjects
+        showProjects: !this.state.showProjects ? true : true
       })
     }
 
     if (page === 'skills') {
       this.hideAllSections()
       this.setState({
-        showSkills: !this.state.showSkills
+        showSkills: !this.state.showSkills ? true : true
       })
     }
 
     if (page === 'contact') {
       this.hideAllSections()
       this.setState({
-        showContact: !this.state.showContact
+        showContact: !this.state.showContact ? true : true
       })
     }
   }

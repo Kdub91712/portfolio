@@ -7,6 +7,7 @@ export default class Skills extends Component {
         return(
             <div className="main-section">
                 <section className="sub-section">
+                <div className="text-area">
                     <p>Skills: </p>
 
                     <ul>
@@ -16,7 +17,7 @@ export default class Skills extends Component {
                     )
                     }
                     </ul>
-
+                    </div>
                 </section>
             </div>
         )
