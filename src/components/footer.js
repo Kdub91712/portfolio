@@ -6,10 +6,10 @@ export default class Footer extends Component {
     render() {
 
         return(
-            <div className="main-section">
-                <footer>
+            <div>
+                <div className="footer">
                     <span>This web site was built with React, Python and AWS Lambda</span>
-                </footer>
+                </div>
             </div>
         )
 

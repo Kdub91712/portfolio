@@ -6,7 +6,7 @@ export default class Projects extends Component {
 
         return(
             <div className="main-section">
-                <section className="sub-section">
+                <div className="sub-section">
                     <div className="text-area">
                         <p>Projects:</p>
                         <ul>
@@ -40,7 +40,7 @@ export default class Projects extends Component {
                             </>
                         }
                     </div>
-                </section>
+                </div>
             </div>
         )
 

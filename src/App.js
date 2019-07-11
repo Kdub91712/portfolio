@@ -1,17 +1,19 @@
 import React, {Component} from 'react';
-import './App.css';
 import Navigation from './components/navigation';
 import Footer from './components/footer';
 import About from './components/about';
 import Projects from './components/projects';
 import Skills from './components/skills';
 import Contact from './components/contact';
-import axios from 'axios'
+import axios from 'axios';
+import './App.css';
 
 export default class App extends Component {
 
-  componentWillMount() {
-    this.setState({
+  constructor(props) {
+    super(props);
+
+    this.state = {
       showAbout: false,
       showProjects: true,
       showSkills: false,
@@ -25,7 +27,7 @@ export default class App extends Component {
       form: {
 
       }  
-    })
+    }
   }
 
   componentDidMount() {
@@ -45,7 +47,6 @@ export default class App extends Component {
   }
 
   loadHomePage = () => {
-    console.log("loading homepage") 
 
     this.setState({
       showAbout: false,
@@ -63,8 +64,6 @@ export default class App extends Component {
     })
 
   }
-  
-  innerSectionClassNames = "main-section inner-section"
 
   navLinkHandler = (e, page) => {
     e.preventDefault()
@@ -144,36 +143,30 @@ export default class App extends Component {
         />
 
         { this.state.showAbout && 
-          <div className={this.innerSectionClassNames}>
-            <About
+          <About
 
-            />
-          </div>
+          />
         }
+
         { this.state.showProjects && 
-        <div className={this.innerSectionClassNames}>
           <Projects
             projects = {this.state.data.projects}
             showMoreProjects = {this.state.showMoreProjects}
             showMore = {this.showMore}
           />
-        </div>
         }
+
         { this.state.showSkills && 
-          <div className={this.innerSectionClassNames}>
-            <Skills
-              skills = {this.state.data.skills}
-              some_experience = {this.state.data.some_experience}
-            />
-          </div>
+          <Skills
+            skills = {this.state.data.skills}
+            some_experience = {this.state.data.some_experience}
+          />
         }
 
         { this.state.showContact && 
-          <div className={this.innerSectionClassNames}>
-            <Contact
-              formSubmitHandler = {this.formSubmitHandler}
-            />
-          </div>
+          <Contact
+            formSubmitHandler = {this.formSubmitHandler}
+          />
         }
 
         <Footer/>
