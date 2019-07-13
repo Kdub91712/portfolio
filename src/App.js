@@ -26,7 +26,9 @@ export default class App extends Component {
       },
       form: {
 
-      }  
+      },
+      currentProjectIndex : 0,
+      nextProjectIndex : 1  
     }
   }
 
@@ -127,6 +129,20 @@ export default class App extends Component {
 
   }
 
+  increaseProjectIndex = () => {
+    this.setState({
+      currentProjectIndex: this.state.currentProjectIndex + 1,
+      nextProjectIndex: this.state.nextProjectIndex + 1
+    })
+  }
+
+  decreaseProjectIndex = () => {
+    this.setState({
+      currentProjectIndex: this.state.currentProjectIndex - 1,
+      nextProjectIndex: this.state.nextProjectIndex - 1
+    })
+  }
+
   render() {
     return (
       <div className="App">
@@ -153,6 +169,10 @@ export default class App extends Component {
             projects = {this.state.data.projects}
             showMoreProjects = {this.state.showMoreProjects}
             showMore = {this.showMore}
+            currentProjectIndex = {this.state.currentProjectIndex}
+            nextProjectIndex = {this.state.nextProjectIndex}
+            increaseProjectIndex = {this.increaseProjectIndex}
+            decreaseProjectIndex = {this.decreaseProjectIndex}
           />
         }
 
