@@ -8,45 +8,97 @@ export default class Projects extends Component {
         this.state = {
             hide: 1,
             show: 2,
+            showGallery: true,
+            showList: false
         }
     }
 
     rotateNext = (previousId, nextId) => {
-
-        console.log('next project');
-        console.log(previousId);
-        console.log(nextId);
         
         // Move current project off screen to the left
         setTimeout(function(){
             let wrapper = document.getElementById('project-content-wrapper-' + previousId)
             wrapper.classList.add('previous');
-        }, 500);
+        }, 300);
 
         setTimeout(function(){
             let wrapper = document.getElementById('project-content-wrapper-' + previousId)
             wrapper.style.display = 'none';
             wrapper.classList.remove('previous');
             wrapper.classList.add('next');
-        }, 700);
+        }, 500);
 
         // Add next project from the right
         setTimeout(function(){
             let wrapper = document.getElementById('project-content-wrapper-' + nextId)
             wrapper.style.display = 'block';
-        }, 900);
+        }, 700);
 
         setTimeout(function(){
             let wrapper = document.getElementById('project-content-wrapper-' + nextId)
             wrapper.classList.remove('next');
-        }, 1100);
+        }, 900);
 
         setTimeout(() => {
             this.setState({
                 show: this.state.show === 1 ? 2 : 1,
                 hide: this.state.hide === 2 ? 1 : 2
             }, () => this.props.increaseProjectIndex())
-        }, 1200);
+        }, 1000);
+    }
+
+    rotatePrevious = (previousId, nextId) => {
+        
+        // Move current project off screen to the left
+        setTimeout(function(){
+            let wrapper = document.getElementById('project-content-wrapper-' + previousId)
+            wrapper.classList.add('previous');
+        }, 300);
+
+        setTimeout(function(){
+            let wrapper = document.getElementById('project-content-wrapper-' + previousId)
+            wrapper.style.display = 'none';
+            wrapper.classList.remove('previous');
+            wrapper.classList.add('next');
+        }, 500);
+
+        // Add next project from the right
+        setTimeout(function(){
+            let wrapper = document.getElementById('project-content-wrapper-' + nextId)
+            wrapper.style.display = 'block';
+        }, 700);
+
+        setTimeout(function(){
+            let wrapper = document.getElementById('project-content-wrapper-' + nextId)
+            wrapper.classList.remove('next');
+        }, 900);
+
+        setTimeout(() => {
+            this.setState({
+                show: this.state.show === 1 ? 2 : 1,
+                hide: this.state.hide === 2 ? 1 : 2
+            }, () => this.props.decreaseProjectIndex())
+        }, 1000);
+    }
+
+    projectDetails = (projectName) => {
+        return(
+            <div className="project-details">
+                <div className="goal-content">
+                    <div className="detail-header-text">What was the goal?</div>
+                    <p>To integrate the DialogTech platform for call attribution purposes.</p>
+                </div>
+                <div className="tech-content">
+                    <div className="detail-header-text">What technologies were used?</div>
+                    <ul>
+                        <li>PHP</li>
+                        <li>React</li>
+                        <li>MySQL</li>
+                        <li>AWS</li>
+                    </ul>
+                </div>
+            </div>
+        )
     }
 
     render() {
@@ -55,96 +107,121 @@ export default class Projects extends Component {
             <div className="main-section">
                 <div className="sub-section">
 
-                <div className="project-rotator">
-
-                    <div className="project-rotator-buttons">
+                    {this.props.projects.partnerships && this.state.showGallery &&
                         <div className="project-button-wrapper">
-                            <button className="project-button">Previous Project</button>
+                            <button className="project-button" onClick={() => this.setState({showList: true, showGallery: false})}>List View</button>
                         </div>
+                    }
 
-                        {this.props.projects.partnerships && this.props.nextProjectIndex < this.props.projects.partnerships.length &&
-                            <div className="project-button-wrapper">
-                                <button className="project-button" onClick={() => this.rotateNext(this.state.hide, this.state.show)}>Next Project</button>
-                            </div>
-                        }
-                    </div>
-
-                    <div className="project-content-wrapper" id="project-content-wrapper-1">
-                        <div className="project-content">
-                            {this.props.projects.partnerships && this.state.show === 2 && this.props.projects.partnerships[this.props.currentProjectIndex] &&
-                                this.props.projects.partnerships[this.props.currentProjectIndex]
-                            }
-                            {this.props.projects.partnerships && this.state.show === 1 && this.props.projects.partnerships[this.props.nextProjectIndex] &&
-                                    this.props.projects.partnerships[this.props.nextProjectIndex]
-                            }
-                            <div className="goal-content">
-                                <div>What was the goal?</div>
-                                <div>Goal Text</div>
-                            </div>
-                            <div className="tech-content">
-                                <div>What technologies were used?</div>
-                                <div>Technology Text</div>
-                            </div>
-
+                    {this.props.projects.partnerships && this.state.showList &&
+                        <div className="project-button-wrapper">
+                            <button className="project-button" onClick={() => this.setState({showList: false, showGallery: true})}>Gallery View</button>
                         </div>
-                    </div>
+                    }
 
-                    <div className="project-content-wrapper next" id="project-content-wrapper-2">
-                        <div className="project-content">
-                            {this.props.projects.partnerships && this.state.show === 2 && this.props.projects.partnerships[this.props.nextProjectIndex] &&
-                                    this.props.projects.partnerships[this.props.nextProjectIndex]
-                            }
-                            {this.props.projects.partnerships && this.state.show === 1 && this.props.projects.partnerships[this.props.currentProjectIndex] &&
-                                    this.props.projects.partnerships[this.props.currentProjectIndex]
-                            }
-                            <div className="goal-content">
-                                <div>What was the goal?</div>
-                                <div>Goal Text</div>
+                    {this.state.showGallery &&
+                        <div className="project-rotator">
+
+                            <div className="project-rotator-buttons">
+                                {this.props.projects.partnerships && this.props.currentProjectIndex > 0 && this.props.projects.partnerships.length ? (
+                                    <div className="project-button-wrapper">
+                                        <button className="project-button" onClick={() => this.rotatePrevious(this.state.hide, this.state.show)}>Previous Project</button>
+                                    </div>
+                                ) : (
+                                    <div className="project-button-wrapper">
+                                        <button className="project-button" disabled>Previous Project</button>
+                                    </div>
+                                )}
+
+                                {this.props.projects.partnerships && this.props.nextProjectIndex < this.props.projects.partnerships.length ? (
+                                    <div className="project-button-wrapper">
+                                        <button className="project-button" onClick={() => this.rotateNext(this.state.hide, this.state.show)}>Next Project</button>
+                                    </div>
+                                ) : (
+                                    <div className="project-button-wrapper">
+                                        <button className="project-button" disabled>Next Project</button>
+                                    </div>
+                                )}
+
                             </div>
-                            <div className="tech-content">
-                                <div>What technologies were used?</div>
-                                <div>Technology Text</div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    </div>
-
-
-                    <div className="text-area">
-                        <p>Projects:</p>
-                        <ul>
-                            <li>Professional Services Work - DialogTech, Chicago, IL</li>
-                            <ul>
-                                {this.props.projects.professional_services &&
-                                    this.props.projects.professional_services.map((project, index) => 
-                                        <li key={index}>{project}</li>
-                                    )
+                            
+                            <div className="project-content-wrapper" id="project-content-wrapper-1">
+                                {this.props.projects.partnerships && this.state.show === 2 && this.props.projects.partnerships[this.props.currentProjectIndex] &&
+                                    <div className="project-content">
+                                        <div className="project-header">
+                                            <b>{this.props.projects.partnerships[this.props.currentProjectIndex]}</b>
+                                        </div>
+                                            {this.projectDetails(this.props.projects.partnerships[this.props.currentProjectIndex])}
+                                    </div>
                                 }
-                            </ul>
-                        </ul>
+                                {this.props.projects.partnerships && this.state.show === 1 && this.props.projects.partnerships[this.props.nextProjectIndex] &&
+                                        
+                                    <div className="project-content">
+                                        <div className="project-header">
+                                            <b>{this.props.projects.partnerships[this.props.nextProjectIndex]}</b>
+                                        </div>
+                                            {this.projectDetails(this.props.projects.partnerships[this.props.nextProjectIndex])}
+                                    </div>
+                                }
+                            </div>
 
-                        {!this.props.showMoreProjects &&
-                            <a href="/" className="show-more" onClick={(e) => this.props.showMore(e)}>Show More Projects...</a>
-                        }
+                            <div className="project-content-wrapper next" id="project-content-wrapper-2">
+                                {this.props.projects.partnerships && this.state.show === 2 && this.props.projects.partnerships[this.props.nextProjectIndex] &&
+                                    <div className="project-content">
+                                        <div className="project-header">
+                                            <b>{this.props.projects.partnerships[this.props.nextProjectIndex]}</b>
+                                        </div>
+                                        {this.projectDetails(this.props.projects.partnerships[this.props.nextProjectIndex])}
+                                    </div>
+                                }
+                                {this.props.projects.partnerships && this.state.show === 1 && this.props.projects.partnerships[this.props.currentProjectIndex] &&
 
-                        {this.props.showMoreProjects &&
-                            <>
-                            <a href="/" className="show-more" onClick={(e) => this.props.showMore(e)}>Show Less Projects...</a>
+                                    <div className="project-content">
+                                        <div className="project-header">
+                                            <b>{this.props.projects.partnerships[this.props.currentProjectIndex]}</b>
+                                        </div>
+                                        {this.projectDetails(this.props.projects.partnerships[this.props.currentProjectIndex])}
+                                </div>
+                                }
+                            </div>
+                        </div>
+                    }
+
+                    {this.state.showList && 
+                        <div className="text-area">
+                            <p>Projects:</p>
                             <ul>
-                                <li>Partnerships Work - DialogTech, Chicago, IL</li>
+                                <li>Professional Services Work - DialogTech, Chicago, IL</li>
                                 <ul>
-                                    {this.props.projects.partnerships &&
-                                        this.props.projects.partnerships.map((project, index) => 
+                                    {this.props.projects.professional_services &&
+                                        this.props.projects.professional_services.map((project, index) => 
                                             <li key={index}>{project}</li>
                                         )
                                     }
                                 </ul>
                             </ul>
-                            </>
-                        }
-                    </div>
+
+                            {!this.props.showMoreProjects &&
+                                <a href="/" className="show-more" onClick={(e) => this.props.showMore(e)}>Show More Projects...</a>
+                            }
+
+                            {this.props.showMoreProjects &&
+                                <>
+                                <a href="/" className="show-more" onClick={(e) => this.props.showMore(e)}>Show Less Projects...</a>
+                                <ul>
+                                    <li>Partnerships Work - DialogTech, Chicago, IL</li>
+                                    <ul>
+                                        {this.props.projects.partnerships &&
+                                            this.props.projects.partnerships.map((project, index) => 
+                                                <li key={index}>{project}</li>
+                                            )
+                                        }
+                                    </ul>
+                                </ul>
+                                </>
+                            }
+                        </div>
+                    }
                 </div>
             </div>
         )

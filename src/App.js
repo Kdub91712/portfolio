@@ -147,10 +147,10 @@ export default class App extends Component {
     return (
       <div className="App">
         
-        <div onClick={this.loadHomePage}>
-          <header className="App-header">
-            Kevin Wilson - Full Stack Software Engineer
-          </header>
+        <div onClick={() => this.loadHomePage()}>
+            <header className="App-header">
+              Kevin Wilson - Full Stack Software Engineer
+            </header>
         </div>
 
         <Navigation
