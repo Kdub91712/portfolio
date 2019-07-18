@@ -10,6 +10,8 @@ import './App.css';
 
 export default class App extends Component {
 
+  formUrl = 'http://localhost:8080/form';
+
   constructor(props) {
     super(props);
 
@@ -44,7 +46,9 @@ export default class App extends Component {
       }).then(res => {
         const data = res.data;
         this.setState({ data })
-      })
+      }).catch(error => {
+        console.log(error);
+    })
 
   }
 
@@ -104,18 +108,34 @@ export default class App extends Component {
   formSubmitHandler = (e) => {
 
     e.preventDefault()
-    console.log(e)
 
-    this.setState({
-      form: {
-        "name" : e.target.name.value,
-        "phone": e.target.phone.value,
-        "email": e.target.email.value,
-        "comments": e.target.comments.value
-      }
-      
-    })
+    console.log(e.target.name.value);
+    if (e.target.name.value === '' && e.target.phone.value === ''  && e.target.email.value === '' 
+      && e.target.comments.value === '' ) {
+      console.log('empty form!');
+    } else {
+      this.setState({
+        form: {
+          "name" : e.target.name.value,
+          "phone": e.target.phone.value,
+          "email": e.target.email.value,
+          "comments": e.target.comments.value
+        }
+        
+      }, () => {
+  
+        axios.post(this.formUrl, {
+          data: this.state.form
+        }).then(res => {
+          console.log('form submit success');
+          document.getElementById("contact_form").reset();
 
+        }).catch(error => {
+          console.log(error);
+        })
+  
+      })
+    }
   }
 
   hideAllSections = () => {

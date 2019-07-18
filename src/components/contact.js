@@ -9,7 +9,7 @@ export default class Contact extends Component {
                 <div className="sub-section">
                     <div className="text-area">
                         <p>Contact</p>
-                        <form className="contact-form" onSubmit={(e) => this.props.formSubmitHandler(e)}>
+                        <form id="contact_form" className="contact-form" onSubmit={(e) => this.props.formSubmitHandler(e)}>
                             <label>
                                 <div>Name</div>
                                 <input type="text" name="name"/>
