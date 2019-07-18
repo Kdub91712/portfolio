@@ -11,7 +11,7 @@ import './App.css';
 export default class App extends Component {
 
   //formUrl = 'http://localhost:8080/form';
-  formUrl = 'http://kdub-php7.herokuapp.com';
+  formUrl = 'https://kdub-php7.herokuapp.com';
 
   constructor(props) {
     super(props);
@@ -109,8 +109,7 @@ export default class App extends Component {
   formSubmitHandler = (e) => {
 
     e.preventDefault()
-
-    console.log(e.target.name.value);
+    
     if (e.target.name.value === '' && e.target.phone.value === ''  && e.target.email.value === '' 
       && e.target.comments.value === '' ) {
       console.log('empty form!');
