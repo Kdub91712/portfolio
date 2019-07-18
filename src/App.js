@@ -10,7 +10,8 @@ import './App.css';
 
 export default class App extends Component {
 
-  formUrl = 'http://localhost:8080/form';
+  //formUrl = 'http://localhost:8080/form';
+  formUrl = 'http://kdub-php7.herokuapp.com';
 
   constructor(props) {
     super(props);
