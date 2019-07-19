@@ -1,6 +1,11 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 export default class Contact extends Component {
+
+    static propTypes = {
+        formSubmitHandler: PropTypes.func
+    }
 
     render() {
 

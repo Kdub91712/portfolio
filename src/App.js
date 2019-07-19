@@ -23,7 +23,7 @@ export default class App extends Component {
       showContact: false,
       showMoreProjects: false,
       data: {
-        projects: [],
+        projects: {},
         skills: [],
         some_experience: []
       },
@@ -74,8 +74,6 @@ export default class App extends Component {
 
   navLinkHandler = (e, page) => {
     e.preventDefault()
-    console.log(page);
-    console.log('running onClick')
 
     if (page === 'about') {
       this.hideAllSections()

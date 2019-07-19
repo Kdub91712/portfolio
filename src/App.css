@@ -6,6 +6,13 @@ body {
   position: relative;
 }
 
+#profile-pic {
+  height: 22%;
+  width: 22%;
+  float:right;
+  padding: 4%;
+}
+
 .App {
   text-align: center;
   margin: .5%;

@@ -1,6 +1,15 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types';
 
 export default class Projects extends Component {
+
+    static propTypes = {
+        projects: PropTypes.object,
+        increaseProjectIndex: PropTypes.func,
+        decreaseProjectIndex: PropTypes.func,
+        currentProjectIndex: PropTypes.number,
+        nextProjectIndex: PropTypes.number
+    }
 
     constructor(props) {
         super(props);

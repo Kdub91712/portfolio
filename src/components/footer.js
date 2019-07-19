@@ -8,7 +8,7 @@ export default class Footer extends Component {
         return(
             <div>
                 <div className="footer">
-                    <span>This web site was built with React, Python and AWS Lambda</span>
+                    <span>Built with React, PHP, Laravel, Python and AWS Lambda</span>
                 </div>
             </div>
         )
