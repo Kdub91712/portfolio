@@ -10,8 +10,8 @@ import './App.css';
 
 export default class App extends Component {
 
-  //formUrl = 'http://localhost:8080/form';
-  formUrl = 'https://kdub-php7.herokuapp.com/form';
+  dataUrl = process.env.REACT_APP_DATA_URL;
+  formUrl = process.env.REACT_APP_FORM_URL;
 
   constructor(props) {
     super(props);
@@ -36,20 +36,20 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    let dataUrl = 'https://73wg71ijuc.execute-api.us-west-2.amazonaws.com/dev/portfolioLambdaPython'
-    this.pullFromApi(dataUrl)
+    this.pullFromApi(this.dataUrl)
   }
 
-  pullFromApi = (dataUrl) => {
+  pullFromApi = async (dataUrl) => {
 
-    axios.get(dataUrl, {
-        crossDomain: true
-      }).then(res => {
-        const data = res.data;
-        this.setState({ data })
-      }).catch(error => {
-        console.log(error);
-    })
+    try {
+
+      const response = await axios.get(dataUrl);
+      const data = response.data;
+      this.setState({ data })
+
+    } catch (error) {
+      console.log("error", error);
+    }
 
   }
 
@@ -112,6 +112,7 @@ export default class App extends Component {
       && e.target.comments.value === '' ) {
       console.log('empty form!');
     } else {
+      
       this.setState({
         form: {
           "name" : e.target.name.value,
@@ -120,18 +121,18 @@ export default class App extends Component {
           "comments": e.target.comments.value
         }
         
-      }, () => {
+      }, async () => {
   
-        axios.post(this.formUrl, {
-          data: this.state.form
-        }).then(res => {
-          console.log('form submit success');
-          document.getElementById("contact_form").reset();
+        try {
 
-        }).catch(error => {
-          console.log(error);
-        })
-  
+          const response = await axios.post(this.formUrl, {data: this.state.form});
+          console.log(response.data);
+          document.getElementById("contact_form").reset();
+    
+        } catch (error) {
+          console.log("error", error);
+        }
+
       })
     }
   }
