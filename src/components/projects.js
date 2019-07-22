@@ -8,7 +8,8 @@ export default class Projects extends Component {
         increaseProjectIndex: PropTypes.func,
         decreaseProjectIndex: PropTypes.func,
         currentProjectIndex: PropTypes.number,
-        nextProjectIndex: PropTypes.number
+        nextProjectIndex: PropTypes.number,
+        showMore: PropTypes.func
     }
 
     constructor(props) {
@@ -115,7 +116,6 @@ export default class Projects extends Component {
         return(
             <div className="main-section">
                 <div className="sub-section">
-
                     {this.props.projects.partnerships && this.state.showGallery &&
                         <div className="project-button-wrapper">
                             <button className="project-button" onClick={() => this.setState({showList: true, showGallery: false})}>List View</button>
@@ -198,7 +198,7 @@ export default class Projects extends Component {
 
                     {this.state.showList && 
                         <div className="text-area">
-                            <p>Projects:</p>
+                            <h3>Projects:</h3>
                             <ul>
                                 <li>Professional Services Work - DialogTech, Chicago, IL</li>
                                 <ul>

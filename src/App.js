@@ -6,7 +6,7 @@ import Projects from './components/projects';
 import Skills from './components/skills';
 import Contact from './components/contact';
 import axios from 'axios';
-import './App.css';
+import './styles/App.scss';
 
 export default class App extends Component {
 

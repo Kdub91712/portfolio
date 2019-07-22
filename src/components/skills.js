@@ -13,6 +13,7 @@ export default class Skills extends Component {
             <div className="main-section">
                 <div className="sub-section">
                     <div className="text-area">
+                        <h3>Skills</h3>
                         <p>Proficient: </p>
                         <ul>
                         { this.props.skills &&

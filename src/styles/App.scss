@@ -1,3 +1,14 @@
+$background-white: white;
+$background-blue: #009cde;
+$main-background-gray: lightgray;
+$gray: gray;
+$font-header: Georgia, 'Times New Roman', Times, serif;
+$font-nav: Georgia, 'Times New Roman', Times, serif;
+$font-footer: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+$heading-text-color: $background-blue;
+$box-shadow: 4px 3px;
+$button-height: 30px;
+
 html, body {
   overflow-x: hidden;
 }
@@ -6,24 +17,46 @@ body {
   position: relative;
 }
 
+button {
+  background-color: $background-blue;
+  color: $background-white;
+  height: $button-height;
+}
+
+button:disabled {
+  background-color: lighten($background-blue, 45%);
+}
+
+.submit-button {
+  background-color: $background-blue;
+  color: $background-white;
+  height: $button-height;
+}
+
+form {
+  height: 80%;
+  position: absolute;
+}
+
 #profile-pic {
   height: 22%;
   width: 22%;
   float:right;
-  padding: 4%;
+  margin: 4%;
+  box-shadow: $box-shadow;
 }
 
 .App {
   text-align: center;
   margin: .5%;
   max-width: 99%;
-  color: white;
+  color: $background-white;
   height: 98vh;
 }
 
 .App .footer span {
   font-size: 12px;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: $font-footer;
 }
 
 @media (min-width: 600px) {
@@ -33,50 +66,54 @@ body {
 }
 
 .App-header {
-  background-color: #009cde;
+  background-color: $background-blue;
   min-height: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  color: white;
+  font-family: $font-header;
+  color: $background-white;
 }
 
 nav {
-  background-color: white;
+  background-color: $background-white;
   padding: .5%;
 }
 
 a:hover, a:active{
-  background-color: #009cde;
-  color: white;
+  background-color: complement($gray);
+  color: $background-white;
 }
 
 
 .nav-links {
-  color: darkslategrey;
+  color: $gray;
   margin: 5px;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: $font-nav;
   font-size: 13px;
   text-decoration: none;
 }
 
 .main-section {
   float: left;
-  background-color: grey;
+  background-color: $main-background-gray;
   height: 83%;
   width: 100%;
+}
+
+h3 {
+  color: $heading-text-color;
 }
 
 .sub-section {
   text-align: left;
   margin: 8px;
-  background-color: white;
-  color: gray;
+  background-color: $background-white;
+  color: $gray;
   height: 97%;
-  box-shadow: 2px 3px;
+  box-shadow: $box-shadow;
   overflow-y: scroll;
   overflow-x: hidden;
   max-width: 100%;
@@ -86,36 +123,7 @@ a:hover, a:active{
   float: left;
   margin: 15px;
   width: 90%;
-}
-
-.contact-form {
-  margin-left: 2%;
-  width: 100%;
-}
-
-.contact-form label {
-  display: block;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  width: 100%;
-}
-
-.contact-form div {
-  margin-right: 10px;
-  margin-left: 2px;
-  display: inline-block;
-  width: 25%;
-}
-
-.contact-form input[type="text"] textarea {
-  margin-left: 10px;
-  width: 25%;
-}
-
-.contact-form .submit-button {
-  width: 60px;
-  background-color: white;
-  margin-left: 29%
+  min-height: 70%;
 }
 
 li {
@@ -123,12 +131,12 @@ li {
 }
 
 a.show-more {
-  color: #009cde;
+  color: $background-blue;
 }
 
 .footer {
   float:left;
-  background-color: #009cde;
+  background-color: $background-blue;
   padding: 1%;
   margin-top: 1%;
   width: 98%;
@@ -176,10 +184,10 @@ a.show-more {
 
 .project-content {
   height: 100%;
-  border: solid 1px lightgray;
-  margin-left: 2%;
-  margin-right: 2%;
-  box-shadow: 2px 3px;
+  border: solid 1px $gray;
+  margin-left: 3%;
+  margin-right: 3%;
+  box-shadow: $box-shadow;
 }
 
 .project-details {
@@ -192,7 +200,7 @@ a.show-more {
 }
 
 .detail-header-text {
-  color: #009cde;
+  color: $background-blue;
 }
 
 .project-header {
@@ -215,9 +223,9 @@ a.show-more {
 
 @media screen and (min-width: 600px) {
   .nav-links {
-    color: darkslategrey;
+    color: $gray;
     margin: 10px;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: $font-nav;
     font-size: 17px;
     text-decoration: none;
     padding-left: 4px;

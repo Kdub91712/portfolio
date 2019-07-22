@@ -13,7 +13,7 @@ export default class Contact extends Component {
             <div className="main-section">
                 <div className="sub-section">
                     <div className="text-area">
-                        <p>Contact</p>
+                        <h3>Contact</h3>
                         <form id="contact_form" className="contact-form" onSubmit={(e) => this.props.formSubmitHandler(e)}>
                             <label>
                                 <div>Name</div>
