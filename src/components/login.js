@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withAuth } from '@okta/okta-react';
+import Admin from './admin';
 
 export default withAuth(class Login extends Component {
   constructor(props) {
@@ -23,19 +24,24 @@ export default withAuth(class Login extends Component {
   }
 
   async login() {
-    // Redirect to '/' after login
+    // Redirect to '/admin' after login
     this.props.auth.login('/admin');
   }
 
   async logout() {
     // Redirect to '/' after logout
+    this.props.loggedOut();
     this.props.auth.logout('/');
   }
 
   render() {
     if (this.state.authenticated === null) return null;
     return this.state.authenticated ?
-      <button onClick={this.logout}>Logout</button> :
-      <button onClick={this.login}>Login</button>;
+    <>
+    <Admin
+        loggedIn = {this.props.loggedIn}
+    ></Admin>
+    <button onClick={this.logout}>Logout</button>
+    </> : <button onClick={this.login}>Login</button>;
   }
 });

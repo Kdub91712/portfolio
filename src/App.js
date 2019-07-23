@@ -5,13 +5,12 @@ import About from './components/about';
 import Projects from './components/projects';
 import Skills from './components/skills';
 import Contact from './components/contact';
+import Login from './components/login';
 import axios from 'axios';
 import './styles/App.scss';
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Security, ImplicitCallback } from '@okta/okta-react';
-import Login from './components/login';
-import Admin from './components/admin';
 
 const config = {
   issuer: 'https://dev-725893.okta.com/oauth2/default',
@@ -156,6 +155,7 @@ export default class App extends Component {
       showSkills: false,
       showProjects: false,
       showContact: false,
+      showAdmin: false
     })
 
   }
@@ -171,6 +171,25 @@ export default class App extends Component {
     this.setState({
       currentProjectIndex: this.state.currentProjectIndex - 1,
       nextProjectIndex: this.state.nextProjectIndex - 1
+    })
+  }
+
+  loggedIn = () => {
+
+    this.setState({
+      showAbout: false,
+      showSkills: false,
+      showProjects: false,
+      showContact: false,
+      showAdmin: true
+    })
+
+  }
+
+  loggedOut = () => {
+    this.setState({
+      showProjects: true,
+      showAdmin: false
     })
   }
 
@@ -220,20 +239,24 @@ export default class App extends Component {
           />
         }
 
-        { this.state.showLogin &&
-
-          <Router>
+        <Router>
             <Security issuer={config.issuer}
-                      client_id={config.client_id}
-                      redirect_uri={config.redirect_uri}
+                    client_id={config.client_id}
+                    redirect_uri={config.redirect_uri}
             >
-              <Route path='/' exact={true} component={Login}/>
-              <Route path='/implicit/callback' component={ImplicitCallback}/>
-              <Route path='/admin' component={Admin}/>
-            </Security>
-          </Router>
+                <Route 
+                  path='/admin' 
+                  exact={true}
+                  render={() => <Login 
+                  
+                      loggedIn = {this.loggedIn}
+                      loggedOut = {this.loggedOut}
 
-        }
+                  />}
+                />
+                <Route path='/implicit/callback' component={ImplicitCallback}/>
+            </Security>
+        </Router>
 
         <Footer/>
       </div>
