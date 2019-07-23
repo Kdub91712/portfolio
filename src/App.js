@@ -38,6 +38,8 @@ export default class App extends Component {
         skills: [],
         some_experience: []
       },
+      projectDetails: [],
+      projectTechnologies: [],
       form: {
 
       },
@@ -57,6 +59,22 @@ export default class App extends Component {
       const response = await axios.get(dataUrl);
       const data = response.data;
       this.setState({ data })
+
+    } catch (error) {
+      console.log("error", error);
+    }
+
+  }
+
+  pullProjectInfo = async (url, type) => {
+
+    console.log(type);
+
+    try {
+
+      const response = await axios.get(url);
+      const data = response.data;
+      this.setState({ [type]: data })
 
     } catch (error) {
       console.log("error", error);
@@ -96,7 +114,7 @@ export default class App extends Component {
     if (page === 'projects') {
       this.hideAllSections()
       this.setState({
-        showProjects: !this.state.showProjects ? true : true
+        showProjects: !this.state.showProjects ? true : true,
       })
     }
 
@@ -217,6 +235,9 @@ export default class App extends Component {
         { this.state.showProjects && 
           <Projects
             projects = {this.state.data.projects}
+            projectDetails = {this.state.projectDetails}
+            projectTechnologies = {this.state.projectTechnologies}
+            pullProjectInfo = {this.pullProjectInfo}
             showMoreProjects = {this.state.showMoreProjects}
             showMore = {this.showMore}
             currentProjectIndex = {this.state.currentProjectIndex}

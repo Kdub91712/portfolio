@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 
 export default class Projects extends Component {
 
+    projectDetailsUrl = process.env.REACT_APP_PROJECT_DETAILS_URL;
+    projectTechnologiesUrl = process.env.REACT_APP_PROJECT_TECHNOLOGIES_URL;
+
     static propTypes = {
         projects: PropTypes.object,
         increaseProjectIndex: PropTypes.func,
@@ -21,6 +24,20 @@ export default class Projects extends Component {
             showGallery: true,
             showList: false
         }
+    }
+
+    componentDidMount() {
+        
+        (async () => {
+
+            if (this.props.projectDetails.length === 0) {
+                await this.props.pullProjectInfo(this.projectDetailsUrl, 'projectDetails');
+            }
+
+            if (this.props.projectTechnologies.length === 0) {
+                await this.props.pullProjectInfo(this.projectTechnologiesUrl, 'projectTechnologies');
+            }
+        })();
     }
 
     rotateNext = (previousId, nextId) => {
@@ -91,7 +108,19 @@ export default class Projects extends Component {
         }, 1000);
     }
 
+    formatProjectName = (projectName) => {
+        projectName = projectName.split(' ');
+        projectName = projectName.join('_');
+        projectName = projectName.toLowerCase();
+        projectName = projectName.replace("_integration", "");
+        return projectName;
+    }
+
     projectDetails = (projectName) => {
+
+        projectName = this.formatProjectName(projectName);
+        // console.log(projectName);
+
         return(
             <div className="project-details">
                 <div className="goal-content">
@@ -101,6 +130,13 @@ export default class Projects extends Component {
                 <div className="tech-content">
                     <div className="detail-header-text">What technologies were used?</div>
                     <ul>
+                        { this.props.projectTechnologies.length > 0 &&
+                            this.props.projectTechnologies.filter(item => item.project_name === projectName).map((value) => 
+
+                                <li key={value.technology}>{value.technology}</li>
+
+                            )
+                        }
                         <li>PHP</li>
                         <li>React</li>
                         <li>MySQL</li>
