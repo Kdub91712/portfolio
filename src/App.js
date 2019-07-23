@@ -8,6 +8,17 @@ import Contact from './components/contact';
 import axios from 'axios';
 import './styles/App.scss';
 
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Security, ImplicitCallback } from '@okta/okta-react';
+import Login from './components/login';
+import Admin from './components/admin';
+
+const config = {
+  issuer: 'https://dev-725893.okta.com/oauth2/default',
+  redirect_uri: window.location.origin + '/implicit/callback',
+  client_id: '0oaze15fxXglq0guH356'
+}
+
 export default class App extends Component {
 
   dataUrl = process.env.REACT_APP_DATA_URL;
@@ -22,6 +33,7 @@ export default class App extends Component {
       showSkills: false,
       showContact: false,
       showMoreProjects: false,
+      showLogin: true,
       data: {
         projects: {},
         skills: [],
@@ -206,6 +218,21 @@ export default class App extends Component {
           <Contact
             formSubmitHandler = {this.formSubmitHandler}
           />
+        }
+
+        { this.state.showLogin &&
+
+          <Router>
+            <Security issuer={config.issuer}
+                      client_id={config.client_id}
+                      redirect_uri={config.redirect_uri}
+            >
+              <Route path='/' exact={true} component={Login}/>
+              <Route path='/implicit/callback' component={ImplicitCallback}/>
+              <Route path='/admin' component={Admin}/>
+            </Security>
+          </Router>
+
         }
 
         <Footer/>
