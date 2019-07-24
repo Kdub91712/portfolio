@@ -1,0 +1,116 @@
+html, body {
+    overflow-x: hidden;
+}
+  
+body {
+    position: relative;
+}
+  
+.App {
+    text-align: center;
+    margin: .5%;
+    max-width: 99%;
+    color: $background-white;
+    height: 98vh;
+
+    .footer span {
+        font-size: 12px;
+        font-family: $font-footer;
+    }
+}
+  
+.App-header {
+    background-color: $background-blue;
+    min-height: 10vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    font-family: $font-header;
+    color: $background-white;
+}
+
+// Nav stuff
+nav {
+    background-color: $background-white;
+    padding: .5%;
+}
+  
+a:hover, a:active{
+    background-color: complement($gray);
+    color: $background-white;
+}
+  
+.nav-links {
+    color: $gray;
+    margin: 5px;
+    font-family: $font-nav;
+    font-size: 13px;
+    text-decoration: none;
+}
+  
+.main-section {
+    float: left;
+    background-color: $main-background-gray;
+    height: 83%;
+    width: 100%;
+}
+  
+.sub-section {
+    text-align: left;
+    margin: 8px;
+    background-color: $background-white;
+    color: $gray;
+    height: 97%;
+    box-shadow: $box-shadow;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
+h3 {
+    color: $heading-text-color;
+}
+  
+.text-area {
+    float: left;
+    margin: 15px;
+    width: 90%;
+    min-height: 70%;
+}
+
+#profile-pic {
+    height: 22%;
+    width: 22%;
+    float:right;
+    margin: 4%;
+    box-shadow: $box-shadow;
+}
+  
+li {
+    margin: 5px;
+}
+  
+a.show-more {
+    color: $background-blue;
+}
+
+// Buttons
+button {
+    background-color: $background-blue;
+    color: $background-white;
+    height: $button-height;
+}
+  
+button:disabled {
+    background-color: lighten($background-blue, 45%);
+}
+  
+.footer {
+    float:left;
+    background-color: $background-blue;
+    padding: 1%;
+    margin-top: 1%;
+    width: 98%;
+}

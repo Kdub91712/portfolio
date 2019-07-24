@@ -1,0 +1,54 @@
+@media screen and (min-width: 600px) {
+
+    .App {
+        height: 85vh;
+    }
+
+    .nav-links {
+      color: $gray;
+      margin: 10px;
+      font-family: $font-nav;
+      font-size: 17px;
+      text-decoration: none;
+      padding-left: 4px;
+      padding-right: 4px;
+    }
+  
+    .main-section {
+      height: 89%;
+    }
+  
+    .sub-section {
+      height: 97%;
+    }
+
+    .project-details {
+        grid-template-columns: 1fr 1fr;
+    }
+  
+    .contact-form .submit-button {
+      margin-left: 29%
+    }
+
+    label {
+    
+        margin-top: 3%;
+        float: left;
+        width: 100%;
+    
+        div {
+            margin-left: 2%;
+            float: left;
+            width: 25%;
+        }
+    
+        input {
+            float: left;
+            width: 25%;
+        }
+    
+        textarea {
+            width: 25%;
+        }
+    }
+}

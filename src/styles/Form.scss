@@ -1,0 +1,35 @@
+form {
+    height: 65%;
+    width: 85%;
+    position: absolute;
+}
+
+label {
+    
+    margin-top: 3%;
+    float: left;
+    width: 100%;
+
+    div {
+        margin-left: 2%;
+        float: left;
+        width: 50%;
+    }
+
+    input {
+        float: left;
+        width: 40%;
+    }
+
+    textarea {
+        width: 40%;
+    }
+}
+
+.submit-button {
+    margin-top: 5%;
+    margin-left: 60%;
+    background-color: $background-blue;
+    color: $background-white;
+    height: $button-height;
+}

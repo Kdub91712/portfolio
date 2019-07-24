@@ -125,23 +125,27 @@ export default class Projects extends Component {
             <div className="project-details">
                 <div className="goal-content">
                     <div className="detail-header-text">What was the goal?</div>
+                    <div>
                     { this.props.projectDetails.length > 0 &&
                         this.props.projectDetails.filter(item => item.project_name === projectName).map((value) => 
                             <p key={value.project_name}>{value.details}</p>
                         )
                     }
+                    </div>
                 </div>
                 <div className="tech-content">
                     <div className="detail-header-text">What technologies were used?</div>
-                    <ul>
-                        { this.props.projectTechnologies.length > 0 &&
-                            this.props.projectTechnologies.filter(item => item.project_name === projectName).map((value) => 
+                        <div>
+                            <ul>
+                                { this.props.projectTechnologies.length > 0 &&
+                                    this.props.projectTechnologies.filter(item => item.project_name === projectName).map((value) => 
 
-                                <li key={value.technology}>{value.technology}</li>
+                                        <li key={value.technology}>{value.technology}</li>
 
-                            )
-                        }
-                    </ul>
+                                    )
+                                }
+                            </ul>
+                        </div>
                 </div>
             </div>
         )
