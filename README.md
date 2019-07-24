@@ -1,16 +1,20 @@
 # Kevin Wilson Portfolio
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
 This project was built using the following technologies:
 
 - React 16.8.6
     - Axios Library for HTTP
+    - React Router
+    - Okta
 - ES6 Javascript
-- CSS
+- CSS/SASS
 - HTML 5
 - Python 3.6
 - AWS Lambda
+- PHP 7.2
+- Laravel 5.8
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
