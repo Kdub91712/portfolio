@@ -125,7 +125,11 @@ export default class Projects extends Component {
             <div className="project-details">
                 <div className="goal-content">
                     <div className="detail-header-text">What was the goal?</div>
-                    <p>To integrate the DialogTech platform for call attribution purposes.</p>
+                    { this.props.projectDetails.length > 0 &&
+                        this.props.projectDetails.filter(item => item.project_name === projectName).map((value) => 
+                            <p key={value.project_name}>{value.details}</p>
+                        )
+                    }
                 </div>
                 <div className="tech-content">
                     <div className="detail-header-text">What technologies were used?</div>
@@ -137,10 +141,6 @@ export default class Projects extends Component {
 
                             )
                         }
-                        <li>PHP</li>
-                        <li>React</li>
-                        <li>MySQL</li>
-                        <li>AWS</li>
                     </ul>
                 </div>
             </div>
