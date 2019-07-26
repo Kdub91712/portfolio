@@ -32,7 +32,6 @@ export default class App extends Component {
       showSkills: false,
       showContact: false,
       showMoreProjects: false,
-      showLogin: true,
       data: {
         projects: {},
         skills: [],
@@ -87,7 +86,7 @@ export default class App extends Component {
     this.setState({
       showAbout: false,
       showSkills: false,
-      showProjects: true,
+      showProjects: !this.state.showAdmin,
       showContact: false
     })
     
@@ -261,7 +260,7 @@ export default class App extends Component {
         }
 
         <Router>
-            <Security issuer={config.issuer}
+            <Security className="admin-section" issuer={config.issuer}
                     client_id={config.client_id}
                     redirect_uri={config.redirect_uri}
             >

@@ -37,11 +37,11 @@ export default withAuth(class Login extends Component {
   render() {
     if (this.state.authenticated === null) return null;
     return this.state.authenticated ?
-    <>
-    <Admin
-        loggedIn = {this.props.loggedIn}
-    ></Admin>
-    <button onClick={this.logout}>Logout</button>
-    </> : <button onClick={this.login}>Login</button>;
+
+      <Admin
+          loggedIn = {this.props.loggedIn}
+          logout = {this.logout}
+      ></Admin>
+     : <button onClick={this.login}>Login</button>;
   }
 });

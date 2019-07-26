@@ -1,7 +1,18 @@
 form {
-    height: 65%;
-    width: 85%;
-    position: absolute;
+
+    #contact_form {
+        height: 65%;
+        width: 85%;
+        position: absolute;
+    }
+
+    #project_details_form {
+        height: 50%;
+    }
+
+    #project_technologies_form {
+        height: 50%;
+    }
 }
 
 label {
