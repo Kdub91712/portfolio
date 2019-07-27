@@ -1,7 +1,37 @@
 import json
+import logging
 
 def lambda_handler(event, context):
-    # TODO implement
+    
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    
+    if "headers" in event:
+        logger.info(event["headers"])
+        
+        if "Origin" in event["headers"]:
+            
+            logger.info(event["headers"]["Origin"])
+            
+            if event["headers"]["Origin"] != 'http://www.phpdevelopmentchicago.com' and event["headers"]["Origin"] != '':
+            
+                return {
+                    'statusCode': 500,
+                    'body': 'Not a valid Origin'
+                }
+        else:
+    
+            return {
+                'statusCode': 500,
+                'body': 'Not a valid Origin'
+            }           
+    else:
+    
+        return {
+            'statusCode': 500,
+            'body': 'Not a valid Origin'
+        }   
+        
     return {
         'statusCode': 200,
         'headers': {
@@ -10,11 +40,21 @@ def lambda_handler(event, context):
         'body': json.dumps({
             'skills': [
                 "PHP",
+                "HTML 5",
+                "CSS",
+                "Handlebars",
                 "ReactJS",
                 "MySQL",
                 "Amazon Web Services",
                 "Docker",
                 "Linux"
+            ],
+            'some_experience': [
+                'Python',
+                'NodeJS',
+                'Ruby on Rails',
+                'C#',
+                'Firebase'
             ],
             'projects': {
                 'professional_services': [
