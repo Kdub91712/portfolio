@@ -6,6 +6,31 @@ def lambda_handler(event, context):
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
     
+    professional_services = [
+                'Custom Email Alerts for Ifbyphone',
+                'Custom Call Tracking Reports for Ifbyphone',
+                'Custom WEX IVR Integration for Ifbyphone',
+                'Custom OrderMotion IVR Integration for Ifbyphone',
+                'Custom DispatchTrack Integration for Ifbyphone',
+                'Custom Salesforce Integration for Ifbyphone',
+                'Custom SugarCRM Integration for Ifbyphone',
+                'Custom Zendesk Integration for Ifbyphone',
+                'Custom Zoho Integration for Ifbyphone'
+            ]
+    partnerships = [
+                    'Amazon Connect Integration for DialogTech',
+                    'Adobe Analytics Integration for DialogTech',
+                    'Adobe Media Optimizer Integration for DialogTech',
+                    'Adobe Launch Integration for DialogTech',
+                    'DoubleClick Integration for DialogTech',
+                    'Google Analytics Integration for DialogTech',
+                    'Marin Integration for DialogTech',
+                    'Yext Integration for DialogTech',
+                ]
+    microservices = [
+                    'Area Service for Neighborhoods.com'
+                ]
+    
     if "headers" in event:
         logger.info(event["headers"])
         
@@ -31,7 +56,7 @@ def lambda_handler(event, context):
             'statusCode': 500,
             'body': 'Not a valid Origin'
         }   
-        
+            
     return {
         'statusCode': 200,
         'headers': {
@@ -47,37 +72,30 @@ def lambda_handler(event, context):
                 "MySQL",
                 "Amazon Web Services",
                 "Docker",
-                "Linux"
+                "Linux",
+                "Git"
             ],
             'some_experience': [
                 'Python',
                 'NodeJS',
                 'Ruby on Rails',
                 'C#',
-                'Firebase'
+                'Firebase',
+                'PostgreSQL',
+                'SASS',
+                'Webpack',
+                'New Relic',
+                'Kibana',
+                'Grafana',
+                'Jenkins',
+                'Kubernetes',
+                'Heroku'
             ],
             'projects': {
-                'professional_services': [
-                    'Custom Email Alerts',
-                    'Custom Call Tracking Reports',
-                    'Custom WEX IVR Integration',
-                    'Custom OrderMotion IVR Integration',
-                    'Custom DispatchTrack Integration',
-                    'Custom Salesforce Integration',
-                    'Custom SugarCRM Integration',
-                    'Custom Zendesk Integration',
-                    'Custom Zoho Integration'
-                ],
-                'partnerships': [
-                    'Amazon Connect Integration',
-                    'Adobe Analytics Integration',
-                    'Adobe Media Optimizer Integration',
-                    'Adobe Launch Integration',
-                    'DoubleClick Integration',
-                    'Google Analytics Integration',
-                    'Marin Integration',
-                    'Yext Integration'
-                ]
+                'professional_services': professional_services,
+                'partnerships': partnerships,
+                'microservices': microservices,
+                'all_projects': microservices + partnerships + professional_services
             }
         })
     }
