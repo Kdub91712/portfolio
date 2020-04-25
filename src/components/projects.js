@@ -113,13 +113,15 @@ export default class Projects extends Component {
         projectName = projectName.join('_');
         projectName = projectName.toLowerCase();
         projectName = projectName.replace("_integration", "");
+        projectName = projectName.replace("_for_ifbyphone", "");
+        projectName = projectName.replace("_for_dialogtech", "");
+        projectName = projectName.replace("_for_neighborhoods.com", "");
         return projectName;
     }
 
     projectDetails = (projectName) => {
 
         projectName = this.formatProjectName(projectName);
-        // console.log(projectName);
 
         return(
             <div className="project-details">
@@ -156,13 +158,13 @@ export default class Projects extends Component {
         return(
             <div className="main-section">
                 <div className="sub-section">
-                    {this.props.projects.partnerships && this.state.showGallery &&
+                    {this.props.projects.all_projects && this.state.showGallery &&
                         <div className="project-button-wrapper">
                             <button className="project-button" onClick={() => this.setState({showList: true, showGallery: false})}>List View</button>
                         </div>
                     }
 
-                    {this.props.projects.partnerships && this.state.showList &&
+                    {this.props.projects.all_projects && this.state.showList &&
                         <div className="project-button-wrapper">
                             <button className="project-button" onClick={() => this.setState({showList: false, showGallery: true})}>Gallery View</button>
                         </div>
@@ -172,7 +174,7 @@ export default class Projects extends Component {
                         <div className="project-rotator">
 
                             <div className="project-rotator-buttons">
-                                {this.props.projects.partnerships && this.props.currentProjectIndex > 0 && this.props.projects.partnerships.length ? (
+                                {this.props.projects.all_projects && this.props.currentProjectIndex > 0 && this.props.projects.all_projects.length ? (
                                     <div className="project-button-wrapper">
                                         <button className="project-button" onClick={() => this.rotatePrevious(this.state.hide, this.state.show)}>Previous Project</button>
                                     </div>
@@ -182,7 +184,7 @@ export default class Projects extends Component {
                                     </div>
                                 )}
 
-                                {this.props.projects.partnerships && this.props.nextProjectIndex < this.props.projects.partnerships.length ? (
+                                {this.props.projects.all_projects && this.props.nextProjectIndex < this.props.projects.all_projects.length ? (
                                     <div className="project-button-wrapper">
                                         <button className="project-button" onClick={() => this.rotateNext(this.state.hide, this.state.show)}>Next Project</button>
                                     </div>
@@ -195,41 +197,41 @@ export default class Projects extends Component {
                             </div>
                             
                             <div className="project-content-wrapper" id="project-content-wrapper-1">
-                                {this.props.projects.partnerships && this.state.show === 2 && this.props.projects.partnerships[this.props.currentProjectIndex] &&
+                                {this.props.projects.all_projects && this.state.show === 2 && this.props.projects.all_projects[this.props.currentProjectIndex] &&
                                     <div className="project-content">
                                         <div className="project-header">
-                                            <b>{this.props.projects.partnerships[this.props.currentProjectIndex]}</b>
+                                            <b>{this.props.projects.all_projects[this.props.currentProjectIndex]}</b>
                                         </div>
-                                            {this.projectDetails(this.props.projects.partnerships[this.props.currentProjectIndex])}
+                                            {this.projectDetails(this.props.projects.all_projects[this.props.currentProjectIndex])}
                                     </div>
                                 }
-                                {this.props.projects.partnerships && this.state.show === 1 && this.props.projects.partnerships[this.props.nextProjectIndex] &&
+                                {this.props.projects.all_projects && this.state.show === 1 && this.props.projects.all_projects[this.props.nextProjectIndex] &&
                                         
                                     <div className="project-content">
                                         <div className="project-header">
-                                            <b>{this.props.projects.partnerships[this.props.nextProjectIndex]}</b>
+                                            <b>{this.props.projects.all_projects[this.props.nextProjectIndex]}</b>
                                         </div>
-                                            {this.projectDetails(this.props.projects.partnerships[this.props.nextProjectIndex])}
+                                            {this.projectDetails(this.props.projects.all_projects[this.props.nextProjectIndex])}
                                     </div>
                                 }
                             </div>
 
                             <div className="project-content-wrapper next" id="project-content-wrapper-2">
-                                {this.props.projects.partnerships && this.state.show === 2 && this.props.projects.partnerships[this.props.nextProjectIndex] &&
+                                {this.props.projects.all_projects && this.state.show === 2 && this.props.projects.all_projects[this.props.nextProjectIndex] &&
                                     <div className="project-content">
                                         <div className="project-header">
-                                            <b>{this.props.projects.partnerships[this.props.nextProjectIndex]}</b>
+                                            <b>{this.props.projects.all_projects[this.props.nextProjectIndex]}</b>
                                         </div>
-                                        {this.projectDetails(this.props.projects.partnerships[this.props.nextProjectIndex])}
+                                        {this.projectDetails(this.props.projects.all_projects[this.props.nextProjectIndex])}
                                     </div>
                                 }
-                                {this.props.projects.partnerships && this.state.show === 1 && this.props.projects.partnerships[this.props.currentProjectIndex] &&
+                                {this.props.projects.all_projects && this.state.show === 1 && this.props.projects.all_projects[this.props.currentProjectIndex] &&
 
                                     <div className="project-content">
                                         <div className="project-header">
-                                            <b>{this.props.projects.partnerships[this.props.currentProjectIndex]}</b>
+                                            <b>{this.props.projects.all_projects[this.props.currentProjectIndex]}</b>
                                         </div>
-                                        {this.projectDetails(this.props.projects.partnerships[this.props.currentProjectIndex])}
+                                        {this.projectDetails(this.props.projects.all_projects[this.props.currentProjectIndex])}
                                 </div>
                                 }
                             </div>
@@ -240,14 +242,22 @@ export default class Projects extends Component {
                         <div className="text-area">
                             <h3>Projects:</h3>
                             <ul>
-                                <li>Professional Services Work - DialogTech, Chicago, IL</li>
-                                <ul>
-                                    {this.props.projects.professional_services &&
-                                        this.props.projects.professional_services.map((project, index) => 
-                                            <li key={index}>{project}</li>
-                                        )
-                                    }
-                                </ul>
+                                <li><b>Microservices Work - Neighborhoods.com, Chicago, IL (2019-2020)</b></li>
+                                    <ul>
+                                        {this.props.projects.microservices &&
+                                            this.props.projects.microservices.map((project, index) => 
+                                                <li key={index}>{project}</li>
+                                            )
+                                        }
+                                    </ul>
+                                    <li><b>Partnerships Work - DialogTech, Chicago, IL (2015-2019)</b></li>
+                                    <ul>
+                                        {this.props.projects.partnerships &&
+                                            this.props.projects.partnerships.map((project, index) => 
+                                                <li key={index}>{project}</li>
+                                            )
+                                        }
+                                    </ul>
                             </ul>
 
                             {!this.props.showMoreProjects &&
@@ -258,14 +268,14 @@ export default class Projects extends Component {
                                 <>
                                 <a href="/" className="show-more" onClick={(e) => this.props.showMore(e)}>Show Less Projects...</a>
                                 <ul>
-                                    <li>Partnerships Work - DialogTech, Chicago, IL</li>
-                                    <ul>
-                                        {this.props.projects.partnerships &&
-                                            this.props.projects.partnerships.map((project, index) => 
-                                                <li key={index}>{project}</li>
-                                            )
-                                        }
-                                    </ul>
+                                <li><b>Professional Services Work - DialogTech, Chicago, IL (2012-2015)</b></li>
+                                <ul>
+                                    {this.props.projects.professional_services &&
+                                        this.props.projects.professional_services.map((project, index) => 
+                                            <li key={index}>{project}</li>
+                                        )
+                                    }
+                                </ul>
                                 </ul>
                                 </>
                             }
