@@ -119,6 +119,18 @@ export default class Projects extends Component {
         return projectName;
     }
 
+    parsePodcastLink = (projectDetails) => {
+        let podcastLink = projectDetails.split('|')[1];
+
+        return podcastLink;
+    }
+
+    parseDescription = (projectDescription) => {
+        projectDescription = projectDescription.split('|')[0];
+
+        return projectDescription;
+    }
+
     projectDetails = (projectName) => {
 
         projectName = this.formatProjectName(projectName);
@@ -130,7 +142,9 @@ export default class Projects extends Component {
                     <div>
                     { this.props.projectDetails.length > 0 &&
                         this.props.projectDetails.filter(item => item.project_name === projectName).map((value) => 
-                            <p key={value.project_name}>{value.details}</p>
+                            <p key={value.project_name}>{this.parseDescription(value.details)} 
+                                {this.parsePodcastLink(value.details) && <a target="_blank" rel="noopener noreferrer" href={this.parsePodcastLink(value.details)}>Hear more about this project</a>}
+                            </p>
                         )
                     }
                     </div>
