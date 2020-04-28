@@ -8,6 +8,7 @@ import Contact from './components/contact';
 import Login from './components/login';
 import axios from 'axios';
 import './styles/App.scss';
+import ReactGA from'react-ga';
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Security, ImplicitCallback } from '@okta/okta-react';
@@ -48,8 +49,14 @@ export default class App extends Component {
   }
 
   componentDidMount() {
+    this.initializeReactGA();
     this.pullFromApi(this.dataUrl)
   }
+
+  initializeReactGA = () => {
+    ReactGA.initialize('UA-64241241-2');
+    ReactGA.pageview('/homepage');
+  } 
 
   pullFromApi = async (dataUrl) => {
 
@@ -104,6 +111,7 @@ export default class App extends Component {
     e.preventDefault()
 
     if (page === 'about') {
+      ReactGA.pageview('/about')
       this.hideAllSections()
       this.setState({
         showAbout: !this.state.showAbout ? true : true
@@ -111,6 +119,7 @@ export default class App extends Component {
     }
 
     if (page === 'projects') {
+      ReactGA.pageview('/projects')
       this.hideAllSections()
       this.setState({
         showProjects: !this.state.showProjects ? true : true,
@@ -118,6 +127,7 @@ export default class App extends Component {
     }
 
     if (page === 'skills') {
+      ReactGA.pageview('/skills')
       this.hideAllSections()
       this.setState({
         showSkills: !this.state.showSkills ? true : true
@@ -125,6 +135,7 @@ export default class App extends Component {
     }
 
     if (page === 'contact') {
+      ReactGA.pageview('/contact')
       this.hideAllSections()
       this.setState({
         showContact: !this.state.showContact ? true : true
@@ -139,6 +150,10 @@ export default class App extends Component {
     if (e.target.name.value === '' && e.target.phone.value === ''  && e.target.email.value === '' 
       && e.target.comments.value === '' ) {
       console.log('empty form!');
+      ReactGA.event({
+        category: 'User',
+        action: 'Empty Form'
+      });
     } else {
       
       this.setState({
@@ -153,6 +168,10 @@ export default class App extends Component {
   
         try {
 
+          ReactGA.event({
+            category: 'User',
+            action: 'Submit Form'
+          });
           const response = await axios.post(this.formUrl, {data: this.state.form});
           console.log(response.data);
           document.getElementById("contact_form").reset();
@@ -182,6 +201,11 @@ export default class App extends Component {
       currentProjectIndex: this.state.currentProjectIndex + 1,
       nextProjectIndex: this.state.nextProjectIndex + 1
     })
+
+    ReactGA.event({
+      category: 'User',
+      action: 'Next Project'
+    });
   }
 
   decreaseProjectIndex = () => {
@@ -189,6 +213,11 @@ export default class App extends Component {
       currentProjectIndex: this.state.currentProjectIndex - 1,
       nextProjectIndex: this.state.nextProjectIndex - 1
     })
+
+    ReactGA.event({
+      category: 'User',
+      action: 'Previous Project'
+    });
   }
 
   loggedIn = () => {
