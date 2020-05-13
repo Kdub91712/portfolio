@@ -18,11 +18,31 @@ This project was built using the following technologies:
 
     yarn run dev
 
-## Docker
+## Development Docker
+
+    docker build -f Dockerfile.prod -t sample:development . --no-cache
+
+    docker run -it --rm -p 1337:80 sample:development
+
+## Production Docker
+
+    docker build -f Dockerfile.prod -t sample:prod . --no-cache
+
+    docker run -it --rm -p 1337:80 sample:prod
+
+## Dockerhub
 
     docker build -t kdub91712/react-portfolio .
 
     docker run --name react-portfolio -p 4680:3000 kdub91712/react-portfolio
+
+## Heroku
+
+    docker build -t registry.heroku.com/kevin-wilson-portfolio-docker/web .
+
+    docker push registry.heroku.com/kevin-wilson-portfolio-docker/web
+
+    heroku container:release -a kevin-wilson-portfolio-docker web
 
 ## Bootstrap
 
