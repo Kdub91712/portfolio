@@ -20,7 +20,7 @@ This project was built using the following technologies:
 
 ## Development Docker
 
-    docker build -f Dockerfile.prod -t sample:development . --no-cache
+    docker build -t sample:development . --no-cache
 
     docker run -it --rm -p 1337:80 sample:development
 
@@ -30,7 +30,13 @@ This project was built using the following technologies:
 
     docker run -it --rm -p 1337:80 sample:prod
 
-## Dockerhub
+## Dockerhub Development
+
+    docker build -t kdub91712/react-portfolio .
+
+    docker run --name react-portfolio -p 4680:3000 kdub91712/react-portfolio
+
+## Dockerhub Production
 
     docker build -t kdub91712/react-portfolio .
 
