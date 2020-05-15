@@ -22,7 +22,7 @@ This project was built using the following technologies:
 
     docker build -t sample:development . --no-cache
 
-    docker run -it --rm -p 1337:80 sample:development
+    docker run -it --rm -p 1337:3000 sample:development
 
 ## Production Docker
 
@@ -40,7 +40,7 @@ This project was built using the following technologies:
 
     docker build -t kdub91712/react-portfolio .
 
-    docker run --name react-portfolio -p 4680:3000 kdub91712/react-portfolio
+    docker run --name react-portfolio -p 4680:80 kdub91712/react-portfolio
 
 ## Heroku
 
