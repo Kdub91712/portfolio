@@ -19,7 +19,7 @@
     "react-ga": "^2.7.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
-    "serialize-javascript": "^3.0.0",
+    "serialize-javascript": "^3.1.0",
     "serve": "^11.1.0"
   },
   "scripts": {
