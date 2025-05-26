@@ -44,7 +44,7 @@ This project was built using the following technologies:
 
 ## Heroku
 
-    docker build -t registry.heroku.com/kevin-wilson-portfolio-docker/web .
+    docker build --platform linux/amd64 -t registry.heroku.com/kevin-wilson-portfolio-docker/web .
 
     docker push registry.heroku.com/kevin-wilson-portfolio-docker/web
 
