@@ -29,25 +29,56 @@ body {
     font-size: calc(10px + 2vmin);
     font-family: $font-header;
     color: $background-white;
+    letter-spacing: 0.05em;
+    cursor: pointer;
 }
 
 // Nav stuff
 nav {
     background-color: $background-white;
-    padding: .5%;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 48px;
+    gap: 8px;
 }
-  
-a:hover, a:active{
-    background-color: complement($gray);
-    color: $background-white;
+
+a:hover, a:active {
+    background-color: transparent;
+    color: $background-blue;
 }
-  
+
 .nav-links {
+    position: relative;
     color: $gray;
-    margin: 5px;
     font-family: $font-nav;
     font-size: 13px;
+    font-weight: 600;
     text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 4px 8px;
+    transition: color 0.2s ease;
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: $background-blue;
+        transition: width 0.2s ease;
+    }
+
+    &:hover {
+        color: $background-blue;
+
+        &::after {
+            width: 100%;
+        }
+    }
 }
   
 .main-section {
@@ -67,6 +98,8 @@ a:hover, a:active{
     overflow-y: scroll;
     overflow-x: hidden;
     max-width: 100%;
+    border-radius: 8px;
+    padding: 12px;
 }
 
 h3 {
@@ -96,11 +129,134 @@ a.show-more {
     color: $background-blue;
 }
 
+// About
+
+.about-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding: 24px 16px 16px;
+}
+
+.about-profile-pic {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: $box-shadow;
+    flex-shrink: 0;
+}
+
+.about-bio {
+    color: $gray;
+    max-width: 600px;
+
+    p {
+        line-height: 1.7;
+        margin-bottom: 10px;
+    }
+}
+
+.about-name {
+    color: $heading-text-color;
+    margin-top: 0;
+    font-size: 22px;
+}
+
+.about-intro {
+    font-size: 15px;
+    font-weight: 600;
+    color: darken($gray, 10%);
+}
+
+.about-divider {
+    border-top: 1px solid #e0e0e0;
+    margin: 16px 24px;
+}
+
+.about-video-section {
+    padding: 0 24px 24px;
+    color: $gray;
+
+    h3 {
+        color: $heading-text-color;
+    }
+}
+
+.about-video-wrapper {
+    max-width: 480px;
+
+    iframe {
+        width: 100%;
+        height: 270px;
+        border-radius: 6px;
+        box-shadow: $box-shadow;
+    }
+}
+
+// Skills
+
+@keyframes pill-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.skills-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+}
+
+.skills-label {
+    font-weight: 600;
+    color: $heading-text-color;
+    margin-bottom: 8px;
+    font-size: 15px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.skills-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.skill-pill {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-family: $font-nav;
+    font-weight: 600;
+    opacity: 0;
+    animation: pill-in 0.3s ease forwards;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+}
+
+.skill-pill--proficient {
+    background: linear-gradient(135deg, #003399, #000066);
+    color: $background-white;
+}
+
+.skill-pill--some {
+    background-color: #e0e0e0;
+    color: $gray;
+}
+
 // Buttons
 button {
     background-color: $background-blue;
     color: $background-white;
     height: $button-height;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
 }
   
 button:disabled {
@@ -117,6 +273,28 @@ button:disabled {
 #logout_button {
     margin: 5%;
     float: left;
+}
+
+// Spinner
+
+.spinner-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid lightgray;
+    border-top-color: $background-blue;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
 }
 
 // Footer

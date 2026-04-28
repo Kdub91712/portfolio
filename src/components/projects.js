@@ -22,12 +22,13 @@ export default class Projects extends Component {
             hide: 1,
             show: 2,
             showGallery: true,
-            showList: false
+            showList: false,
+            loading: true
         }
     }
 
     componentDidMount() {
-        
+
         (async () => {
 
             if (this.props.projectDetails.length === 0) {
@@ -37,6 +38,8 @@ export default class Projects extends Component {
             if (this.props.projectTechnologies.length === 0) {
                 await this.props.pullProjectInfo(this.projectTechnologiesUrl, 'projectTechnologies');
             }
+
+            this.setState({ loading: false });
         })();
     }
 
@@ -135,14 +138,24 @@ export default class Projects extends Component {
 
         projectName = this.formatProjectName(projectName);
 
+        if (this.state.loading) {
+            return (
+                <div className="project-details">
+                    <div className="spinner-wrapper">
+                        <div className="spinner"></div>
+                    </div>
+                </div>
+            );
+        }
+
         return(
             <div className="project-details">
                 <div className="goal-content">
                     <div className="detail-header-text">What was the goal?</div>
                     <div>
                     { this.props.projectDetails.length > 0 &&
-                        this.props.projectDetails.filter(item => item.project_name === projectName).map((value) => 
-                            <p key={value.project_name}>{this.parseDescription(value.details)} 
+                        this.props.projectDetails.filter(item => item.project_name === projectName).map((value) =>
+                            <p key={value.project_name}>{this.parseDescription(value.details)}
                                 {this.parsePodcastLink(value.details) && <a target="_blank" rel="noopener noreferrer" href={this.parsePodcastLink(value.details)}>Hear more about this project</a>}
                             </p>
                         )
@@ -154,7 +167,7 @@ export default class Projects extends Component {
                         <div>
                             <ul>
                                 { this.props.projectTechnologies.length > 0 &&
-                                    this.props.projectTechnologies.filter(item => item.project_name === projectName).map((value) => 
+                                    this.props.projectTechnologies.filter(item => item.project_name === projectName).map((value) =>
 
                                         <li key={value.technology}>{value.technology}</li>
 

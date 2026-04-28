@@ -15,32 +15,64 @@ form {
     }
 }
 
-label {
-    
-    margin-top: 3%;
-    float: left;
-    width: 100%;
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 480px;
+    gap: 16px;
 
-    div {
-        margin-left: 2%;
-        float: left;
-        width: 50%;
+    label {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        font-size: 14px;
+        color: $gray;
+        float: none;
+        width: 100%;
+        margin-top: 0;
+
+        div {
+            font-weight: 600;
+            margin-left: 0;
+            float: none;
+            width: 100%;
+        }
+
+        input, textarea {
+            float: none;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: $font-nav;
+            transition: border-color 0.2s ease;
+
+            &:focus {
+                outline: none;
+                border-color: $background-blue;
+            }
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
     }
 
-    input {
-        float: left;
-        width: 40%;
+    .submit-button {
+        align-self: flex-start;
+        margin-top: 4px;
+        margin-left: 0;
+        padding: 0 20px;
+        background-color: $background-blue;
+        color: $background-white;
+        height: $button-height;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+        font-family: $font-nav;
     }
-
-    textarea {
-        width: 40%;
-    }
-}
-
-.submit-button {
-    margin-top: 5%;
-    margin-left: 60%;
-    background-color: $background-blue;
-    color: $background-white;
-    height: $button-height;
 }

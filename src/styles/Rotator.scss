@@ -40,10 +40,11 @@
 
 .project-content {
     height: 100%;
-    border: solid 1px $gray;
+    border: solid 1px #ddd;
     margin-left: 3%;
     margin-right: 3%;
     box-shadow: $box-shadow;
+    border-radius: 6px;
 }
 
 .project-details {

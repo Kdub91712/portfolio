@@ -8,15 +8,22 @@ export default class About extends Component {
         return(
             <div className="main-section">
                 <div className="sub-section">
-                    <div className="text-area">
-                        <h3>About Kevin</h3>
-                        <img id="profile-pic" src={profilePicture} alt="kevin"></img>
-                        <p>I've been in software development for 12+ years.  I'm most experienced in LAMP stack technologies, APIs and Integrations.</p>
-                        <p>PHP is my strongest language, but I'm really enjoying working with Python and React.  In my spare time I like to work on app ideas and trying new technologies.</p>
-                        <p>I grew up in the southwest suburbs of Chicago, and lived in the city 10+ years.  I now reside in Colorado where I mountain bike frequently. I also enjoy music, investing and the great outdoors.</p>
+                    <div className="about-hero">
+                        <img className="about-profile-pic" src={profilePicture} alt="kevin" />
+                        <div className="about-bio">
+                            <h3 className="about-name">Kevin Wilson</h3>
+                            <p className="about-intro">12+ years in software development, specializing in LAMP stack, APIs, and integrations.</p>
+                            <p>PHP is my strongest language, but I'm really enjoying working with Python and React. In my spare time I like to work on app ideas and trying new technologies.</p>
+                            <p>I grew up in the southwest suburbs of Chicago and lived in the city 10+ years. I now reside in Colorado where I mountain bike frequently. I also enjoy music, investing, and the great outdoors.</p>
+                        </div>
+                    </div>
+
+                    <div className="about-divider" />
+
+                    <div className="about-video-section">
                         <h3>About this Website</h3>
-                        <div>
-                            <iframe title="intro" width="325" height="182.81" src="https://www.youtube.com/embed/gqOrZ2lxcX0" frameBorder="2" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                        <div className="about-video-wrapper">
+                            <iframe title="intro" src="https://www.youtube.com/embed/gqOrZ2lxcX0" style={{ border: 0 }} allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                         </div>
                     </div>
                 </div>

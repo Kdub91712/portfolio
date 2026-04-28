@@ -5,13 +5,7 @@
     }
 
     .nav-links {
-      color: $gray;
-      margin: 10px;
-      font-family: $font-nav;
-      font-size: 17px;
-      text-decoration: none;
-      padding-left: 4px;
-      padding-right: 4px;
+      font-size: 14px;
     }
   
     .main-section {
@@ -24,6 +18,21 @@
 
     .project-details {
         grid-template-columns: 1fr 1fr;
+    }
+
+    .skills-section {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .about-hero {
+        flex-direction: row;
+        align-items: flex-start;
+        padding: 32px;
+    }
+
+    .about-profile-pic {
+        width: 180px;
+        height: 180px;
     }
   
     .contact-form .submit-button {
