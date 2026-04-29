@@ -342,9 +342,19 @@ export default class App extends Component {
             </Security>
         </Router>
 
-        <button className="floating-cta" onClick={() => { this.hideAllSections(); this.setState({ showContact: true }); }}>
-          ✉ Contact Me
-        </button>
+        <div className="mobile-cta">
+          <span className="mobile-cta-location">Remote — Chicago</span>
+          <button className="mobile-cta-button" onClick={() => { this.hideAllSections(); this.setState({ showContact: true }); }}>
+            ✉ Contact Me
+          </button>
+        </div>
+
+        <div className="floating-cta-group">
+          <span className="header-location">Remote — Chicago</span>
+          <button className="floating-cta" onClick={() => { this.hideAllSections(); this.setState({ showContact: true }); }}>
+            ✉ Contact Me
+          </button>
+        </div>
 
         <Footer/>
       </div>

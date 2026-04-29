@@ -21,7 +21,7 @@ export default class About extends Component {
                             <h3 className="about-name">Kevin Wilson</h3>
                             <p className="about-intro">12+ years in software development, specializing in LAMP stack, APIs, and integrations.</p>
                             <p>PHP is my strongest language, but I'm really enjoying working with Python and React. In my spare time I like to work on app ideas and trying new technologies.</p>
-                            <p>I grew up in the southwest suburbs of Chicago and lived in the city 10+ years. I now reside in Colorado where I mountain bike frequently. I also enjoy music, investing, and the great outdoors.</p>
+                            <p>I also enjoy music, investing, and the great outdoors.</p>
                         </div>
                     </div>
 

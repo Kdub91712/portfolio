@@ -1,6 +1,8 @@
 html, body {
     overflow: hidden;
     height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 body {
@@ -24,8 +26,6 @@ button, a {
   
 .App {
     text-align: center;
-    margin: .5%;
-    max-width: 99%;
     color: $background-white;
     height: 100dvh;
     display: flex;
@@ -73,6 +73,32 @@ button, a {
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.7);
+}
+
+.floating-cta-group {
+    display: none;
+}
+
+@media screen and (min-width: 600px) {
+.floating-cta-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    top: 14px;
+    right: 16px;
+    gap: 5px;
+    z-index: 1000;
+}
+}
+
+.header-location {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: $gray;
+    font-family: $font-nav;
 }
 
 .header-skill-rotator {
@@ -210,6 +236,7 @@ a:hover, a:active {
     background-color: $main-background-gray;
     width: 100%;
     flex: 1;
+    min-height: 0;
     display: flex;
     flex-direction: column;
 }
@@ -228,6 +255,7 @@ a:hover, a:active {
     max-width: 100%;
     border-radius: 10px;
     padding: 20px;
+    padding-bottom: 90px;
     display: flex;
     flex-direction: column;
     scrollbar-width: none;
@@ -618,9 +646,6 @@ button:disabled {
 @media screen and (min-width: 600px) {
 .floating-cta {
     display: block;
-    position: fixed;
-    top: 14px;
-    right: 16px;
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
@@ -693,14 +718,69 @@ button:disabled {
     margin: 0;
 }
 
+// Mobile CTA
+
+.mobile-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    bottom: 52px;
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 4px;
+    z-index: 999;
+}
+
+.mobile-cta-location {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: $gray;
+    font-family: $font-nav;
+}
+
+.mobile-cta-button {
+    background: $background-blue;
+    color: $background-white;
+    border: none;
+    border-radius: 24px;
+    padding: 10px 28px;
+    font-family: $font-nav;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    height: auto;
+    box-shadow: 0 4px 16px rgba(0, 0, 51, 0.3);
+    white-space: nowrap;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(0, 0, 51, 0.4);
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .mobile-cta {
+        display: none;
+    }
+}
+
 // Footer
   
 .footer {
     flex-shrink: 0;
     background-color: $background-blue;
     padding: 14px;
-    width: 98%;
-    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-family: $font-footer;
     font-size: 12px;
     letter-spacing: 0.04em;
