@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { useState } from 'react';
 
 const TOOLTIP_WIDTH = 180;
 const PADDING = 10;
@@ -52,104 +52,86 @@ const RECENT_PROJECTS = [
     }
 ]
 
-export default class RecentProjects extends Component {
+export default function RecentProjects() {
+    const [tooltip, setTooltip] = useState(null);
+    const [tooltipLeft, setTooltipLeft] = useState(0);
+    const [tooltipTop, setTooltipTop] = useState(0);
+    const [arrowLeft, setArrowLeft] = useState('50%');
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            tooltip: null,
-            tooltipLeft: 0,
-            tooltipTop: 0,
-            arrowLeft: '50%'
-        }
-    }
-
-    showTooltip = (e, text) => {
+    const showTooltip = (e, text) => {
         if (!text) return;
         const rect = e.target.getBoundingClientRect();
         const pillCenter = rect.left + rect.width / 2;
 
-        // Clamp tooltip so it never goes off screen
         const rawLeft = pillCenter - TOOLTIP_WIDTH / 2;
         const clampedLeft = Math.max(PADDING, Math.min(rawLeft, window.innerWidth - TOOLTIP_WIDTH - PADDING));
+        const arrow = pillCenter - clampedLeft;
 
-        // Arrow points to pill center regardless of tooltip shift
-        const arrowLeft = pillCenter - clampedLeft;
-
-        this.setState({
-            tooltip: text,
-            tooltipLeft: clampedLeft,
-            tooltipTop: rect.top,
-            arrowLeft
-        });
+        setTooltip(text);
+        setTooltipLeft(clampedLeft);
+        setTooltipTop(rect.top);
+        setArrowLeft(arrow);
     }
 
-    hideTooltip = () => {
-        this.setState({ tooltip: null });
-    }
+    const hideTooltip = () => setTooltip(null);
 
-    render() {
-        const { tooltip, tooltipLeft, tooltipTop, arrowLeft } = this.state;
-
-        return(
-            <div className="main-section">
-                <div className="sub-section">
-                    <div className="text-area">
-                        <div className="in-progress-section">
-                            <h3 className="in-progress-heading">
-                                <span className="in-progress-dot" />
-                                In Progress
-                            </h3>
-                            { IN_PROGRESS.map((project, index) =>
-                                <div key={index} className="in-progress-card">
-                                    <a className="in-progress-title" href={project.link} target="_blank" rel="noopener noreferrer">{project.title}</a>
-                                    <p className="recent-project-description">{project.description}</p>
-                                    <div className="recent-project-tech">
-                                        { project.tech.map((t, i) =>
-                                            <span
-                                                key={i}
-                                                className="recent-project-pill"
-                                                onMouseEnter={(e) => this.showTooltip(e, TECH_DESCRIPTIONS[t])}
-                                                onMouseLeave={this.hideTooltip}
-                                            >{t}</span>
-                                        )}
-                                    </div>
+    return (
+        <div className="main-section">
+            <div className="sub-section">
+                <div className="text-area">
+                    <div className="in-progress-section">
+                        <h3 className="in-progress-heading">
+                            <span className="in-progress-dot" />
+                            In Progress
+                        </h3>
+                        { IN_PROGRESS.map((project, index) =>
+                            <div key={index} className="in-progress-card">
+                                <a className="in-progress-title" href={project.link} target="_blank" rel="noopener noreferrer">{project.title}</a>
+                                <p className="recent-project-description">{project.description}</p>
+                                <div className="recent-project-tech">
+                                    { project.tech.map((t, i) =>
+                                        <span
+                                            key={i}
+                                            className="recent-project-pill"
+                                            onMouseEnter={(e) => showTooltip(e, TECH_DESCRIPTIONS[t])}
+                                            onMouseLeave={hideTooltip}
+                                        >{t}</span>
+                                    )}
                                 </div>
-                            )}
-                        </div>
-                        <h3>Recent Projects</h3>
-                        <div className="recent-projects-grid">
-                            { RECENT_PROJECTS.map((project, index) =>
-                                <div key={index} className="recent-project-card">
-                                    <div className="recent-project-title">{project.title}</div>
-                                    <p className="recent-project-description">{project.description}</p>
-                                    <div className="recent-project-tech">
-                                        { project.tech.map((t, i) =>
-                                            <span
-                                                key={i}
-                                                className="recent-project-pill"
-                                                onMouseEnter={(e) => this.showTooltip(e, TECH_DESCRIPTIONS[t])}
-                                                onMouseLeave={this.hideTooltip}
-                                            >{t}</span>
-                                        )}
-                                    </div>
+                            </div>
+                        )}
+                    </div>
+                    <h3>Recent Projects</h3>
+                    <div className="recent-projects-grid">
+                        { RECENT_PROJECTS.map((project, index) =>
+                            <div key={index} className="recent-project-card">
+                                <div className="recent-project-title">{project.title}</div>
+                                <p className="recent-project-description">{project.description}</p>
+                                <div className="recent-project-tech">
+                                    { project.tech.map((t, i) =>
+                                        <span
+                                            key={i}
+                                            className="recent-project-pill"
+                                            onMouseEnter={(e) => showTooltip(e, TECH_DESCRIPTIONS[t])}
+                                            onMouseLeave={hideTooltip}
+                                        >{t}</span>
+                                    )}
                                 </div>
-                            )}
-                        </div>
+                            </div>
+                        )}
                     </div>
                 </div>
-
-                { tooltip &&
-                    <div
-                        className="tech-tooltip"
-                        style={{ left: tooltipLeft, top: tooltipTop }}
-                    >
-                        <style>{`.tech-tooltip::after { left: ${arrowLeft}px; transform: translateX(-50%); }`}</style>
-                        {tooltip}
-                    </div>
-                }
             </div>
-        )
-    }
 
+            { tooltip &&
+                <div
+                    className="tech-tooltip"
+                    style={{ left: tooltipLeft, top: tooltipTop }}
+                >
+                    <style>{`.tech-tooltip::after { left: ${arrowLeft}px; transform: translateX(-50%); }`}</style>
+                    {tooltip}
+                </div>
+            }
+        </div>
+    )
 }

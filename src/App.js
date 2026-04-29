@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Navigation from './components/navigation';
 import Footer from './components/footer';
 import About from './components/about';
@@ -11,7 +11,7 @@ import SkillRotator from './components/skillRotator';
 import DevPhilosophies from './components/devPhilosophies';
 import axios from 'axios';
 import './styles/App.scss';
-import ReactGA from'react-ga';
+import ReactGA from 'react-ga';
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Security, ImplicitCallback } from '@okta/okta-react';
@@ -22,342 +22,238 @@ const config = {
   client_id: '0oaze15fxXglq0guH356'
 }
 
-export default class App extends Component {
+const dataUrl = process.env.REACT_APP_DATA_URL;
+const formUrl = process.env.REACT_APP_FORM_URL;
 
-  dataUrl = process.env.REACT_APP_DATA_URL;
-  formUrl = process.env.REACT_APP_FORM_URL;
+export default function App() {
+  const [showAbout, setShowAbout] = useState(false);
+  const [showProjects, setShowProjects] = useState(true);
+  const [showSkills, setShowSkills] = useState(false);
+  const [showContact, setShowContact] = useState(false);
+  const [showRecentProjects, setShowRecentProjects] = useState(false);
+  const [showPhilosophies, setShowPhilosophies] = useState(false);
+  const [showMoreProjects, setShowMoreProjects] = useState(false);
+  const [showAdmin, setShowAdmin] = useState(false);
+  const [data, setData] = useState({ projects: {}, skills: [], some_experience: [] });
+  const [projectDetails, setProjectDetails] = useState([]);
+  const [projectTechnologies, setProjectTechnologies] = useState([]);
+  const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
+  const [nextProjectIndex, setNextProjectIndex] = useState(1);
+  const isMounted = useRef(true);
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      showAbout: false,
-      showProjects: true,
-      showSkills: false,
-      showContact: false,
-      showRecentProjects: false,
-      showPhilosophies: false,
-      showMoreProjects: false,
-      data: {
-        projects: {},
-        skills: [],
-        some_experience: []
-      },
-      projectDetails: [],
-      projectTechnologies: [],
-      form: {
-
-      },
-      currentProjectIndex : 0,
-      nextProjectIndex : 1  
-    }
-  }
-
-  componentDidMount() {
-    this._isMounted = true;
-    this.initializeReactGA();
-    this.pullFromApi(this.dataUrl)
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false;
-  }
-
-  initializeReactGA = () => {
+  useEffect(() => {
+    isMounted.current = true;
     ReactGA.initialize('UA-64241241-2');
     ReactGA.pageview('/homepage');
-  } 
+    pullFromApi(dataUrl);
+    return () => { isMounted.current = false; };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  pullFromApi = async (dataUrl) => {
-
+  const pullFromApi = async (url) => {
     try {
-
-      const response = await axios.get(dataUrl);
-      const data = response.data;
-      if (this._isMounted) this.setState({ data })
-
-    } catch (error) {
-      console.log("error", error);
-    }
-
-  }
-
-  pullProjectInfo = async (url, type) => {
-
-    try {
-
       const response = await axios.get(url);
-      const data = response.data;
-      this.setState({ [type]: data })
-
+      if (isMounted.current) setData(response.data);
     } catch (error) {
       console.log("error", error);
     }
-
   }
 
-  loadHomePage = () => {
-
-    this.setState({
-      showAbout: false,
-      showSkills: false,
-      showProjects: !this.state.showAdmin,
-      showContact: false
-    })
-    
+  const pullProjectInfo = async (url, type) => {
+    try {
+      const response = await axios.get(url);
+      if (type === 'projectDetails') setProjectDetails(response.data);
+      if (type === 'projectTechnologies') setProjectTechnologies(response.data);
+    } catch (error) {
+      console.log("error", error);
+    }
   }
 
-  showMore = (e) => {
+  const hideAllSections = () => {
+    setShowAbout(false);
+    setShowSkills(false);
+    setShowProjects(false);
+    setShowContact(false);
+    setShowRecentProjects(false);
+    setShowPhilosophies(false);
+    setShowAdmin(false);
+  }
+
+  const loadHomePage = () => {
+    setShowAbout(false);
+    setShowSkills(false);
+    setShowProjects(!showAdmin);
+    setShowContact(false);
+  }
+
+  const showMore = (e) => {
     e.preventDefault();
-    this.setState({
-      showMoreProjects: !this.state.showMoreProjects
-    })
-
+    setShowMoreProjects(prev => !prev);
   }
 
-  navLinkHandler = (e, page) => {
-    e.preventDefault()
+  const navLinkHandler = (e, page) => {
+    e.preventDefault();
 
     if (page === 'about') {
-      ReactGA.pageview('/about')
-      this.hideAllSections()
-      this.setState({
-        showAbout: !this.state.showAbout ? true : true
-      })
+      ReactGA.pageview('/about');
+      hideAllSections();
+      setShowAbout(true);
     }
-
     if (page === 'projects') {
-      ReactGA.pageview('/projects')
-      this.hideAllSections()
-      this.setState({
-        showProjects: !this.state.showProjects ? true : true,
-      })
+      ReactGA.pageview('/projects');
+      hideAllSections();
+      setShowProjects(true);
     }
-
     if (page === 'skills') {
-      ReactGA.pageview('/skills')
-      this.hideAllSections()
-      this.setState({
-        showSkills: !this.state.showSkills ? true : true
-      })
+      ReactGA.pageview('/skills');
+      hideAllSections();
+      setShowSkills(true);
     }
-
     if (page === 'contact') {
-      ReactGA.pageview('/contact')
-      this.hideAllSections()
-      this.setState({
-        showContact: !this.state.showContact ? true : true
-      })
+      ReactGA.pageview('/contact');
+      hideAllSections();
+      setShowContact(true);
     }
-
     if (page === 'recentProjects') {
-      ReactGA.pageview('/recent-projects')
-      this.hideAllSections()
-      this.setState({ showRecentProjects: true })
+      ReactGA.pageview('/recent-projects');
+      hideAllSections();
+      setShowRecentProjects(true);
     }
-
     if (page === 'philosophies') {
-      ReactGA.pageview('/philosophies')
-      this.hideAllSections()
-      this.setState({ showPhilosophies: true })
+      ReactGA.pageview('/philosophies');
+      hideAllSections();
+      setShowPhilosophies(true);
     }
   }
 
-  formSubmitHandler = (e) => {
+  const formSubmitHandler = async (e) => {
+    e.preventDefault();
 
-    e.preventDefault()
-
-    if (e.target.name.value === '' && e.target.phone.value === ''  && e.target.email.value === '' 
-      && e.target.comments.value === '' ) {
+    if (e.target.name.value === '' && e.target.phone.value === '' && e.target.email.value === ''
+      && e.target.comments.value === '') {
       console.log('empty form!');
-      ReactGA.event({
-        category: 'User',
-        action: 'Empty Form'
-      });
-    } else {
-      
-      this.setState({
-        form: {
-          "name" : e.target.name.value,
-          "phone": e.target.phone.value,
-          "email": e.target.email.value,
-          "comments": e.target.comments.value
-        }
-        
-      }, async () => {
-  
-        try {
+      ReactGA.event({ category: 'User', action: 'Empty Form' });
+      return;
+    }
 
-          ReactGA.event({
-            category: 'User',
-            action: 'Submit Form'
-          });
-          const response = await axios.post(this.formUrl, {data: this.state.form});
-          console.log(response.data);
-          document.getElementById("contact_form").reset();
-    
-        } catch (error) {
-          console.log("error", error);
-        }
+    const formData = {
+      name: e.target.name.value,
+      phone: e.target.phone.value,
+      email: e.target.email.value,
+      comments: e.target.comments.value
+    };
 
-      })
+    try {
+      ReactGA.event({ category: 'User', action: 'Submit Form' });
+      const response = await axios.post(formUrl, { data: formData });
+      console.log(response.data);
+      document.getElementById("contact_form").reset();
+    } catch (error) {
+      console.log("error", error);
     }
   }
 
-  hideAllSections = () => {
-
-    this.setState({
-      showAbout: false,
-      showSkills: false,
-      showProjects: false,
-      showContact: false,
-      showRecentProjects: false,
-      showPhilosophies: false,
-      showAdmin: false
-    })
-
+  const increaseProjectIndex = () => {
+    setCurrentProjectIndex(prev => prev + 1);
+    setNextProjectIndex(prev => prev + 1);
+    ReactGA.event({ category: 'User', action: 'Next Project' });
   }
 
-  increaseProjectIndex = () => {
-    this.setState({
-      currentProjectIndex: this.state.currentProjectIndex + 1,
-      nextProjectIndex: this.state.nextProjectIndex + 1
-    })
-
-    ReactGA.event({
-      category: 'User',
-      action: 'Next Project'
-    });
+  const decreaseProjectIndex = () => {
+    setCurrentProjectIndex(prev => prev - 1);
+    setNextProjectIndex(prev => prev - 1);
+    ReactGA.event({ category: 'User', action: 'Previous Project' });
   }
 
-  decreaseProjectIndex = () => {
-    this.setState({
-      currentProjectIndex: this.state.currentProjectIndex - 1,
-      nextProjectIndex: this.state.nextProjectIndex - 1
-    })
-
-    ReactGA.event({
-      category: 'User',
-      action: 'Previous Project'
-    });
+  const loggedIn = () => {
+    setShowAbout(false);
+    setShowSkills(false);
+    setShowProjects(false);
+    setShowContact(false);
+    setShowAdmin(true);
   }
 
-  loggedIn = () => {
-
-    this.setState({
-      showAbout: false,
-      showSkills: false,
-      showProjects: false,
-      showContact: false,
-      showAdmin: true
-    })
-
+  const loggedOut = () => {
+    setShowProjects(true);
+    setShowAdmin(false);
   }
 
-  loggedOut = () => {
-    this.setState({
-      showProjects: true,
-      showAdmin: false
-    })
-  }
+  return (
+    <div className="App">
 
-  render() {
-    return (
-      <div className="App">
-        
-        <div className="app-top">
-          <div onClick={() => this.loadHomePage()}>
-              <header className="App-header">
-                  <span className="header-name">Kevin Wilson</span>
-                  <div className="header-accent" />
-                  <span className="header-role">Full Stack Software Engineer</span>
-                  <SkillRotator />
-              </header>
-          </div>
-
-          <Navigation
-            navLinkHandler = {this.navLinkHandler}
-            navClasses = {this.state.navClasses}
-          />
+      <div className="app-top">
+        <div onClick={loadHomePage}>
+          <header className="App-header">
+            <span className="header-name">Kevin Wilson</span>
+            <div className="header-accent" />
+            <span className="header-role">Full Stack Software Engineer</span>
+            <SkillRotator />
+          </header>
         </div>
 
-        { this.state.showAbout && 
-          <About
-
-          />
-        }
-
-        { this.state.showProjects && 
-          <Projects
-            projects = {this.state.data.projects}
-            projectDetails = {this.state.projectDetails}
-            projectTechnologies = {this.state.projectTechnologies}
-            pullProjectInfo = {this.pullProjectInfo}
-            showMoreProjects = {this.state.showMoreProjects}
-            showMore = {this.showMore}
-            currentProjectIndex = {this.state.currentProjectIndex}
-            nextProjectIndex = {this.state.nextProjectIndex}
-            increaseProjectIndex = {this.increaseProjectIndex}
-            decreaseProjectIndex = {this.decreaseProjectIndex}
-          />
-        }
-
-        { this.state.showSkills && 
-          <Skills
-            skills = {this.state.data.skills}
-            some_experience = {this.state.data.some_experience}
-          />
-        }
-
-        { this.state.showContact &&
-          <Contact
-            formSubmitHandler = {this.formSubmitHandler}
-          />
-        }
-
-        { this.state.showRecentProjects &&
-          <RecentProjects />
-        }
-
-        { this.state.showPhilosophies &&
-          <DevPhilosophies />
-        }
-
-        <Router>
-            <Security className="admin-section" issuer={config.issuer}
-                    client_id={config.client_id}
-                    redirect_uri={config.redirect_uri}
-            >
-                <Route 
-                  path='/admin' 
-                  exact={true}
-                  render={() => <Login 
-                  
-                      loggedIn = {this.loggedIn}
-                      loggedOut = {this.loggedOut}
-
-                  />}
-                />
-                <Route path='/implicit/callback' component={ImplicitCallback}/>
-            </Security>
-        </Router>
-
-        <div className="mobile-cta">
-          <span className="mobile-cta-location">Remote — Chicago</span>
-          <button className="mobile-cta-button" onClick={() => { this.hideAllSections(); this.setState({ showContact: true }); }}>
-            ✉ Contact Me
-          </button>
-        </div>
-
-        <div className="floating-cta-group">
-          <span className="header-location">Remote — Chicago</span>
-          <button className="floating-cta" onClick={() => { this.hideAllSections(); this.setState({ showContact: true }); }}>
-            ✉ Contact Me
-          </button>
-        </div>
-
-        <Footer/>
+        <Navigation navLinkHandler={navLinkHandler} />
       </div>
-    )
-  }
+
+      { showAbout && <About /> }
+
+      { showProjects &&
+        <Projects
+          projects={data.projects}
+          projectDetails={projectDetails}
+          projectTechnologies={projectTechnologies}
+          pullProjectInfo={pullProjectInfo}
+          showMoreProjects={showMoreProjects}
+          showMore={showMore}
+          currentProjectIndex={currentProjectIndex}
+          nextProjectIndex={nextProjectIndex}
+          increaseProjectIndex={increaseProjectIndex}
+          decreaseProjectIndex={decreaseProjectIndex}
+        />
+      }
+
+      { showSkills &&
+        <Skills
+          skills={data.skills}
+          some_experience={data.some_experience}
+        />
+      }
+
+      { showContact &&
+        <Contact formSubmitHandler={formSubmitHandler} />
+      }
+
+      { showRecentProjects && <RecentProjects /> }
+
+      { showPhilosophies && <DevPhilosophies /> }
+
+      <Router>
+        <Security className="admin-section" issuer={config.issuer}
+          client_id={config.client_id}
+          redirect_uri={config.redirect_uri}
+        >
+          <Route
+            path='/admin'
+            exact={true}
+            render={() => <Login loggedIn={loggedIn} loggedOut={loggedOut} />}
+          />
+          <Route path='/implicit/callback' component={ImplicitCallback}/>
+        </Security>
+      </Router>
+
+      <div className="mobile-cta">
+        <span className="mobile-cta-location">Remote — Chicago</span>
+        <button className="mobile-cta-button" onClick={() => { hideAllSections(); setShowContact(true); }}>
+          ✉ Contact Me
+        </button>
+      </div>
+
+      <div className="floating-cta-group">
+        <span className="header-location">Remote — Chicago</span>
+        <button className="floating-cta" onClick={() => { hideAllSections(); setShowContact(true); }}>
+          ✉ Contact Me
+        </button>
+      </div>
+
+      <Footer />
+    </div>
+  )
 }
