@@ -1,5 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
+import { act } from 'react';
 import App from './App';
 
 jest.mock('react-ga', () => ({
@@ -18,6 +19,9 @@ jest.mock('axios', () => {
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
+  document.body.appendChild(div);
+  let root;
+  act(() => { root = createRoot(div); root.render(<App />); });
+  act(() => { root.unmount(); });
+  document.body.removeChild(div);
 });
