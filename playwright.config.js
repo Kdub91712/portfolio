@@ -1,10 +1,12 @@
 const { defineConfig, devices } = require('@playwright/test');
 
+const isCI = !!process.env.CI;
+
 module.exports = defineConfig({
     testDir: './e2e',
     fullyParallel: true,
-    forbidOnly: !!process.env.CI,
-    retries: process.env.CI ? 1 : 0,
+    forbidOnly: isCI,
+    retries: isCI ? 1 : 0,
     reporter: 'html',
     use: {
         baseURL: 'http://localhost:3000',
@@ -14,9 +16,11 @@ module.exports = defineConfig({
         { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
     ],
     webServer: {
-        command: 'yarn dev',
+        command: isCI
+            ? 'yarn build && npx serve -s build -l 3000'
+            : 'BROWSER=none yarn dev',
         url: 'http://localhost:3000',
-        reuseExistingServer: !process.env.CI,
+        reuseExistingServer: !isCI,
         timeout: 120000,
     },
 });
