@@ -3,6 +3,13 @@ import profilePicture from '../kevin.jpeg';
 
 export default class About extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            showVideo: false
+        }
+    }
+
     render() {
 
         return(
@@ -22,9 +29,15 @@ export default class About extends Component {
 
                     <div className="about-video-section">
                         <h3>About this Website</h3>
-                        <div className="about-video-wrapper">
-                            <iframe title="intro" src="https://www.youtube.com/embed/gqOrZ2lxcX0" style={{ border: 0 }} allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
-                        </div>
+                        { !this.state.showVideo ? (
+                            <button className="video-toggle" onClick={() => this.setState({ showVideo: true })}>
+                                ▶ Watch Intro
+                            </button>
+                        ) : (
+                            <div className="about-video-wrapper">
+                                <iframe title="intro" src="https://www.youtube.com/embed/gqOrZ2lxcX0" style={{ border: 0 }} allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

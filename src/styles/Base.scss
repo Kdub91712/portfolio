@@ -1,9 +1,25 @@
 html, body {
-    overflow-x: hidden;
+    overflow: hidden;
+    height: 100%;
 }
-  
+
 body {
     position: relative;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.App {
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+.App-header {
+    padding-top: env(safe-area-inset-top);
+}
+
+button, a {
+    &:active {
+        opacity: 0.75;
+    }
 }
   
 .App {
@@ -11,7 +27,10 @@ body {
     margin: .5%;
     max-width: 99%;
     color: $background-white;
-    height: 98vh;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 
     .footer span {
         font-size: 12px;
@@ -21,16 +40,66 @@ body {
   
 .App-header {
     background-color: $background-blue;
-    min-height: 10vh;
+    min-height: 12vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: calc(10px + 2vmin);
     font-family: $font-header;
     color: $background-white;
-    letter-spacing: 0.05em;
     cursor: pointer;
+    padding: 14px 16px;
+    position: relative;
+    gap: 6px;
+}
+
+.header-name {
+    font-size: calc(18px + 1.5vmin);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1;
+}
+
+.header-accent {
+    width: 36px;
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.45);
+    border-radius: 2px;
+}
+
+.header-role {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.header-skill-rotator {
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.75);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+
+    &.header-skill-rotator--visible {
+        opacity: 1;
+    }
+}
+
+.avatar-icon {
+    position: absolute;
+    left: 20px;
+    bottom: 0;
+    height: 90%;
+    width: auto;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
+}
+
+.app-top {
+    flex-shrink: 0;
 }
 
 // Nav stuff
@@ -40,8 +109,64 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 48px;
+    height: 56px;
     gap: 8px;
+    position: relative;
+}
+
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 18px;
+    background: none;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    padding: 0;
+    height: 44px;
+    width: 44px;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    span {
+        display: block;
+        width: 22px;
+        height: 2px;
+        background-color: $gray;
+        border-radius: 2px;
+        transition: all 0.25s ease;
+    }
+}
+
+.nav-menu {
+    display: none;
+
+    &.nav-menu--open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 56px;
+        left: -0.5%;
+        right: -0.5%;
+        background-color: $background-white;
+        border-bottom: 1px solid #e0e0e0;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        z-index: 999;
+        padding: 8px 0;
+
+        .nav-links {
+            padding: 14px 24px;
+            text-align: left;
+            font-size: 14px;
+
+            &::after {
+                display: none;
+            }
+        }
+    }
 }
 
 a:hover, a:active {
@@ -82,28 +207,42 @@ a:hover, a:active {
 }
   
 .main-section {
-    float: left;
     background-color: $main-background-gray;
-    height: 83%;
     width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
-  
+
 .sub-section {
     text-align: left;
-    margin: 8px;
+    margin: 10px;
     background-color: $background-white;
     color: $gray;
-    height: 97%;
+    flex: 1;
+    min-height: 0;
     box-shadow: $box-shadow;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
     max-width: 100%;
-    border-radius: 8px;
-    padding: 12px;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 h3 {
     color: $heading-text-color;
+    font-size: 18px;
+    letter-spacing: 0.02em;
+    margin-top: 4px;
+    margin-bottom: 16px;
 }
   
 .text-area {
@@ -127,6 +266,139 @@ li {
   
 a.show-more {
     color: $background-blue;
+}
+
+// Recent Projects
+
+.recent-projects-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+
+.recent-project-card {
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: $box-shadow;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+}
+
+.recent-project-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: $heading-text-color;
+    font-family: $font-header;
+}
+
+.recent-project-description {
+    font-size: 14px;
+    color: $gray;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.recent-project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: auto;
+    padding-top: 8px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.recent-project-pill {
+    background-color: #eef0f4;
+    color: $background-blue;
+    font-size: 11px;
+    font-weight: 600;
+    font-family: $font-nav;
+    padding: 3px 10px;
+    border-radius: 12px;
+    letter-spacing: 0.04em;
+    cursor: default;
+}
+
+.tech-tooltip {
+    position: fixed;
+    width: 180px;
+    background-color: $background-blue;
+    color: $background-white;
+    font-size: 12px;
+    font-family: $font-nav;
+    font-weight: 400;
+    padding: 7px 12px;
+    border-radius: 6px;
+    text-align: center;
+    line-height: 1.4;
+    z-index: 1000;
+    pointer-events: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(calc(-100% - 10px));
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        border: 5px solid transparent;
+        border-top-color: $background-blue;
+    }
+}
+
+// In Progress
+
+.in-progress-section {
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.in-progress-heading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.in-progress-dot {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background-color: #22c55e;
+    flex-shrink: 0;
+    animation: pulse-dot 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5); }
+    50%       { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+}
+
+.in-progress-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.in-progress-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: $background-blue;
+    font-family: $font-header;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
 // About
@@ -249,6 +521,46 @@ a.show-more {
     color: $gray;
 }
 
+.video-toggle {
+    background: linear-gradient(135deg, #003399, #000066);
+    color: $background-white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 18px;
+    font-family: $font-nav;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 51, 153, 0.3);
+    }
+}
+
+.skills-show-all {
+    margin-top: 10px;
+    background: none;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    color: $gray;
+    font-family: $font-nav;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 14px;
+    cursor: pointer;
+    height: auto;
+    transition: border-color 0.2s ease, color 0.2s ease;
+
+    &:hover {
+        border-color: $background-blue;
+        color: $background-blue;
+    }
+}
+
 // Buttons
 button {
     background-color: $background-blue;
@@ -297,12 +609,100 @@ button:disabled {
     to { transform: rotate(360deg); }
 }
 
+// Floating CTA
+
+.floating-cta {
+    display: none;
+}
+
+@media screen and (min-width: 600px) {
+.floating-cta {
+    display: block;
+    position: fixed;
+    top: 14px;
+    right: 16px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: $background-white;
+    font-family: $font-nav;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 7px 16px;
+    border-radius: 20px;
+    z-index: 1000;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.28);
+        border-color: rgba(255, 255, 255, 0.7);
+        transform: translateY(-1px);
+    }
+}
+}
+
+// Dev Philosophies
+
+.philosophies-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 16px;
+}
+
+.philosophy-entry {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.philosophy-number {
+    font-family: $font-header;
+    font-size: 28px;
+    font-weight: 700;
+    color: $background-blue;
+    opacity: 0.12;
+    line-height: 1;
+    letter-spacing: -0.02em;
+}
+
+.philosophy-divider {
+    width: 32px;
+    height: 2px;
+    background: linear-gradient(90deg, #003399, #000066);
+    border-radius: 2px;
+}
+
+.philosophy-title {
+    font-family: $font-header;
+    font-size: 17px;
+    font-weight: 700;
+    color: $heading-text-color;
+    letter-spacing: -0.01em;
+    margin: 0;
+}
+
+.philosophy-body {
+    font-size: 14px;
+    color: $gray;
+    line-height: 1.7;
+    margin: 0;
+}
+
 // Footer
   
 .footer {
-    float:left;
+    flex-shrink: 0;
     background-color: $background-blue;
-    padding: 1%;
-    margin-top: 1%;
+    padding: 14px;
     width: 98%;
+    text-align: center;
+    font-family: $font-footer;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.7);
 }

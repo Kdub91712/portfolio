@@ -44,71 +44,71 @@ export default class Projects extends Component {
     }
 
     rotateNext = (previousId, nextId) => {
-        
+
         // Move current project off screen to the left
         setTimeout(function(){
             let wrapper = document.getElementById('project-content-wrapper-' + previousId)
             wrapper.classList.add('previous');
-        }, 300);
+        }, 50);
 
         setTimeout(function(){
             let wrapper = document.getElementById('project-content-wrapper-' + previousId)
             wrapper.style.display = 'none';
             wrapper.classList.remove('previous');
             wrapper.classList.add('next');
-        }, 500);
+        }, 300);
 
         // Add next project from the right
         setTimeout(function(){
             let wrapper = document.getElementById('project-content-wrapper-' + nextId)
             wrapper.style.display = 'block';
-        }, 700);
+        }, 350);
 
         setTimeout(function(){
             let wrapper = document.getElementById('project-content-wrapper-' + nextId)
             wrapper.classList.remove('next');
-        }, 900);
+        }, 500);
 
         setTimeout(() => {
             this.setState({
                 show: this.state.show === 1 ? 2 : 1,
                 hide: this.state.hide === 2 ? 1 : 2
             }, () => this.props.increaseProjectIndex())
-        }, 1000);
+        }, 600);
     }
 
     rotatePrevious = (previousId, nextId) => {
-        
+
         // Move current project off screen to the left
         setTimeout(function(){
             let wrapper = document.getElementById('project-content-wrapper-' + previousId)
             wrapper.classList.add('previous');
-        }, 300);
+        }, 50);
 
         setTimeout(function(){
             let wrapper = document.getElementById('project-content-wrapper-' + previousId)
             wrapper.style.display = 'none';
             wrapper.classList.remove('previous');
             wrapper.classList.add('next');
-        }, 500);
+        }, 300);
 
         // Add next project from the right
         setTimeout(function(){
             let wrapper = document.getElementById('project-content-wrapper-' + nextId)
             wrapper.style.display = 'block';
-        }, 700);
+        }, 350);
 
         setTimeout(function(){
             let wrapper = document.getElementById('project-content-wrapper-' + nextId)
             wrapper.classList.remove('next');
-        }, 900);
+        }, 500);
 
         setTimeout(() => {
             this.setState({
                 show: this.state.show === 1 ? 2 : 1,
                 hide: this.state.hide === 2 ? 1 : 2
             }, () => this.props.decreaseProjectIndex())
-        }, 1000);
+        }, 600);
     }
 
     formatProjectName = (projectName) => {
@@ -140,10 +140,8 @@ export default class Projects extends Component {
 
         if (this.state.loading) {
             return (
-                <div className="project-details">
-                    <div className="spinner-wrapper">
-                        <div className="spinner"></div>
-                    </div>
+                <div className="project-details-loading">
+                    <div className="spinner"></div>
                 </div>
             );
         }
@@ -199,69 +197,57 @@ export default class Projects extends Component {
 
                     {this.state.showGallery &&
                         <div className="project-rotator">
+                            <div className="project-carousel">
+                                <button
+                                    className="carousel-arrow"
+                                    onClick={() => this.rotatePrevious(this.state.hide, this.state.show)}
+                                    disabled={!this.props.projects.all_projects || this.props.currentProjectIndex === 0}
+                                >&#8592;</button>
 
-                            <div className="project-rotator-buttons">
-                                {this.props.projects.all_projects && this.props.currentProjectIndex > 0 && this.props.projects.all_projects.length ? (
-                                    <div className="project-button-wrapper">
-                                        <button className="project-button" onClick={() => this.rotatePrevious(this.state.hide, this.state.show)}>Previous Project</button>
+                                <div className="carousel-track">
+                                    <div className="project-content-wrapper" id="project-content-wrapper-1">
+                                        {this.props.projects.all_projects && this.state.show === 2 && this.props.projects.all_projects[this.props.currentProjectIndex] &&
+                                            <div className="project-content">
+                                                <div className="project-header">{this.props.projects.all_projects[this.props.currentProjectIndex]}</div>
+                                                {this.projectDetails(this.props.projects.all_projects[this.props.currentProjectIndex])}
+                                            </div>
+                                        }
+                                        {this.props.projects.all_projects && this.state.show === 1 && this.props.projects.all_projects[this.props.nextProjectIndex] &&
+                                            <div className="project-content">
+                                                <div className="project-header">{this.props.projects.all_projects[this.props.nextProjectIndex]}</div>
+                                                {this.projectDetails(this.props.projects.all_projects[this.props.nextProjectIndex])}
+                                            </div>
+                                        }
                                     </div>
-                                ) : (
-                                    <div className="project-button-wrapper">
-                                        <button className="project-button" disabled>Previous Project</button>
-                                    </div>
-                                )}
 
-                                {this.props.projects.all_projects && this.props.nextProjectIndex < this.props.projects.all_projects.length ? (
-                                    <div className="project-button-wrapper">
-                                        <button className="project-button" onClick={() => this.rotateNext(this.state.hide, this.state.show)}>Next Project</button>
+                                    <div className="project-content-wrapper next" id="project-content-wrapper-2">
+                                        {this.props.projects.all_projects && this.state.show === 2 && this.props.projects.all_projects[this.props.nextProjectIndex] &&
+                                            <div className="project-content">
+                                                <div className="project-header">{this.props.projects.all_projects[this.props.nextProjectIndex]}</div>
+                                                {this.projectDetails(this.props.projects.all_projects[this.props.nextProjectIndex])}
+                                            </div>
+                                        }
+                                        {this.props.projects.all_projects && this.state.show === 1 && this.props.projects.all_projects[this.props.currentProjectIndex] &&
+                                            <div className="project-content">
+                                                <div className="project-header">{this.props.projects.all_projects[this.props.currentProjectIndex]}</div>
+                                                {this.projectDetails(this.props.projects.all_projects[this.props.currentProjectIndex])}
+                                            </div>
+                                        }
                                     </div>
-                                ) : (
-                                    <div className="project-button-wrapper">
-                                        <button className="project-button" disabled>Next Project</button>
-                                    </div>
-                                )}
-
-                            </div>
-                            
-                            <div className="project-content-wrapper" id="project-content-wrapper-1">
-                                {this.props.projects.all_projects && this.state.show === 2 && this.props.projects.all_projects[this.props.currentProjectIndex] &&
-                                    <div className="project-content">
-                                        <div className="project-header">
-                                            <b>{this.props.projects.all_projects[this.props.currentProjectIndex]}</b>
-                                        </div>
-                                            {this.projectDetails(this.props.projects.all_projects[this.props.currentProjectIndex])}
-                                    </div>
-                                }
-                                {this.props.projects.all_projects && this.state.show === 1 && this.props.projects.all_projects[this.props.nextProjectIndex] &&
-                                        
-                                    <div className="project-content">
-                                        <div className="project-header">
-                                            <b>{this.props.projects.all_projects[this.props.nextProjectIndex]}</b>
-                                        </div>
-                                            {this.projectDetails(this.props.projects.all_projects[this.props.nextProjectIndex])}
-                                    </div>
-                                }
-                            </div>
-
-                            <div className="project-content-wrapper next" id="project-content-wrapper-2">
-                                {this.props.projects.all_projects && this.state.show === 2 && this.props.projects.all_projects[this.props.nextProjectIndex] &&
-                                    <div className="project-content">
-                                        <div className="project-header">
-                                            <b>{this.props.projects.all_projects[this.props.nextProjectIndex]}</b>
-                                        </div>
-                                        {this.projectDetails(this.props.projects.all_projects[this.props.nextProjectIndex])}
-                                    </div>
-                                }
-                                {this.props.projects.all_projects && this.state.show === 1 && this.props.projects.all_projects[this.props.currentProjectIndex] &&
-
-                                    <div className="project-content">
-                                        <div className="project-header">
-                                            <b>{this.props.projects.all_projects[this.props.currentProjectIndex]}</b>
-                                        </div>
-                                        {this.projectDetails(this.props.projects.all_projects[this.props.currentProjectIndex])}
                                 </div>
-                                }
+
+                                <button
+                                    className="carousel-arrow"
+                                    onClick={() => this.rotateNext(this.state.hide, this.state.show)}
+                                    disabled={!this.props.projects.all_projects || this.props.nextProjectIndex >= this.props.projects.all_projects.length}
+                                >&#8594;</button>
                             </div>
+
+                            {this.props.projects.all_projects &&
+                                <div className="project-counter">
+                                    {this.props.currentProjectIndex + 1} / {this.props.projects.all_projects.length}
+                                </div>
+                            }
                         </div>
                     }
 

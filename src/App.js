@@ -6,6 +6,9 @@ import Projects from './components/projects';
 import Skills from './components/skills';
 import Contact from './components/contact';
 import Login from './components/login';
+import RecentProjects from './components/recentProjects';
+import SkillRotator from './components/skillRotator';
+import DevPhilosophies from './components/devPhilosophies';
 import axios from 'axios';
 import './styles/App.scss';
 import ReactGA from'react-ga';
@@ -32,6 +35,8 @@ export default class App extends Component {
       showProjects: true,
       showSkills: false,
       showContact: false,
+      showRecentProjects: false,
+      showPhilosophies: false,
       showMoreProjects: false,
       data: {
         projects: {},
@@ -141,6 +146,18 @@ export default class App extends Component {
         showContact: !this.state.showContact ? true : true
       })
     }
+
+    if (page === 'recentProjects') {
+      ReactGA.pageview('/recent-projects')
+      this.hideAllSections()
+      this.setState({ showRecentProjects: true })
+    }
+
+    if (page === 'philosophies') {
+      ReactGA.pageview('/philosophies')
+      this.hideAllSections()
+      this.setState({ showPhilosophies: true })
+    }
   }
 
   formSubmitHandler = (e) => {
@@ -191,6 +208,8 @@ export default class App extends Component {
       showSkills: false,
       showProjects: false,
       showContact: false,
+      showRecentProjects: false,
+      showPhilosophies: false,
       showAdmin: false
     })
 
@@ -243,16 +262,21 @@ export default class App extends Component {
     return (
       <div className="App">
         
-        <div onClick={() => this.loadHomePage()}>
-            <header className="App-header">
-              Kevin Wilson - Full Stack Software Engineer
-            </header>
-        </div>
+        <div className="app-top">
+          <div onClick={() => this.loadHomePage()}>
+              <header className="App-header">
+                  <span className="header-name">Kevin Wilson</span>
+                  <div className="header-accent" />
+                  <span className="header-role">Full Stack Software Engineer</span>
+                  <SkillRotator />
+              </header>
+          </div>
 
-        <Navigation
-          navLinkHandler = {this.navLinkHandler}
-          navClasses = {this.state.navClasses}
-        />
+          <Navigation
+            navLinkHandler = {this.navLinkHandler}
+            navClasses = {this.state.navClasses}
+          />
+        </div>
 
         { this.state.showAbout && 
           <About
@@ -282,10 +306,18 @@ export default class App extends Component {
           />
         }
 
-        { this.state.showContact && 
+        { this.state.showContact &&
           <Contact
             formSubmitHandler = {this.formSubmitHandler}
           />
+        }
+
+        { this.state.showRecentProjects &&
+          <RecentProjects />
+        }
+
+        { this.state.showPhilosophies &&
+          <DevPhilosophies />
         }
 
         <Router>
@@ -306,6 +338,10 @@ export default class App extends Component {
                 <Route path='/implicit/callback' component={ImplicitCallback}/>
             </Security>
         </Router>
+
+        <button className="floating-cta" onClick={() => { this.hideAllSections(); this.setState({ showContact: true }); }}>
+          ✉ Contact Me
+        </button>
 
         <Footer/>
       </div>
