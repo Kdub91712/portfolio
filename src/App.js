@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navigation from './components/navigation';
 import Footer from './components/footer';
 import About from './components/about';
@@ -6,23 +6,15 @@ import Projects from './components/projects';
 import Skills from './components/skills';
 import Contact from './components/contact';
 import Login from './components/login';
+import Admin from './components/admin';
 import RecentProjects from './components/recentProjects';
 import SkillRotator from './components/skillRotator';
 import DevPhilosophies from './components/devPhilosophies';
 import axios from 'axios';
+import portfolioData from './data/portfolio.json';
 import './styles/App.scss';
 import ReactGA from 'react-ga';
 
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { Security, ImplicitCallback } from '@okta/okta-react';
-
-const config = {
-  issuer: 'https://dev-725893.okta.com/oauth2/default',
-  redirect_uri: window.location.origin + '/implicit/callback',
-  client_id: '0oaze15fxXglq0guH356'
-}
-
-const dataUrl = process.env.REACT_APP_DATA_URL;
 const formUrl = process.env.REACT_APP_FORM_URL;
 
 export default function App() {
@@ -34,29 +26,16 @@ export default function App() {
   const [showPhilosophies, setShowPhilosophies] = useState(false);
   const [showMoreProjects, setShowMoreProjects] = useState(false);
   const [showAdmin, setShowAdmin] = useState(false);
-  const [data, setData] = useState({ projects: {}, skills: [], some_experience: [] });
+  const [data] = useState(portfolioData);
   const [projectDetails, setProjectDetails] = useState([]);
   const [projectTechnologies, setProjectTechnologies] = useState([]);
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
   const [nextProjectIndex, setNextProjectIndex] = useState(1);
-  const isMounted = useRef(true);
 
   useEffect(() => {
-    isMounted.current = true;
     ReactGA.initialize('UA-64241241-2');
     ReactGA.pageview('/homepage');
-    pullFromApi(dataUrl);
-    return () => { isMounted.current = false; };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const pullFromApi = async (url) => {
-    try {
-      const response = await axios.get(url);
-      if (isMounted.current) setData(response.data);
-    } catch (error) {
-      console.log("error", error);
-    }
-  }
+  }, []);
 
   const pullProjectInfo = async (url, type) => {
     try {
@@ -79,10 +58,8 @@ export default function App() {
   }
 
   const loadHomePage = () => {
-    setShowAbout(false);
-    setShowSkills(false);
-    setShowProjects(!showAdmin);
-    setShowContact(false);
+    hideAllSections();
+    if (!showAdmin) setShowProjects(true);
   }
 
   const showMore = (e) => {
@@ -193,51 +170,46 @@ export default function App() {
         <Navigation navLinkHandler={navLinkHandler} />
       </div>
 
-      { showAbout && <About /> }
+      { window.location.pathname === '/admin' ? (
+        <>
+          { !showAdmin && <Login loggedIn={loggedIn} /> }
+          { showAdmin && <Admin loggedOut={loggedOut} /> }
+        </>
+      ) : (
+        <>
+          { showAbout && <About /> }
 
-      { showProjects &&
-        <Projects
-          projects={data.projects}
-          projectDetails={projectDetails}
-          projectTechnologies={projectTechnologies}
-          pullProjectInfo={pullProjectInfo}
-          showMoreProjects={showMoreProjects}
-          showMore={showMore}
-          currentProjectIndex={currentProjectIndex}
-          nextProjectIndex={nextProjectIndex}
-          increaseProjectIndex={increaseProjectIndex}
-          decreaseProjectIndex={decreaseProjectIndex}
-        />
-      }
+          { showProjects &&
+            <Projects
+              projects={data.projects}
+              projectDetails={projectDetails}
+              projectTechnologies={projectTechnologies}
+              pullProjectInfo={pullProjectInfo}
+              showMoreProjects={showMoreProjects}
+              showMore={showMore}
+              currentProjectIndex={currentProjectIndex}
+              nextProjectIndex={nextProjectIndex}
+              increaseProjectIndex={increaseProjectIndex}
+              decreaseProjectIndex={decreaseProjectIndex}
+            />
+          }
 
-      { showSkills &&
-        <Skills
-          skills={data.skills}
-          some_experience={data.some_experience}
-        />
-      }
+          { showSkills &&
+            <Skills
+              skills={data.skills}
+              some_experience={data.some_experience}
+            />
+          }
 
-      { showContact &&
-        <Contact formSubmitHandler={formSubmitHandler} />
-      }
+          { showContact &&
+            <Contact formSubmitHandler={formSubmitHandler} />
+          }
 
-      { showRecentProjects && <RecentProjects /> }
+          { showRecentProjects && <RecentProjects /> }
 
-      { showPhilosophies && <DevPhilosophies /> }
-
-      <Router>
-        <Security className="admin-section" issuer={config.issuer}
-          client_id={config.client_id}
-          redirect_uri={config.redirect_uri}
-        >
-          <Route
-            path='/admin'
-            exact={true}
-            render={() => <Login loggedIn={loggedIn} loggedOut={loggedOut} />}
-          />
-          <Route path='/implicit/callback' component={ImplicitCallback}/>
-        </Security>
-      </Router>
+          { showPhilosophies && <DevPhilosophies /> }
+        </>
+      ) }
 
       <div className="mobile-cta">
         <span className="mobile-cta-location">Remote — Chicago</span>

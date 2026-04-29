@@ -1,6 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types';
 
+const PROJECT_GROUPS = [
+    { key: 'microservices_campspot',        heading: 'Microservices Work - Campspot.com, Denver, CO (2022-2024)', hidden: false },
+    { key: 'microservices_neighborhoods',        heading: 'Microservices Work - Neighborhoods.com, Chicago, IL (2019-2022)', hidden: false },
+    { key: 'partnerships',         heading: 'Partnerships Work - DialogTech, Chicago, IL (2015-2019)',          hidden: false },
+    { key: 'professional_services',heading: 'Professional Services Work - DialogTech, Chicago, IL (2012-2015)', hidden: true  },
+];
+
 export default function Projects({
     projects,
     projectDetails,
@@ -234,22 +241,16 @@ export default function Projects({
                     <div className="text-area">
                         <h3>Projects:</h3>
                         <ul>
-                            <li><b>Microservices Work - Neighborhoods.com, Chicago, IL (2019-2020)</b></li>
-                                <ul>
-                                    {projects.microservices &&
-                                        projects.microservices.map((project, index) =>
-                                            <li key={index}>{project}</li>
-                                        )
-                                    }
-                                </ul>
-                                <li><b>Partnerships Work - DialogTech, Chicago, IL (2015-2019)</b></li>
-                                <ul>
-                                    {projects.partnerships &&
-                                        projects.partnerships.map((project, index) =>
-                                            <li key={index}>{project}</li>
-                                        )
-                                    }
-                                </ul>
+                            {PROJECT_GROUPS.filter(g => !g.hidden).map(({ key, heading }) => (
+                                <React.Fragment key={key}>
+                                    <li><b>{heading}</b></li>
+                                    <ul>
+                                        {projects[key] && projects[key].map((project, i) =>
+                                            <li key={i}>{project}</li>
+                                        )}
+                                    </ul>
+                                </React.Fragment>
+                            ))}
                         </ul>
 
                         {!showMoreProjects &&
@@ -260,14 +261,16 @@ export default function Projects({
                             <>
                             <a href="/" className="show-more" onClick={(e) => showMore(e)}>Show Less Projects...</a>
                             <ul>
-                            <li><b>Professional Services Work - DialogTech, Chicago, IL (2012-2015)</b></li>
-                            <ul>
-                                {projects.professional_services &&
-                                    projects.professional_services.map((project, index) =>
-                                        <li key={index}>{project}</li>
-                                    )
-                                }
-                            </ul>
+                                {PROJECT_GROUPS.filter(g => g.hidden).map(({ key, heading }) => (
+                                    <React.Fragment key={key}>
+                                        <li><b>{heading}</b></li>
+                                        <ul>
+                                            {projects[key] && projects[key].map((project, i) =>
+                                                <li key={i}>{project}</li>
+                                            )}
+                                        </ul>
+                                    </React.Fragment>
+                                ))}
                             </ul>
                             </>
                         }

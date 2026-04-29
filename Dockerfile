@@ -7,10 +7,10 @@ FROM node:18
 WORKDIR /usr/src/app
  
 # Copies package.json and package-lock.json to Docker environment
-COPY package*.json ./
- 
+COPY package.json yarn.lock ./
+
 # Installs all node packages
-RUN npm install
+RUN yarn --frozen-lockfile
  
 # Copies everything over to Docker environment
 COPY . .

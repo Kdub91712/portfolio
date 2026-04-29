@@ -1,47 +1,39 @@
-import React, { Component } from 'react';
-import { withAuth } from '@okta/okta-react';
-import Admin from './admin';
+import React, { useState } from 'react';
 
-export default withAuth(class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { authenticated: null };
-    this.checkAuthentication = this.checkAuthentication.bind(this);
-    this.checkAuthentication();
-    this.login = this.login.bind(this);
-    this.logout = this.logout.bind(this);
-  }
+export default function Login({ loggedIn }) {
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState(false);
 
-  async checkAuthentication() {
-    const authenticated = await this.props.auth.isAuthenticated();
-    if (authenticated !== this.state.authenticated) {
-      this.setState({ authenticated });
-    }
-  }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (password === process.env.REACT_APP_ADMIN_PASSWORD) {
+            loggedIn();
+        } else {
+            setError(true);
+            setPassword('');
+        }
+    };
 
-  componentDidUpdate() {
-    this.checkAuthentication();
-  }
-
-  async login() {
-    // Redirect to '/admin' after login
-    this.props.auth.login('/admin');
-  }
-
-  async logout() {
-    // Redirect to '/' after logout
-    this.props.loggedOut();
-    this.props.auth.logout('/');
-  }
-
-  render() {
-    if (this.state.authenticated === null) return null;
-    return this.state.authenticated ?
-
-      <Admin
-          loggedIn = {this.props.loggedIn}
-          logout = {this.logout}
-      ></Admin>
-     : <button onClick={this.login}>Login</button>;
-  }
-});
+    return (
+        <div className="main-section">
+            <div className="sub-section">
+                <div className="text-area">
+                    <h3>Admin Login</h3>
+                    <form className="contact-form" onSubmit={handleSubmit}>
+                        <label>
+                            <div>Password</div>
+                            <input
+                                type="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                autoFocus
+                            />
+                        </label>
+                        { error && <p style={{ color: 'red' }}>Incorrect password</p> }
+                        <input className="submit-button" type="submit" value="Login" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    );
+}

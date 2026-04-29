@@ -1,139 +1,117 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withAuth } from '@okta/okta-react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
+const projectDetailsUrl = process.env.REACT_APP_PROJECT_DETAILS_URL;
+const projectTechnologiesUrl = process.env.REACT_APP_PROJECT_TECHNOLOGIES_URL;
 
-export default withAuth(class Admin extends Component {
-    
-    projectDetailsUrl = process.env.REACT_APP_PROJECT_DETAILS_URL;
-    projectTechnologiesUrl = process.env.REACT_APP_PROJECT_TECHNOLOGIES_URL;
+export default function Admin({ loggedOut }) {
+    const [projectDetailsName, setProjectDetailsName] = useState('');
+    const [projectDetails, setProjectDetails] = useState('');
+    const [projectTechnologyName, setProjectTechnologyName] = useState('');
+    const [projectTechnology, setProjectTechnology] = useState('');
+    const [detailsSuccess, setDetailsSuccess] = useState(false);
+    const [techSuccess, setTechSuccess] = useState(false);
 
-    static propTypes = {
-        loggedIn: PropTypes.func,
-        logout: PropTypes.func
-    }
+    const handleLogout = () => {
+        loggedOut();
+        window.location.href = '/';
+    };
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            projectDetailsName : '',
-            projectDetails: '',
-            projectTechnologyName: '',
-            projectTechnology: ''
-        }
-    }
-
-    componentDidMount() {
-
-        this.props.loggedIn();
-
-    }
-
-    onChangeHandler = (e, type) => {
-
-        this.setState({
-            [type]: e.target.value
-        })
-
-    }
-
-    postData = async (e, type) => {
-
+    const postProjectDetails = async (e) => {
         e.preventDefault();
-  
         try {
-
-          let url, params;  
-          if (type === 'project_details_form') {
-              url = this.projectDetailsUrl;
-              params = {
-                  project_name: this.state.projectDetailsName,
-                  details: this.state.projectDetails
-              };
-          } else if (type === 'project_technologies_form') {
-              url = this.projectTechnologiesUrl;
-              params = {
-                project_name: this.state.projectTechnologyName,
-                technology: this.state.projectTechnology
-            };
-          }
-          const response = await axios.post(url, params);
-          console.log(response.data);
-
-            if (type === 'project_details_form') {
-                this.setState({
-                    projectDetailsName: '',
-                    projectDetails: ''
-                });
-            } else if (type === 'project_technologies_form') {
-                this.setState({
-                    projectTechnologyName: '',
-                    projectTechnology: ''
-                });
-            }
-    
+            await axios.post(projectDetailsUrl, {
+                project_name: projectDetailsName,
+                details: projectDetails
+            });
+            setProjectDetailsName('');
+            setProjectDetails('');
+            setDetailsSuccess(true);
+            setTimeout(() => setDetailsSuccess(false), 3000);
         } catch (error) {
-          console.log("error", error);
+            console.log("error", error);
         }
-    }
+    };
 
-    render() {
+    const postProjectTechnology = async (e) => {
+        e.preventDefault();
+        try {
+            await axios.post(projectTechnologiesUrl, {
+                project_name: projectTechnologyName,
+                technology: projectTechnology
+            });
+            setProjectTechnologyName('');
+            setProjectTechnology('');
+            setTechSuccess(true);
+            setTimeout(() => setTechSuccess(false), 3000);
+        } catch (error) {
+            console.log("error", error);
+        }
+    };
 
-        return(
-            <div className="main-section">
-                <div className="sub-section">
-                    <div className="text-area">
-                        <h3 id="admin_header_text">Admin</h3>
-                        <button id="logout_button" onClick={this.props.logout}>Logout</button>
-                        <form id="project_details_form" className="contact-form" onSubmit={(e) => this.postData(e, 'project_details_form')}>
-                            <label>
-                                <div>Project Name</div>
-                                <input 
-                                    type="text" 
-                                    name="project_name"
-                                    value={this.state.projectDetailsName}
-                                    onChange={(e) => this.onChangeHandler(e, 'projectDetailsName')}
-                                />
-                            </label>
-                            <label>
-                                <div>Details</div>
-                                <input 
-                                    type="text" 
-                                    name="details"
-                                    value={this.state.projectDetails}
-                                    onChange={(e) => this.onChangeHandler(e, 'projectDetails')}
-                                />
-                            </label>
-                            <input className="submit-button" type="submit" value="Submit"/>
-                        </form>
-                        <form id="project_technologies_form" className="contact-form" onSubmit={(e) => this.postData(e, 'project_technologies_form')}>
-                            <label>
-                                <div>Project Name</div>
-                                <input 
-                                    type="text" 
-                                    name="project_name"
-                                    value={this.state.projectTechnologyName}
-                                    onChange={(e) => this.onChangeHandler(e, 'projectTechnologyName')}
-                                />
-                            </label>
-                            <label>
-                                <div>Technology</div>
-                                <input 
-                                    type="text" 
-                                    name="technology"
-                                    value={this.state.projectTechnology}
-                                    onChange={(e) => this.onChangeHandler(e, 'projectTechnology')}
-                                />
-                            </label>
-                            <input className="submit-button" type="submit" value="Submit"/>
-                        </form>
+    return (
+        <div className="main-section">
+            <div className="sub-section">
+                <div className="text-area">
+                    <div className="admin-header">
+                        <h3>Admin</h3>
+                        <button className="admin-logout" onClick={handleLogout}>Logout</button>
+                    </div>
+
+                    <div className="admin-forms-grid">
+                        <div className="admin-card">
+                            <h4 className="admin-card-title">Project Details</h4>
+                            <form className="contact-form" onSubmit={postProjectDetails}>
+                                <label>
+                                    <div>Project Name</div>
+                                    <input
+                                        type="text"
+                                        value={projectDetailsName}
+                                        onChange={(e) => setProjectDetailsName(e.target.value)}
+                                        placeholder="e.g. area_service"
+                                    />
+                                </label>
+                                <label>
+                                    <div>Details</div>
+                                    <textarea
+                                        value={projectDetails}
+                                        onChange={(e) => setProjectDetails(e.target.value)}
+                                        placeholder="Project description..."
+                                    />
+                                </label>
+                                { detailsSuccess && <p className="admin-success">Saved successfully</p> }
+                                <input className="submit-button" type="submit" value="Save" />
+                            </form>
+                        </div>
+
+                        <div className="admin-card">
+                            <h4 className="admin-card-title">Project Technology</h4>
+                            <form className="contact-form" onSubmit={postProjectTechnology}>
+                                <label>
+                                    <div>Project Name</div>
+                                    <input
+                                        type="text"
+                                        value={projectTechnologyName}
+                                        onChange={(e) => setProjectTechnologyName(e.target.value)}
+                                        placeholder="e.g. area_service"
+                                    />
+                                </label>
+                                <label>
+                                    <div>Technology</div>
+                                    <input
+                                        type="text"
+                                        value={projectTechnology}
+                                        onChange={(e) => setProjectTechnology(e.target.value)}
+                                        placeholder="e.g. React"
+                                    />
+                                </label>
+                                { techSuccess && <p className="admin-success">Saved successfully</p> }
+                                <input className="submit-button" type="submit" value="Save" />
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        )
-
-    }
-
-})
+        </div>
+    );
+}

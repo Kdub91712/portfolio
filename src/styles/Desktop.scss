@@ -46,29 +46,12 @@
         height: 180px;
     }
   
-    .contact-form .submit-button {
-      margin-left: 29%
+    .admin-forms-grid {
+        flex-direction: row;
+        align-items: flex-start;
     }
 
-    label {
-    
-        margin-top: 3%;
-        float: left;
-        width: 100%;
-    
-        div {
-            margin-left: 2%;
-            float: left;
-            width: 25%;
-        }
-    
-        input {
-            float: left;
-            width: 25%;
-        }
-    
-        textarea {
-            width: 25%;
-        }
+    .admin-card {
+        flex: 1;
     }
 }

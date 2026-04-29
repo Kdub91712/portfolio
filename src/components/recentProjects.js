@@ -13,6 +13,8 @@ const IN_PROGRESS = [
 ]
 
 const TECH_DESCRIPTIONS = {
+    'Java':        'Object-oriented language widely used in enterprise development',
+    'Hibernate':   'Java ORM framework for mapping objects to relational databases',
     'Django':      'High-level Python web framework for rapid development',
     'PostgreSQL':  'Powerful open-source relational database system',
     'React':       'JavaScript library for building user interfaces',
@@ -32,13 +34,18 @@ const TECH_DESCRIPTIONS = {
 const RECENT_PROJECTS = [
     {
         title: 'Portfolio Website',
-        description: 'Personal portfolio built with React, served via Heroku with a PHP/Laravel API backend and AWS Lambda for form handling.',
-        tech: ['React', 'PHP', 'Laravel', 'Python', 'AWS Lambda']
+        description: 'Personal portfolio built with React, served via Heroku with a PHP/Laravel API backend.',
+        tech: ['React', 'PHP', 'Laravel']
+    },
+    {
+        title: 'Reservation Platform',
+        description: 'Upgrades to camp site booking system in microservice environment for Campspot.com.',
+        tech: ['Java', 'Hibernate', 'Docker', 'AWS', 'PostgreSQL']
     },
     {
         title: 'Microservices Platform',
         description: 'Contributed to microservices architecture at Neighborhoods.com, building scalable API integrations and data pipelines.',
-        tech: ['Node.js', 'Python', 'AWS', 'Docker']
+        tech: ['PHP', 'AWS', 'Docker', 'Kubernetes']
     },
     {
         title: 'Analytics Integrations',
