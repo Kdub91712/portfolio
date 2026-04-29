@@ -8,6 +8,14 @@ jest.mock('react-ga', () => ({
   event: jest.fn(),
 }));
 
+jest.mock('axios', () => {
+  const mock = {
+    get: jest.fn(() => Promise.resolve({ data: { projects: {}, skills: [], some_experience: [] } })),
+    post: jest.fn(() => Promise.resolve({ data: {} })),
+  };
+  return { __esModule: true, default: mock, ...mock };
+});
+
 it('renders without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render(<App />, div);

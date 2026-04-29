@@ -54,8 +54,13 @@ export default class App extends Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
     this.initializeReactGA();
     this.pullFromApi(this.dataUrl)
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   initializeReactGA = () => {
@@ -69,7 +74,7 @@ export default class App extends Component {
 
       const response = await axios.get(dataUrl);
       const data = response.data;
-      this.setState({ data })
+      if (this._isMounted) this.setState({ data })
 
     } catch (error) {
       console.log("error", error);
@@ -78,8 +83,6 @@ export default class App extends Component {
   }
 
   pullProjectInfo = async (url, type) => {
-
-    console.log(type);
 
     try {
 

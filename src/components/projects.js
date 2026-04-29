@@ -28,6 +28,7 @@ export default class Projects extends Component {
     }
 
     componentDidMount() {
+        this._isMounted = true;
 
         (async () => {
 
@@ -39,8 +40,12 @@ export default class Projects extends Component {
                 await this.props.pullProjectInfo(this.projectTechnologiesUrl, 'projectTechnologies');
             }
 
-            this.setState({ loading: false });
+            if (this._isMounted) this.setState({ loading: false });
         })();
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     rotateNext = (previousId, nextId) => {
