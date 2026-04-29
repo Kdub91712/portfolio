@@ -20,11 +20,15 @@
     "serialize-javascript": "^3.0.0",
     "serve": "^11.1.0"
   },
+  "devDependencies": {
+    "@playwright/test": "^1.44.0"
+  },
   "scripts": {
     "dev": "react-scripts start",
     "start": "serve -s build",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:e2e": "playwright test",
     "eject": "react-scripts eject",
     "heroku-postbuild": "yarn run build"
   },
