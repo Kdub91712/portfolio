@@ -20,7 +20,7 @@ jobs:
           cache: 'yarn'
 
       - name: Install dependencies
-        run: PYTHON=$(which python3) yarn install --frozen-lockfile
+        run: yarn install --frozen-lockfile
 
       - name: Run tests
         run: CI=true yarn test
