@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const INITIAL_VISIBLE = 6;
+const INITIAL_VISIBLE = 10;
 
-export default function Skills({ skills, some_experience }) {
+export default function Skills({ skills, some_experience, saas }) {
     const [showAllProficient, setShowAllProficient] = useState(false);
     const [showAllSome, setShowAllSome] = useState(false);
+    const [showAllSaas, setShowAllSaas] = useState(false);
 
     const proficient = skills || [];
     const some = some_experience || [];
+    const saasTools = saas || [];
     const visibleProficient = showAllProficient ? proficient : proficient.slice(0, INITIAL_VISIBLE);
     const visibleSome = showAllSome ? some : some.slice(0, INITIAL_VISIBLE);
+    const visibleSaas = showAllSaas ? saasTools : saasTools.slice(0, INITIAL_VISIBLE);
 
     return (
         <div className="main-section">
@@ -52,6 +55,23 @@ export default function Skills({ skills, some_experience }) {
                                 </button>
                             }
                         </div>
+                        <div className="skills-group">
+                            <p className="skills-label">SaaS</p>
+                            <div className="skills-pills">
+                                { visibleSaas.map((tool, index) =>
+                                    <span
+                                        key={index}
+                                        className="skill-pill skill-pill--some"
+                                        style={{ animationDelay: `${index * 0.05}s` }}
+                                    >{tool}</span>
+                                )}
+                            </div>
+                            { saasTools.length > INITIAL_VISIBLE &&
+                                <button className="skills-show-all" onClick={() => setShowAllSaas(!showAllSaas)}>
+                                    { showAllSaas ? 'Show less' : `+${saasTools.length - INITIAL_VISIBLE} more` }
+                                </button>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
@@ -61,5 +81,6 @@ export default function Skills({ skills, some_experience }) {
 
 Skills.propTypes = {
     skills: PropTypes.array,
-    some_experience: PropTypes.array
+    some_experience: PropTypes.array,
+    saas: PropTypes.array
 }

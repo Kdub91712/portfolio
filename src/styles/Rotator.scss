@@ -127,6 +127,54 @@
     font-family: $font-nav;
 }
 
+.project-featured {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    overflow: hidden;
+}
+
+.project-featured-image-wrap {
+    flex: 0 0 37%;
+    overflow: hidden;
+    border-right: 1px solid #eee;
+    padding: 12px;
+}
+
+.project-featured-screenshot {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+}
+
+.project-featured-description {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px 16px;
+    font-size: 14px;
+    color: $gray;
+    font-family: $font-nav;
+    text-align: right;
+
+    p {
+        margin: 0 0 10px;
+    }
+
+    a {
+        color: $background-blue;
+        text-decoration: none;
+        font-weight: 600;
+        &:hover { text-decoration: underline; }
+    }
+}
+
 .project-button-wrapper {
     text-align: center;
     margin: 2px;

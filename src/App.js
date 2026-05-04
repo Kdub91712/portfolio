@@ -17,13 +17,60 @@ import ReactGA from 'react-ga';
 
 const formUrl = process.env.REACT_APP_FORM_URL;
 
+const BASE_TITLE = 'Kevin Wilson — Full Stack Software Engineer';
+
+const PATH_TO_SECTION = {
+  '/about':           'showAbout',
+  '/projects':        'showProjects',
+  '/skills':          'showSkills',
+  '/contact':         'showContact',
+  '/recent-projects': 'showRecentProjects',
+  '/philosophies':    'showPhilosophies',
+};
+
+const PATH_TO_TITLE = {
+  '/':                BASE_TITLE,
+  '/projects':        `Projects | ${BASE_TITLE}`,
+  '/about':           `About | ${BASE_TITLE}`,
+  '/skills':          `Skills | ${BASE_TITLE}`,
+  '/contact':         `Contact | ${BASE_TITLE}`,
+  '/recent-projects': `Recent Projects | ${BASE_TITLE}`,
+  '/philosophies':    `Philosophy | ${BASE_TITLE}`,
+};
+
+const SECTION_TO_PATH = {
+  about:          '/about',
+  projects:       '/projects',
+  skills:         '/skills',
+  contact:        '/contact',
+  recentProjects: '/recent-projects',
+  philosophies:   '/philosophies',
+};
+
+const setPageTitle = (path) => {
+  document.title = PATH_TO_TITLE[path] || BASE_TITLE;
+};
+
+const getInitialState = () => {
+  const path = window.location.pathname;
+  return {
+    showAbout:          path === '/about',
+    showProjects:       path === '/' || path === '/projects',
+    showSkills:         path === '/skills',
+    showContact:        path === '/contact',
+    showRecentProjects: path === '/recent-projects',
+    showPhilosophies:   path === '/philosophies',
+  };
+};
+
 export default function App() {
-  const [showAbout, setShowAbout] = useState(false);
-  const [showProjects, setShowProjects] = useState(true);
-  const [showSkills, setShowSkills] = useState(false);
-  const [showContact, setShowContact] = useState(false);
-  const [showRecentProjects, setShowRecentProjects] = useState(false);
-  const [showPhilosophies, setShowPhilosophies] = useState(false);
+  const initial = getInitialState();
+  const [showAbout, setShowAbout] = useState(initial.showAbout);
+  const [showProjects, setShowProjects] = useState(initial.showProjects);
+  const [showSkills, setShowSkills] = useState(initial.showSkills);
+  const [showContact, setShowContact] = useState(initial.showContact);
+  const [showRecentProjects, setShowRecentProjects] = useState(initial.showRecentProjects);
+  const [showPhilosophies, setShowPhilosophies] = useState(initial.showPhilosophies);
   const [showMoreProjects, setShowMoreProjects] = useState(false);
   const [showAdmin, setShowAdmin] = useState(false);
   const [data] = useState(portfolioData);
@@ -32,10 +79,31 @@ export default function App() {
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
   const [nextProjectIndex, setNextProjectIndex] = useState(1);
 
+  const showSection = (section) => {
+    setShowAbout(section === 'showAbout');
+    setShowProjects(section === 'showProjects');
+    setShowSkills(section === 'showSkills');
+    setShowContact(section === 'showContact');
+    setShowRecentProjects(section === 'showRecentProjects');
+    setShowPhilosophies(section === 'showPhilosophies');
+    setShowAdmin(section === 'showAdmin');
+  };
+
   useEffect(() => {
     ReactGA.initialize('UA-64241241-2');
-    ReactGA.pageview('/homepage');
-  }, []);
+    ReactGA.pageview(window.location.pathname);
+    setPageTitle(window.location.pathname);
+
+    const handlePopState = () => {
+      const path = window.location.pathname;
+      const section = PATH_TO_SECTION[path] || 'showProjects';
+      setPageTitle(path);
+      showSection(section);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const pullProjectInfo = async (url, type) => {
     try {
@@ -47,19 +115,10 @@ export default function App() {
     }
   }
 
-  const hideAllSections = () => {
-    setShowAbout(false);
-    setShowSkills(false);
-    setShowProjects(false);
-    setShowContact(false);
-    setShowRecentProjects(false);
-    setShowPhilosophies(false);
-    setShowAdmin(false);
-  }
-
   const loadHomePage = () => {
-    hideAllSections();
-    if (!showAdmin) setShowProjects(true);
+    window.history.pushState({}, '', '/');
+    setPageTitle('/');
+    showSection('showProjects');
   }
 
   const showMore = (e) => {
@@ -69,37 +128,13 @@ export default function App() {
 
   const navLinkHandler = (e, page) => {
     e.preventDefault();
+    const path = SECTION_TO_PATH[page];
+    if (path) window.history.pushState({}, '', path);
+    setPageTitle(path || '/');
+    ReactGA.pageview(path || '/');
 
-    if (page === 'about') {
-      ReactGA.pageview('/about');
-      hideAllSections();
-      setShowAbout(true);
-    }
-    if (page === 'projects') {
-      ReactGA.pageview('/projects');
-      hideAllSections();
-      setShowProjects(true);
-    }
-    if (page === 'skills') {
-      ReactGA.pageview('/skills');
-      hideAllSections();
-      setShowSkills(true);
-    }
-    if (page === 'contact') {
-      ReactGA.pageview('/contact');
-      hideAllSections();
-      setShowContact(true);
-    }
-    if (page === 'recentProjects') {
-      ReactGA.pageview('/recent-projects');
-      hideAllSections();
-      setShowRecentProjects(true);
-    }
-    if (page === 'philosophies') {
-      ReactGA.pageview('/philosophies');
-      hideAllSections();
-      setShowPhilosophies(true);
-    }
+    const sectionKey = PATH_TO_SECTION[path];
+    if (sectionKey) showSection(sectionKey);
   }
 
   const formSubmitHandler = async (e) => {
@@ -141,17 +176,16 @@ export default function App() {
     ReactGA.event({ category: 'User', action: 'Previous Project' });
   }
 
-  const loggedIn = () => {
-    setShowAbout(false);
-    setShowSkills(false);
-    setShowProjects(false);
-    setShowContact(false);
-    setShowAdmin(true);
-  }
+  const loggedIn = () => showSection('showAdmin');
 
   const loggedOut = () => {
-    setShowProjects(true);
-    setShowAdmin(false);
+    window.location.href = '/';
+  }
+
+  const goToContact = () => {
+    window.history.pushState({}, '', '/contact');
+    setPageTitle('/contact');
+    showSection('showContact');
   }
 
   return (
@@ -198,6 +232,7 @@ export default function App() {
             <Skills
               skills={data.skills}
               some_experience={data.some_experience}
+              saas={data.saas}
             />
           }
 
@@ -213,14 +248,14 @@ export default function App() {
 
       <div className="mobile-cta">
         <span className="mobile-cta-location">Remote — Chicago</span>
-        <button className="mobile-cta-button" onClick={() => { hideAllSections(); setShowContact(true); }}>
+        <button className="mobile-cta-button" onClick={goToContact}>
           ✉ Contact Me
         </button>
       </div>
 
       <div className="floating-cta-group">
         <span className="header-location">Remote — Chicago</span>
-        <button className="floating-cta" onClick={() => { hideAllSections(); setShowContact(true); }}>
+        <button className="floating-cta" onClick={goToContact}>
           ✉ Contact Me
         </button>
       </div>
