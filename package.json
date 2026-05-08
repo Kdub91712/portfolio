@@ -30,7 +30,11 @@
     "test": "react-scripts test",
     "test:e2e": "playwright test",
     "eject": "react-scripts eject",
-    "heroku-postbuild": "yarn run build"
+    "heroku-postbuild": "yarn run build",
+    "docker:build": "docker build --platform linux/amd64 -f Dockerfile.prod -t registry.heroku.com/kevin-wilson-portfolio-docker/web .",
+    "docker:push": "docker push registry.heroku.com/kevin-wilson-portfolio-docker/web",
+    "docker:release": "heroku container:release -a kevin-wilson-portfolio-docker web",
+    "deploy": "yarn docker:build && yarn docker:push && yarn docker:release"
   },
   "eslintConfig": {
     "extends": "react-app"

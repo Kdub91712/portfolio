@@ -119,6 +119,8 @@ export default function App() {
     window.history.pushState({}, '', '/');
     setPageTitle('/');
     showSection('showProjects');
+    setCurrentProjectIndex(0);
+    setNextProjectIndex(1);
   }
 
   const showMore = (e) => {

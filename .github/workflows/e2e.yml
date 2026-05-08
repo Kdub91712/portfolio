@@ -27,6 +27,11 @@ jobs:
 
       - name: Run E2E tests
         run: yarn test:e2e
+        env:
+          REACT_APP_ADMIN_PASSWORD: ${{ secrets.REACT_APP_ADMIN_PASSWORD }}
+          REACT_APP_FORM_URL: ${{ secrets.REACT_APP_FORM_URL }}
+          REACT_APP_PROJECT_DETAILS_URL: ${{ secrets.REACT_APP_PROJECT_DETAILS_URL }}
+          REACT_APP_PROJECT_TECHNOLOGIES_URL: ${{ secrets.REACT_APP_PROJECT_TECHNOLOGIES_URL }}
 
       - name: Upload report
         uses: actions/upload-artifact@v4
