@@ -25,6 +25,7 @@ yarn-debug.log*
 yarn-error.log*
 *.log
 COMMANDS.md
+current_resume.pdf
 /lambda
 /playwright-report
 /test-results

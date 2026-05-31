@@ -10,6 +10,7 @@ import Admin from './components/admin';
 import RecentProjects from './components/recentProjects';
 import SkillRotator from './components/skillRotator';
 import DevPhilosophies from './components/devPhilosophies';
+import AiStrategies from './components/aiStrategies';
 import axios from 'axios';
 import portfolioData from './data/portfolio.json';
 import './styles/App.scss';
@@ -26,6 +27,7 @@ const PATH_TO_SECTION = {
   '/contact':         'showContact',
   '/recent-projects': 'showRecentProjects',
   '/philosophies':    'showPhilosophies',
+  '/ai-strategies':   'showAiStrategies',
 };
 
 const PATH_TO_TITLE = {
@@ -36,6 +38,7 @@ const PATH_TO_TITLE = {
   '/contact':         `Contact | ${BASE_TITLE}`,
   '/recent-projects': `Recent Projects | ${BASE_TITLE}`,
   '/philosophies':    `Philosophy | ${BASE_TITLE}`,
+  '/ai-strategies':   `AI Strategies | ${BASE_TITLE}`,
 };
 
 const SECTION_TO_PATH = {
@@ -45,6 +48,7 @@ const SECTION_TO_PATH = {
   contact:        '/contact',
   recentProjects: '/recent-projects',
   philosophies:   '/philosophies',
+  aiStrategies:  '/ai-strategies',
 };
 
 const setPageTitle = (path) => {
@@ -60,6 +64,7 @@ const getInitialState = () => {
     showContact:        path === '/contact',
     showRecentProjects: path === '/recent-projects',
     showPhilosophies:   path === '/philosophies',
+    showAiStrategies:   path === '/ai-strategies',
   };
 };
 
@@ -71,6 +76,7 @@ export default function App() {
   const [showContact, setShowContact] = useState(initial.showContact);
   const [showRecentProjects, setShowRecentProjects] = useState(initial.showRecentProjects);
   const [showPhilosophies, setShowPhilosophies] = useState(initial.showPhilosophies);
+  const [showAiStrategies, setShowAiStrategies] = useState(initial.showAiStrategies);
   const [showMoreProjects, setShowMoreProjects] = useState(false);
   const [showAdmin, setShowAdmin] = useState(false);
   const [data] = useState(portfolioData);
@@ -86,6 +92,7 @@ export default function App() {
     setShowContact(section === 'showContact');
     setShowRecentProjects(section === 'showRecentProjects');
     setShowPhilosophies(section === 'showPhilosophies');
+    setShowAiStrategies(section === 'showAiStrategies');
     setShowAdmin(section === 'showAdmin');
   };
 
@@ -245,6 +252,8 @@ export default function App() {
           { showRecentProjects && <RecentProjects /> }
 
           { showPhilosophies && <DevPhilosophies /> }
+
+          { showAiStrategies && <AiStrategies /> }
         </>
       ) }
 

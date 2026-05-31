@@ -16,7 +16,7 @@ RUN yarn --frozen-lockfile
 COPY . .
  
 # Uses port which is used by the actual application
-EXPOSE 3000
+EXPOSE 3003
  
 # Finally runs the application
 CMD [ "npm", "run", "dev" ]
