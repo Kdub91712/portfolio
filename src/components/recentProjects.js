@@ -9,6 +9,12 @@ const IN_PROGRESS = [
         description: 'Mountain bike social media platform for finding videos, routes, and trail content with the riding community.',
         tech: ['React', 'Django', 'PostgreSQL', 'Docker'],
         link: 'https://mtbdash.com'
+    },
+    {
+        title: 'CarCritical.com',
+        description: 'Video catalog, specs, shops and social media for the automotive community.',
+        tech: ['React', 'Django', 'PostgreSQL', 'Docker'],
+        link: 'https://carcritical.com'
     }
 ]
 
@@ -91,6 +97,7 @@ export default function RecentProjects() {
                             <span className="in-progress-dot" />
                             In Progress
                         </h3>
+                        <div className="in-progress-cards">
                         { IN_PROGRESS.map((project, index) =>
                             <div key={index} className="in-progress-card">
                                 <a className="in-progress-title" href={project.link} target="_blank" rel="noopener noreferrer">{project.title}</a>
@@ -107,6 +114,7 @@ export default function RecentProjects() {
                                 </div>
                             </div>
                         )}
+                        </div>
                     </div>
                     <h3>Recent Projects</h3>
                     <div className="recent-projects-grid">

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types';
-import mtbdashScreenshot from '../images/mtbdash-screenshot.png';
+import mtbdashScreenshot from '../images/mtbdash.jpg';
+import carcriticalScreenshot from '../images/carcritical.jpg';
 
 const PROJECT_GROUPS = [
     { key: 'microservices_campspot',        heading: 'Microservices Work - Campspot.com, Denver, CO (2022-2024)', hidden: false },
@@ -139,6 +140,23 @@ export default function Projects({
                         <p>Mountain bike social media platform for finding videos, routes, and trail content.</p>
                         <p>Built with Django, React and Docker.</p>
                         <a href="https://mtbdash.com" target="_blank" rel="noopener noreferrer">Visit MTBDASH.com</a>
+                    </div>
+                </div>
+            );
+        }
+
+        if (projectName === 'CarCritical.com') {
+            return (
+                <div className="project-featured">
+                    <div className="project-featured-image-wrap">
+                        <a href="https://carcritical.com" target="_blank" rel="noopener noreferrer">
+                            <img src={carcriticalScreenshot} alt="CarCritical.com" className="project-featured-screenshot" />
+                        </a>
+                    </div>
+                    <div className="project-featured-description">
+                        <p>Video catalog, specs, shops and social media for the automotive community.</p>
+                        <p>Built with Django, React and Docker.</p>
+                        <a href="https://carcritical.com" target="_blank" rel="noopener noreferrer">Visit CarCritical.com</a>
                     </div>
                 </div>
             );
