@@ -13,6 +13,7 @@ import DevPhilosophies from './components/devPhilosophies';
 import AiStrategies from './components/aiStrategies';
 import axios from 'axios';
 import portfolioData from './data/portfolio.json';
+import projectInfo from './data/projectInfo.json';
 import './styles/App.scss';
 import ReactGA from 'react-ga';
 
@@ -80,8 +81,6 @@ export default function App() {
   const [showMoreProjects, setShowMoreProjects] = useState(false);
   const [showAdmin, setShowAdmin] = useState(false);
   const [data] = useState(portfolioData);
-  const [projectDetails, setProjectDetails] = useState([]);
-  const [projectTechnologies, setProjectTechnologies] = useState([]);
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
   const [nextProjectIndex, setNextProjectIndex] = useState(1);
 
@@ -111,16 +110,6 @@ export default function App() {
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const pullProjectInfo = async (url, type) => {
-    try {
-      const response = await axios.get(url);
-      if (type === 'projectDetails') setProjectDetails(response.data);
-      if (type === 'projectTechnologies') setProjectTechnologies(response.data);
-    } catch (error) {
-      console.log("error", error);
-    }
-  }
 
   const loadHomePage = () => {
     window.history.pushState({}, '', '/');
@@ -156,16 +145,19 @@ export default function App() {
       return;
     }
 
+    const phone = e.target.phone.value.trim();
+    const comments = e.target.comments.value;
+
     const formData = {
       name: e.target.name.value,
-      phone: e.target.phone.value,
       email: e.target.email.value,
-      comments: e.target.comments.value
+      message: phone ? `Phone: ${phone}\n\n${comments}` : comments,
+      site: 'Chill Coder'
     };
 
     try {
       ReactGA.event({ category: 'User', action: 'Submit Form' });
-      const response = await axios.post(formUrl, { data: formData });
+      const response = await axios.post(formUrl, formData);
       console.log(response.data);
       document.getElementById("contact_form").reset();
     } catch (error) {
@@ -225,9 +217,8 @@ export default function App() {
           { showProjects &&
             <Projects
               projects={data.projects}
-              projectDetails={projectDetails}
-              projectTechnologies={projectTechnologies}
-              pullProjectInfo={pullProjectInfo}
+              projectDetails={projectInfo.projectDetails}
+              projectTechnologies={projectInfo.projectTechnologies}
               showMoreProjects={showMoreProjects}
               showMore={showMore}
               currentProjectIndex={currentProjectIndex}

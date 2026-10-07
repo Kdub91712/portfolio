@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types';
 import mtbdashScreenshot from '../images/mtbdash.jpg';
 import carcriticalScreenshot from '../images/carcritical.jpg';
@@ -14,7 +14,6 @@ export default function Projects({
     projects,
     projectDetails,
     projectTechnologies,
-    pullProjectInfo,
     showMoreProjects,
     showMore,
     currentProjectIndex,
@@ -22,31 +21,10 @@ export default function Projects({
     increaseProjectIndex,
     decreaseProjectIndex
 }) {
-    const projectDetailsUrl = process.env.REACT_APP_PROJECT_DETAILS_URL;
-    const projectTechnologiesUrl = process.env.REACT_APP_PROJECT_TECHNOLOGIES_URL;
-
     const [hide, setHide] = useState(1);
     const [show, setShow] = useState(2);
     const [showGallery, setShowGallery] = useState(true);
     const [showList, setShowList] = useState(false);
-    const [loading, setLoading] = useState(true);
-    const isMounted = useRef(true);
-
-    useEffect(() => {
-        isMounted.current = true;
-
-        (async () => {
-            if (projectDetails.length === 0) {
-                await pullProjectInfo(projectDetailsUrl, 'projectDetails');
-            }
-            if (projectTechnologies.length === 0) {
-                await pullProjectInfo(projectTechnologiesUrl, 'projectTechnologies');
-            }
-            if (isMounted.current) setLoading(false);
-        })();
-
-        return () => { isMounted.current = false; };
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const rotateNext = (previousId, nextId) => {
         setTimeout(function(){
@@ -163,14 +141,6 @@ export default function Projects({
         }
 
         projectName = formatProjectName(projectName);
-
-        if (loading) {
-            return (
-                <div className="project-details-loading">
-                    <div className="spinner"></div>
-                </div>
-            );
-        }
 
         return (
             <div className="project-details">

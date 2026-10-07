@@ -1,0 +1,402 @@
+{
+  "projectDetails": [
+    {
+      "details": "Used Amazon Connect contact flow (IVR) to integrate DialogTech call data. | https://www.podomatic.com/podcasts/codewithoutego/episodes/2020-04-27T14_50_47-07_00",
+      "project_name": "amazon_connect"
+    },
+    {
+      "details": "Used AMO FTP service to send DialogTech call data into AMO platform for attibution purposes.",
+      "project_name": "adobe_media_optimizer"
+    },
+    {
+      "details": "Used Context Data API and FTP Service to send DialogTech calls into Adobe Analytics for attribution purposes.",
+      "project_name": "adobe_analytics"
+    },
+    {
+      "details": "Create Adobe Launch Extension to integrate DialogTech SourceTrak snippet into Adobe Analytics.",
+      "project_name": "adobe_launch"
+    },
+    {
+      "details": "Create integration with Search/Campaign Manager platforms for display ad/phone call attribution.",
+      "project_name": "doubleclick"
+    },
+    {
+      "details": "Create integration for sending phone calls into Google Universal Analytics as Events/Custom Metrics/Custom Dimensions",
+      "project_name": "google_analytics"
+    },
+    {
+      "details": "Create integration with DialogTech SourceTrak application for call attribution purposes.",
+      "project_name": "marin"
+    },
+    {
+      "details": "Create DialogTech app inside of Yext App Store for tracking call counts alongside Yext locations.",
+      "project_name": "yext"
+    },
+    {
+      "details": "Migrate APIs from a legacy endpoint to a new service for better performance. | https://www.podomatic.com/podcasts/codewithoutego/episodes/2020-04-27T14_37_07-07_00",
+      "project_name": "area_service"
+    },
+    {
+      "details": "Send email alerts for inbound calls meeting certain call data or IVR interaction criteria.  | https://www.podomatic.com/podcasts/codewithoutego/episodes/2020-04-26T15_52_04-07_00",
+      "project_name": "custom_email_alerts"
+    },
+    {
+      "details": "Create custom reports to show desired trends with Inbound/Outbound call data based on customer requirements. | https://www.podomatic.com/podcasts/codewithoutego/episodes/2020-04-27T15_12_46-07_00",
+      "project_name": "custom_call_tracking_reports"
+    },
+    {
+      "details": "Trigger outbound IVR survey calls based on completed product delivery, including email notification for quality assurance. | https://www.podomatic.com/podcasts/codewithoutego/episodes/2020-04-27T15_25_45-07_00",
+      "project_name": "custom_dispatchtrack"
+    },
+    {
+      "details": "Trigger agent screen pop with matching Lead, Case, Task lookup based on incoming caller id.",
+      "project_name": "custom_salesforce"
+    },
+    {
+      "details": "Create leads in Zoho CRM for inbound calls that did not match an existing caller id. | https://www.podomatic.com/podcasts/codewithoutego/episodes/2020-04-27T15_35_08-07_00",
+      "project_name": "custom_zoho"
+    },
+    {
+      "details": "Create tickets in Zendesk for inbound support calls, with call data and call recordings for context.",
+      "project_name": "custom_zendesk"
+    },
+    {
+      "details": "Provide dynamic lookup of order information for inbound IVR calls using caller id, with custom readback of order data to the caller.",
+      "project_name": "custom_ordermotion_ivr"
+    },
+    {
+      "details": "Provide dynamic lookup of HSA, FSA, etc plan data via inbound IVR calls and read back of plan transactions to the caller.",
+      "project_name": "custom_wex_ivr"
+    },
+    {
+      "details": "Create leads in Sugar CRM for inbound calls that did not match an existing caller id.",
+      "project_name": "custom_sugarcrm"
+    },
+    {
+      "details": "Feature work, integrations and internal tools for back-office camping software.",
+      "project_name": "campspot_app"
+    }
+  ],
+  "projectTechnologies": [
+    {
+      "technology": "Amazon Connect Contact Flows",
+      "project_name": "amazon_connect"
+    },
+    {
+      "technology": "AWS Cloudformation",
+      "project_name": "amazon_connect"
+    },
+    {
+      "technology": "AWS Lambda",
+      "project_name": "amazon_connect"
+    },
+    {
+      "technology": "AWS EC2",
+      "project_name": "amazon_connect"
+    },
+    {
+      "technology": "PHP",
+      "project_name": "amazon_connect"
+    },
+    {
+      "technology": "REST API",
+      "project_name": "adobe_analytics"
+    },
+    {
+      "technology": "FTP",
+      "project_name": "adobe_analytics"
+    },
+    {
+      "technology": "AWS SQS",
+      "project_name": "adobe_analytics"
+    },
+    {
+      "technology": "PHP",
+      "project_name": "adobe_analytics"
+    },
+    {
+      "technology": "MYSQL",
+      "project_name": "adobe_analytics"
+    },
+    {
+      "technology": "AWS KMS",
+      "project_name": "adobe_analytics"
+    },
+    {
+      "technology": "SFTP",
+      "project_name": "adobe_media_optimizer"
+    },
+    {
+      "technology": "AWS SQS",
+      "project_name": "adobe_media_optimizer"
+    },
+    {
+      "technology": "AWS KMS",
+      "project_name": "adobe_media_optimizer"
+    },
+    {
+      "technology": "MYSQL",
+      "project_name": "adobe_media_optimizer"
+    },
+    {
+      "technology": "PHP",
+      "project_name": "adobe_media_optimizer"
+    },
+    {
+      "technology": "REACT",
+      "project_name": "adobe_media_optimizer"
+    },
+    {
+      "technology": "Javascript",
+      "project_name": "adobe_launch"
+    },
+    {
+      "technology": "REACT",
+      "project_name": "doubleclick"
+    },
+    {
+      "technology": "OAUTH",
+      "project_name": "doubleclick"
+    },
+    {
+      "technology": "PHP",
+      "project_name": "doubleclick"
+    },
+    {
+      "technology": "MYSQL",
+      "project_name": "doubleclick"
+    },
+    {
+      "technology": "AWS SQS",
+      "project_name": "doubleclick"
+    },
+    {
+      "technology": "AWS KMS",
+      "project_name": "doubleclick"
+    },
+    {
+      "technology": "REST API",
+      "project_name": "google_analytics"
+    },
+    {
+      "technology": "PHP",
+      "project_name": "google_analytics"
+    },
+    {
+      "technology": "MYSQL",
+      "project_name": "google_analytics"
+    },
+    {
+      "technology": "AWS KMS",
+      "project_name": "google_analytics"
+    },
+    {
+      "technology": "AWS SQS",
+      "project_name": "google_analytics"
+    },
+    {
+      "technology": "FTP",
+      "project_name": "marin"
+    },
+    {
+      "technology": "REACT",
+      "project_name": "marin"
+    },
+    {
+      "technology": "PHP",
+      "project_name": "marin"
+    },
+    {
+      "technology": "MYSQL",
+      "project_name": "marin"
+    },
+    {
+      "technology": "AWS KMS",
+      "project_name": "marin"
+    },
+    {
+      "technology": "AWS SQS",
+      "project_name": "marin"
+    },
+    {
+      "technology": "OAUTH",
+      "project_name": "yext"
+    },
+    {
+      "technology": "REST API",
+      "project_name": "yext"
+    },
+    {
+      "technology": "PHP",
+      "project_name": "yext"
+    },
+    {
+      "technology": "MYSQL",
+      "project_name": "yext"
+    },
+    {
+      "technology": "Javascript",
+      "project_name": "yext"
+    },
+    {
+      "technology": "REACT",
+      "project_name": "adobe_analytics"
+    },
+    {
+      "technology": "AWS KMS",
+      "project_name": "yext"
+    },
+    {
+      "technology": "PHP 7",
+      "project_name": "area_service"
+    },
+    {
+      "technology": "PostgreSQL",
+      "project_name": "area_service"
+    },
+    {
+      "technology": "Kubernetes",
+      "project_name": "area_service"
+    },
+    {
+      "technology": "Docker",
+      "project_name": "area_service"
+    },
+    {
+      "technology": "New Relic",
+      "project_name": "area_service"
+    },
+    {
+      "technology": "Grafana",
+      "project_name": "area_service"
+    },
+    {
+      "technology": "k6.io Load Testing",
+      "project_name": "area_service"
+    },
+    {
+      "technology": "Jenkins",
+      "project_name": "area_service"
+    },
+    {
+      "technology": "PHP",
+      "project_name": "custom_email_alerts"
+    },
+    {
+      "technology": "Web Hooks",
+      "project_name": "custom_email_alerts"
+    },
+    {
+      "technology": "PHP",
+      "project_name": "custom_call_tracking_reports"
+    },
+    {
+      "technology": "MySQL",
+      "project_name": "custom_call_tracking_reports"
+    },
+    {
+      "technology": "FTP/SFTP",
+      "project_name": "custom_call_tracking_reports"
+    },
+    {
+      "technology": "Web Hooks",
+      "project_name": "custom_dispatchtrack"
+    },
+    {
+      "technology": "MySQL",
+      "project_name": "custom_dispatchtrack"
+    },
+    {
+      "technology": "PHP",
+      "project_name": "custom_dispatchtrack"
+    },
+    {
+      "technology": "PHP",
+      "project_name": "custom_zoho"
+    },
+    {
+      "technology": "REST API",
+      "project_name": "custom_zoho"
+    },
+    {
+      "technology": "PHP",
+      "project_name": "custom_zendesk"
+    },
+    {
+      "technology": "REST API",
+      "project_name": "custom_zendesk"
+    },
+    {
+      "technology": "PHP",
+      "project_name": "custom_sugarcrm"
+    },
+    {
+      "technology": "REST API",
+      "project_name": "custom_sugarcrm"
+    },
+    {
+      "technology": "Web Hooks",
+      "project_name": "custom_sugarcrm"
+    },
+    {
+      "technology": "Web Hooks",
+      "project_name": "custom_zendesk"
+    },
+    {
+      "technology": "PHP",
+      "project_name": "custom_salesforce"
+    },
+    {
+      "technology": "MySQL",
+      "project_name": "custom_salesforce"
+    },
+    {
+      "technology": "SOAP API",
+      "project_name": "custom_salesforce"
+    },
+    {
+      "technology": "REST API",
+      "project_name": "custom_salesforce"
+    },
+    {
+      "technology": "BULK API",
+      "project_name": "custom_salesforce"
+    },
+    {
+      "technology": "PHP",
+      "project_name": "custom_ordermotion_ivr"
+    },
+    {
+      "technology": "SOAP API",
+      "project_name": "custom_ordermotion_ivr"
+    },
+    {
+      "technology": "Web Hooks",
+      "project_name": "custom_ordermotion_ivr"
+    },
+    {
+      "technology": "PHP",
+      "project_name": "custom_wex_ivr"
+    },
+    {
+      "technology": "SOAP API",
+      "project_name": "custom_wex_ivr"
+    },
+    {
+      "technology": "Web Hooks",
+      "project_name": "custom_wex_ivr"
+    },
+    {
+      "technology": "Java",
+      "project_name": "campspot_app"
+    },
+    {
+      "technology": "Hibernate",
+      "project_name": "campspot_app"
+    },
+    {
+      "technology": "REST API",
+      "project_name": "campspot_app"
+    }
+  ]
+}
