@@ -26,7 +26,7 @@ export default function Navigation({ navLinkHandler }) {
                 <a className="nav-links" href="/" onClick={(e) => handleNavClick(e, "aiStrategies")}>AI Strategies</a>
                 <a className="nav-links" href="/" onClick={(e) => handleNavClick(e, "onwardCode")}>Onward Code</a>
                 <a className="nav-links" href="/Kevin-Wilson-Resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
-                <a className="nav-links" href="https://www.linkedin.com/in/kevinwilsoncolorado/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a className="nav-links" href="https://www.linkedin.com/in/onwardcode/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
                 <a className="nav-links" href="https://github.com/Kdub91712" target="_blank" rel="noopener noreferrer">Github</a>
                 <a className="nav-links" href="/" onClick={(e) => handleNavClick(e, "contact")}>Contact</a>
             </div>
