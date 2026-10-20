@@ -12,7 +12,7 @@ test.describe('Navigation', () => {
     test('shows all nav links on desktop', async ({ page }) => {
         await page.goto('/');
         const links = page.locator('.nav-links');
-        await expect(links).toHaveCount(8);
+        await expect(links).toHaveCount(11);
     });
 
     test('hamburger opens and closes the menu', async ({ page }) => {

@@ -688,6 +688,48 @@ button:disabled {
     margin: 0;
 }
 
+// Onward Code
+
+.onward-code {
+    padding: 16px;
+}
+
+.onward-code-name {
+    font-family: $font-header;
+    font-size: 22px;
+    font-weight: 700;
+    color: $heading-text-color;
+    letter-spacing: -0.01em;
+    margin: 0 0 12px;
+}
+
+.onward-code-tagline {
+    font-size: 15px;
+    color: $gray;
+    line-height: 1.7;
+    border-left: 3px solid $background-blue;
+    padding-left: 12px;
+    margin: 0;
+}
+
+.onward-code-sites {
+    margin-top: 24px;
+}
+
+.onward-code-card {
+    text-decoration: none;
+    color: inherit;
+}
+
+.onward-code-screenshot {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 6px;
+    border: 1px solid #e8e8e8;
+}
+
 // Dev Philosophies
 
 .philosophies-list {

@@ -59,5 +59,5 @@ it('clicking a nav link calls navLinkHandler', () => {
 it('renders all nav links', () => {
     act(() => { root.render(<Navigation navLinkHandler={mockNavLinkHandler} />); });
     const links = div.querySelectorAll('.nav-links');
-    expect(links.length).toBe(8);
+    expect(links.length).toBe(11);
 });

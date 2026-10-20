@@ -11,6 +11,7 @@ import RecentProjects from './components/recentProjects';
 import SkillRotator from './components/skillRotator';
 import DevPhilosophies from './components/devPhilosophies';
 import AiStrategies from './components/aiStrategies';
+import OnwardCode from './components/onwardCode';
 import axios from 'axios';
 import portfolioData from './data/portfolio.json';
 import projectInfo from './data/projectInfo.json';
@@ -29,6 +30,7 @@ const PATH_TO_SECTION = {
   '/recent-projects': 'showRecentProjects',
   '/philosophies':    'showPhilosophies',
   '/ai-strategies':   'showAiStrategies',
+  '/onward-code':     'showOnwardCode',
 };
 
 const PATH_TO_TITLE = {
@@ -40,6 +42,7 @@ const PATH_TO_TITLE = {
   '/recent-projects': `Recent Projects | ${BASE_TITLE}`,
   '/philosophies':    `Philosophy | ${BASE_TITLE}`,
   '/ai-strategies':   `AI Strategies | ${BASE_TITLE}`,
+  '/onward-code':     `Onward Code | ${BASE_TITLE}`,
 };
 
 const SECTION_TO_PATH = {
@@ -49,7 +52,8 @@ const SECTION_TO_PATH = {
   contact:        '/contact',
   recentProjects: '/recent-projects',
   philosophies:   '/philosophies',
-  aiStrategies:  '/ai-strategies',
+  aiStrategies:   '/ai-strategies',
+  onwardCode:     '/onward-code',
 };
 
 const setPageTitle = (path) => {
@@ -66,6 +70,7 @@ const getInitialState = () => {
     showRecentProjects: path === '/recent-projects',
     showPhilosophies:   path === '/philosophies',
     showAiStrategies:   path === '/ai-strategies',
+    showOnwardCode:     path === '/onward-code',
   };
 };
 
@@ -78,6 +83,7 @@ export default function App() {
   const [showRecentProjects, setShowRecentProjects] = useState(initial.showRecentProjects);
   const [showPhilosophies, setShowPhilosophies] = useState(initial.showPhilosophies);
   const [showAiStrategies, setShowAiStrategies] = useState(initial.showAiStrategies);
+  const [showOnwardCode, setShowOnwardCode] = useState(initial.showOnwardCode);
   const [showMoreProjects, setShowMoreProjects] = useState(false);
   const [showAdmin, setShowAdmin] = useState(false);
   const [data] = useState(portfolioData);
@@ -92,6 +98,7 @@ export default function App() {
     setShowRecentProjects(section === 'showRecentProjects');
     setShowPhilosophies(section === 'showPhilosophies');
     setShowAiStrategies(section === 'showAiStrategies');
+    setShowOnwardCode(section === 'showOnwardCode');
     setShowAdmin(section === 'showAdmin');
   };
 
@@ -245,6 +252,8 @@ export default function App() {
           { showPhilosophies && <DevPhilosophies /> }
 
           { showAiStrategies && <AiStrategies /> }
+
+          { showOnwardCode && <OnwardCode /> }
         </>
       ) }
 
