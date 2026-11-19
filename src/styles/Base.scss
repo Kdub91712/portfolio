@@ -260,8 +260,60 @@ a:hover, a:active {
     flex-direction: column;
     scrollbar-width: none;
 
+    // Scroll shadows: appear only when there is content above/below the fold.
+    background-image:
+        linear-gradient($background-white 30%, rgba(255, 255, 255, 0)),
+        linear-gradient(rgba(255, 255, 255, 0), $background-white 70%),
+        radial-gradient(farthest-side at 50% 0, rgba(0, 0, 51, 0.14), rgba(0, 0, 51, 0)),
+        radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 51, 0.14), rgba(0, 0, 51, 0));
+    background-repeat: no-repeat;
+    background-size: 100% 32px, 100% 32px, 100% 12px, 100% 12px;
+    background-position: center top, center bottom, center top, center bottom;
+    background-attachment: local, local, scroll, scroll;
+
     &::-webkit-scrollbar {
         display: none;
+    }
+}
+
+// Show a slim, always-visible scrollbar on desktop where pointer users
+// expect one. Touch devices keep the native overlay behavior.
+@media (hover: hover) and (pointer: fine) {
+    .sub-section {
+        // Reset the hidden base value; Blink ignores ::-webkit-scrollbar
+        // styling when scrollbar-width is anything other than auto.
+        scrollbar-width: auto;
+
+        &::-webkit-scrollbar {
+            display: block;
+            width: 12px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: rgba(26, 35, 126, 0.3);
+            border: 3px solid transparent;
+            border-radius: 8px;
+            background-clip: content-box;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+            background-color: rgba(26, 35, 126, 0.55);
+        }
+    }
+}
+
+// Firefox ignores ::-webkit-scrollbar, and Blink ignores custom scrollbar
+// styling when the standard properties are set, so scope these separately.
+@supports not selector(::-webkit-scrollbar) {
+    @media (hover: hover) and (pointer: fine) {
+        .sub-section {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(26, 35, 126, 0.45) transparent;
+        }
     }
 }
 
@@ -827,6 +879,84 @@ button:disabled {
 @media screen and (min-width: 600px) {
     .mobile-cta {
         display: none;
+    }
+}
+
+// Scroll cue
+
+.page-layout {
+    position: relative;
+}
+
+.scroll-cue {
+    position: absolute;
+    right: 22px;
+    bottom: 22px;
+    z-index: 30;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: auto;
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background-color: $background-blue;
+    color: $background-white;
+    box-shadow: 0 6px 18px rgba(0, 0, 51, 0.35);
+    font-family: $font-nav;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+
+    &:hover {
+        background-color: lighten($background-blue, 6%);
+    }
+}
+
+.scroll-cue--hidden {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    pointer-events: none;
+}
+
+.scroll-cue-chevron {
+    width: 7px;
+    height: 7px;
+    margin-top: -3px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg);
+    animation: scroll-cue-bob 1.6s ease-in-out infinite;
+}
+
+@keyframes scroll-cue-bob {
+    0%, 100% { transform: rotate(45deg) translate(0, 0); }
+    50%      { transform: rotate(45deg) translate(2px, 2px); }
+}
+
+@media screen and (max-width: 599px) {
+    .scroll-cue {
+        right: 16px;
+        bottom: 64px;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        justify-content: center;
+    }
+
+    .scroll-cue-label {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
     }
 }
 

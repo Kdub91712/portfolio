@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types';
+import PageLayout from './pageLayout';
 import mtbdashScreenshot from '../images/mtbdash.jpg';
 import carcriticalScreenshot from '../images/carcritical.jpg';
 
@@ -173,81 +174,100 @@ export default function Projects({
     }
 
     return (
-        <div className="main-section">
-            <div className="sub-section">
-                {projects.all_projects && showGallery &&
-                    <div className="project-button-wrapper">
-                        <button className="project-button" onClick={() => { setShowList(true); setShowGallery(false); }}>List View</button>
-                    </div>
-                }
+        <PageLayout>
+            {projects.all_projects && showGallery &&
+                <div className="project-button-wrapper">
+                    <button className="project-button" onClick={() => { setShowList(true); setShowGallery(false); }}>List View</button>
+                </div>
+            }
 
-                {projects.all_projects && showList &&
-                    <div className="project-button-wrapper">
-                        <button className="project-button" onClick={() => { setShowList(false); setShowGallery(true); }}>Gallery View</button>
-                    </div>
-                }
+            {projects.all_projects && showList &&
+                <div className="project-button-wrapper">
+                    <button className="project-button" onClick={() => { setShowList(false); setShowGallery(true); }}>Gallery View</button>
+                </div>
+            }
 
-                {showGallery &&
-                    <div className="project-rotator">
-                        <div className="project-carousel">
-                            <button
-                                className="carousel-arrow"
-                                onClick={() => rotatePrevious(hide, show)}
-                                disabled={!projects.all_projects || currentProjectIndex === 0}
-                            >&#8592;</button>
+            {showGallery &&
+                <div className="project-rotator">
+                    <div className="project-carousel">
+                        <button
+                            className="carousel-arrow"
+                            onClick={() => rotatePrevious(hide, show)}
+                            disabled={!projects.all_projects || currentProjectIndex === 0}
+                        >&#8592;</button>
 
-                            <div className="carousel-track">
-                                <div className="project-content-wrapper" id="project-content-wrapper-1">
-                                    {projects.all_projects && show === 2 && projects.all_projects[currentProjectIndex] &&
-                                        <div className="project-content">
-                                            <div className="project-header">{projects.all_projects[currentProjectIndex]}</div>
-                                            {renderProjectDetails(projects.all_projects[currentProjectIndex])}
-                                        </div>
-                                    }
-                                    {projects.all_projects && show === 1 && projects.all_projects[nextProjectIndex] &&
-                                        <div className="project-content">
-                                            <div className="project-header">{projects.all_projects[nextProjectIndex]}</div>
-                                            {renderProjectDetails(projects.all_projects[nextProjectIndex])}
-                                        </div>
-                                    }
-                                </div>
-
-                                <div className="project-content-wrapper next" id="project-content-wrapper-2">
-                                    {projects.all_projects && show === 2 && projects.all_projects[nextProjectIndex] &&
-                                        <div className="project-content">
-                                            <div className="project-header">{projects.all_projects[nextProjectIndex]}</div>
-                                            {renderProjectDetails(projects.all_projects[nextProjectIndex])}
-                                        </div>
-                                    }
-                                    {projects.all_projects && show === 1 && projects.all_projects[currentProjectIndex] &&
-                                        <div className="project-content">
-                                            <div className="project-header">{projects.all_projects[currentProjectIndex]}</div>
-                                            {renderProjectDetails(projects.all_projects[currentProjectIndex])}
-                                        </div>
-                                    }
-                                </div>
+                        <div className="carousel-track">
+                            <div className="project-content-wrapper" id="project-content-wrapper-1">
+                                {projects.all_projects && show === 2 && projects.all_projects[currentProjectIndex] &&
+                                    <div className="project-content">
+                                        <div className="project-header">{projects.all_projects[currentProjectIndex]}</div>
+                                        {renderProjectDetails(projects.all_projects[currentProjectIndex])}
+                                    </div>
+                                }
+                                {projects.all_projects && show === 1 && projects.all_projects[nextProjectIndex] &&
+                                    <div className="project-content">
+                                        <div className="project-header">{projects.all_projects[nextProjectIndex]}</div>
+                                        {renderProjectDetails(projects.all_projects[nextProjectIndex])}
+                                    </div>
+                                }
                             </div>
 
-                            <button
-                                className="carousel-arrow"
-                                onClick={() => rotateNext(hide, show)}
-                                disabled={!projects.all_projects || nextProjectIndex >= projects.all_projects.length}
-                            >&#8594;</button>
+                            <div className="project-content-wrapper next" id="project-content-wrapper-2">
+                                {projects.all_projects && show === 2 && projects.all_projects[nextProjectIndex] &&
+                                    <div className="project-content">
+                                        <div className="project-header">{projects.all_projects[nextProjectIndex]}</div>
+                                        {renderProjectDetails(projects.all_projects[nextProjectIndex])}
+                                    </div>
+                                }
+                                {projects.all_projects && show === 1 && projects.all_projects[currentProjectIndex] &&
+                                    <div className="project-content">
+                                        <div className="project-header">{projects.all_projects[currentProjectIndex]}</div>
+                                        {renderProjectDetails(projects.all_projects[currentProjectIndex])}
+                                    </div>
+                                }
+                            </div>
                         </div>
 
-                        {projects.all_projects &&
-                            <div className="project-counter">
-                                {currentProjectIndex + 1} / {projects.all_projects.length}
-                            </div>
-                        }
+                        <button
+                            className="carousel-arrow"
+                            onClick={() => rotateNext(hide, show)}
+                            disabled={!projects.all_projects || nextProjectIndex >= projects.all_projects.length}
+                        >&#8594;</button>
                     </div>
-                }
 
-                {showList &&
-                    <div className="text-area">
-                        <h3>Projects:</h3>
+                    {projects.all_projects &&
+                        <div className="project-counter">
+                            {currentProjectIndex + 1} / {projects.all_projects.length}
+                        </div>
+                    }
+                </div>
+            }
+
+            {showList &&
+                <div className="text-area">
+                    <h3>Projects:</h3>
+                    <ul>
+                        {PROJECT_GROUPS.filter(g => !g.hidden).map(({ key, heading }) => (
+                            <React.Fragment key={key}>
+                                <li><b>{heading}</b></li>
+                                <ul>
+                                    {projects[key] && projects[key].map((project, i) =>
+                                        <li key={i}>{project}</li>
+                                    )}
+                                </ul>
+                            </React.Fragment>
+                        ))}
+                    </ul>
+
+                    {!showMoreProjects &&
+                        <a href="/" className="show-more" onClick={(e) => showMore(e)}>Show More Projects...</a>
+                    }
+
+                    {showMoreProjects &&
+                        <>
+                        <a href="/" className="show-more" onClick={(e) => showMore(e)}>Show Less Projects...</a>
                         <ul>
-                            {PROJECT_GROUPS.filter(g => !g.hidden).map(({ key, heading }) => (
+                            {PROJECT_GROUPS.filter(g => g.hidden).map(({ key, heading }) => (
                                 <React.Fragment key={key}>
                                     <li><b>{heading}</b></li>
                                     <ul>
@@ -258,32 +278,11 @@ export default function Projects({
                                 </React.Fragment>
                             ))}
                         </ul>
-
-                        {!showMoreProjects &&
-                            <a href="/" className="show-more" onClick={(e) => showMore(e)}>Show More Projects...</a>
-                        }
-
-                        {showMoreProjects &&
-                            <>
-                            <a href="/" className="show-more" onClick={(e) => showMore(e)}>Show Less Projects...</a>
-                            <ul>
-                                {PROJECT_GROUPS.filter(g => g.hidden).map(({ key, heading }) => (
-                                    <React.Fragment key={key}>
-                                        <li><b>{heading}</b></li>
-                                        <ul>
-                                            {projects[key] && projects[key].map((project, i) =>
-                                                <li key={i}>{project}</li>
-                                            )}
-                                        </ul>
-                                    </React.Fragment>
-                                ))}
-                            </ul>
-                            </>
-                        }
-                    </div>
-                }
-            </div>
-        </div>
+                        </>
+                    }
+                </div>
+            }
+        </PageLayout>
     )
 }
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PageLayout from './pageLayout';
 
 const STRATEGIES = [
     {
@@ -34,23 +35,21 @@ const STRATEGIES = [
 ]
 
 const AiStrategies = () => (
-    <div className="main-section">
-        <div className="sub-section">
-            <p className="ai-strategies-intro">
-                Using AI let's you code fast, but that does not make building easy. In the hands of a Senior Software Engineer, tools like Claude are very powerful. In the hands of others, it can be very dangerous to a production web application. Here are the techniques I use to make sure AI helps more than it hurts.
-            </p>
-            <div className="philosophies-list">
-                {STRATEGIES.map((s) => (
-                    <div key={s.number} className="philosophy-entry">
-                        <span className="philosophy-number">{s.number}</span>
-                        <div className="philosophy-divider" />
-                        <h2 className="philosophy-title">{s.title}</h2>
-                        <p className="philosophy-body">{s.body}</p>
-                    </div>
-                ))}
-            </div>
+    <PageLayout>
+        <p className="ai-strategies-intro">
+            Using AI let's you code fast, but that does not make building easy. In the hands of a Senior Software Engineer, tools like Claude are very powerful. In the hands of others, it can be very dangerous to a production web application. Here are the techniques I use to make sure AI helps more than it hurts.
+        </p>
+        <div className="philosophies-list">
+            {STRATEGIES.map((s) => (
+                <div key={s.number} className="philosophy-entry">
+                    <span className="philosophy-number">{s.number}</span>
+                    <div className="philosophy-divider" />
+                    <h2 className="philosophy-title">{s.title}</h2>
+                    <p className="philosophy-body">{s.body}</p>
+                </div>
+            ))}
         </div>
-    </div>
+    </PageLayout>
 );
 
 export default AiStrategies;

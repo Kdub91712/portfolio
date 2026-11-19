@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PageLayout from './pageLayout';
 
 const TOOLTIP_WIDTH = 180;
 const PADDING = 10;
@@ -89,56 +90,8 @@ export default function RecentProjects() {
     const hideTooltip = () => setTooltip(null);
 
     return (
-        <div className="main-section">
-            <div className="sub-section">
-                <div className="text-area">
-                    <div className="in-progress-section">
-                        <h3 className="in-progress-heading">
-                            <span className="in-progress-dot" />
-                            In Progress
-                        </h3>
-                        <div className="in-progress-cards">
-                        { IN_PROGRESS.map((project, index) =>
-                            <div key={index} className="in-progress-card">
-                                <a className="in-progress-title" href={project.link} target="_blank" rel="noopener noreferrer">{project.title}</a>
-                                <p className="recent-project-description">{project.description}</p>
-                                <div className="recent-project-tech">
-                                    { project.tech.map((t, i) =>
-                                        <span
-                                            key={i}
-                                            className="recent-project-pill"
-                                            onMouseEnter={(e) => showTooltip(e, TECH_DESCRIPTIONS[t])}
-                                            onMouseLeave={hideTooltip}
-                                        >{t}</span>
-                                    )}
-                                </div>
-                            </div>
-                        )}
-                        </div>
-                    </div>
-                    <h3>Recent Projects</h3>
-                    <div className="recent-projects-grid">
-                        { RECENT_PROJECTS.map((project, index) =>
-                            <div key={index} className="recent-project-card">
-                                <div className="recent-project-title">{project.title}</div>
-                                <p className="recent-project-description">{project.description}</p>
-                                <div className="recent-project-tech">
-                                    { project.tech.map((t, i) =>
-                                        <span
-                                            key={i}
-                                            className="recent-project-pill"
-                                            onMouseEnter={(e) => showTooltip(e, TECH_DESCRIPTIONS[t])}
-                                            onMouseLeave={hideTooltip}
-                                        >{t}</span>
-                                    )}
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                </div>
-            </div>
-
-            { tooltip &&
+        <PageLayout
+            overlay={tooltip &&
                 <div
                     className="tech-tooltip"
                     style={{ left: tooltipLeft, top: tooltipTop }}
@@ -147,6 +100,52 @@ export default function RecentProjects() {
                     {tooltip}
                 </div>
             }
-        </div>
+        >
+            <div className="text-area">
+                <div className="in-progress-section">
+                    <h3 className="in-progress-heading">
+                        <span className="in-progress-dot" />
+                        In Progress
+                    </h3>
+                    <div className="in-progress-cards">
+                    { IN_PROGRESS.map((project, index) =>
+                        <div key={index} className="in-progress-card">
+                            <a className="in-progress-title" href={project.link} target="_blank" rel="noopener noreferrer">{project.title}</a>
+                            <p className="recent-project-description">{project.description}</p>
+                            <div className="recent-project-tech">
+                                { project.tech.map((t, i) =>
+                                    <span
+                                        key={i}
+                                        className="recent-project-pill"
+                                        onMouseEnter={(e) => showTooltip(e, TECH_DESCRIPTIONS[t])}
+                                        onMouseLeave={hideTooltip}
+                                    >{t}</span>
+                                )}
+                            </div>
+                        </div>
+                    )}
+                    </div>
+                </div>
+                <h3>Recent Projects</h3>
+                <div className="recent-projects-grid">
+                    { RECENT_PROJECTS.map((project, index) =>
+                        <div key={index} className="recent-project-card">
+                            <div className="recent-project-title">{project.title}</div>
+                            <p className="recent-project-description">{project.description}</p>
+                            <div className="recent-project-tech">
+                                { project.tech.map((t, i) =>
+                                    <span
+                                        key={i}
+                                        className="recent-project-pill"
+                                        onMouseEnter={(e) => showTooltip(e, TECH_DESCRIPTIONS[t])}
+                                        onMouseLeave={hideTooltip}
+                                    >{t}</span>
+                                    )}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+        </PageLayout>
     )
 }

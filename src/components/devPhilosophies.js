@@ -1,4 +1,5 @@
 import React from 'react';
+import PageLayout from './pageLayout';
 
 const PHILOSOPHIES = [
     { number: '01', title: 'Lots of Pair Programming During Onboarding and Always' },
@@ -10,19 +11,17 @@ const PHILOSOPHIES = [
 ]
 
 const DevPhilosophies = () => (
-    <div className="main-section">
-        <div className="sub-section">
-            <div className="philosophies-list">
-                {PHILOSOPHIES.map((p) => (
-                    <div key={p.number} className="philosophy-entry">
-                        <span className="philosophy-number">{p.number}</span>
-                        <div className="philosophy-divider" />
-                        <h2 className="philosophy-title">{p.title}</h2>
-                    </div>
-                ))}
-            </div>
+    <PageLayout>
+        <div className="philosophies-list">
+            {PHILOSOPHIES.map((p) => (
+                <div key={p.number} className="philosophy-entry">
+                    <span className="philosophy-number">{p.number}</span>
+                    <div className="philosophy-divider" />
+                    <h2 className="philosophy-title">{p.title}</h2>
+                </div>
+            ))}
         </div>
-    </div>
+    </PageLayout>
 );
 
 export default DevPhilosophies;
