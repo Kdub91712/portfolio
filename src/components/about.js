@@ -11,7 +11,7 @@ export default function About() {
                     <img className="about-profile-pic" src={profilePicture} alt="kevin" />
                     <div className="about-bio">
                         <h3 className="about-name">Kevin Wilson</h3>
-                        <p className="about-intro">12+ years in software development, specializing in LAMP stack, APIs, and integrations.</p>
+                        <p className="about-intro">14+ years in software development, specializing in LAMP stack, APIs, and integrations.</p>
                         <p>PHP is my strongest language, but I'm really enjoying working with Python and React. In my spare time I like to work on app ideas and trying new technologies.</p>
                         <p>I also enjoy music, investing, and the great outdoors.</p>
                     </div>

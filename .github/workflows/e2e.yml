@@ -8,7 +8,10 @@ on:
 
 jobs:
   e2e:
-    runs-on: ubuntu-latest
+    # Pin to 24.04: @playwright/test 1.59.1 in yarn.lock only ships browser
+    # builds up to ubuntu24.04. Once Playwright is >= 1.61, ubuntu-latest
+    # (26.04) works and this can go back.
+    runs-on: ubuntu-24.04
 
     steps:
       - uses: actions/checkout@v4
@@ -16,7 +19,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '24'
           cache: 'yarn'
 
       - name: Install dependencies
