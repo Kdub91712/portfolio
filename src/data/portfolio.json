@@ -22,6 +22,16 @@
     "Groq",
     "OpenCode"
   ],
+  "aws": [
+    "S3",
+    "EC2",
+    "RDS",
+    "KMS",
+    "SNS",
+    "SQS",
+    "Lambda",
+    "API Gateway"
+  ],
   "saas": [
     "Google Analytics",
     "Salesforce",

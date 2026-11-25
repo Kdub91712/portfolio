@@ -241,6 +241,7 @@ export default function App() {
               some_experience={data.some_experience}
               saas={data.saas}
               ai={data.ai}
+              aws={data.aws}
             />
           }
 

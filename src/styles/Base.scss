@@ -615,6 +615,11 @@ a.show-more {
     color: $background-white;
 }
 
+.skill-pill--aws {
+    background: linear-gradient(135deg, #ff9900, #ec7211);
+    color: #232f3e;
+}
+
 .video-toggle {
     background: linear-gradient(135deg, #003399, #000066);
     color: $background-white;

@@ -10,6 +10,7 @@ const mockSkills = ['PHP', 'React', 'MySQL', 'Docker', 'Linux', 'Git', 'Java', '
 const mockSomeExperience = ['Python', 'NodeJS', 'Ruby on Rails'];
 const mockSaas = ['Google Analytics', 'Salesforce', 'Zendesk', 'Zoho'];
 const mockAi = ['Claude', 'Groq', 'OpenCode'];
+const mockAws = ['S3', 'EC2', 'RDS', 'KMS', 'SNS', 'SQS', 'Lambda', 'API Gateway'];
 
 beforeEach(() => {
     div = document.createElement('div');
@@ -23,28 +24,36 @@ afterEach(() => {
 });
 
 it('renders without crashing', () => {
-    act(() => { root.render(<Skills skills={mockSkills} some_experience={mockSomeExperience} saas={mockSaas} ai={mockAi} />); });
+    act(() => { root.render(<Skills skills={mockSkills} some_experience={mockSomeExperience} saas={mockSaas} ai={mockAi} aws={mockAws} />); });
 });
 
-it('renders all four section labels', () => {
-    act(() => { root.render(<Skills skills={mockSkills} some_experience={mockSomeExperience} saas={mockSaas} ai={mockAi} />); });
+it('renders all five section labels', () => {
+    act(() => { root.render(<Skills skills={mockSkills} some_experience={mockSomeExperience} saas={mockSaas} ai={mockAi} aws={mockAws} />); });
     const labels = div.querySelectorAll('.skills-label');
     const labelTexts = Array.from(labels).map(l => l.textContent);
     expect(labelTexts).toContain('Proficient');
     expect(labelTexts).toContain('Some Experience');
     expect(labelTexts).toContain('SaaS');
     expect(labelTexts).toContain('AI');
+    expect(labelTexts).toContain('AWS');
+});
+
+it('renders AWS services', () => {
+    act(() => { root.render(<Skills skills={mockSkills} some_experience={mockSomeExperience} saas={mockSaas} ai={mockAi} aws={mockAws} />); });
+    const pills = div.querySelectorAll('.skill-pill--aws');
+    const pillTexts = Array.from(pills).map(p => p.textContent);
+    expect(pillTexts).toEqual(['S3', 'EC2', 'RDS', 'KMS', 'SNS', 'SQS', 'Lambda', 'API Gateway']);
 });
 
 it('renders AI tools', () => {
-    act(() => { root.render(<Skills skills={mockSkills} some_experience={mockSomeExperience} saas={mockSaas} ai={mockAi} />); });
+    act(() => { root.render(<Skills skills={mockSkills} some_experience={mockSomeExperience} saas={mockSaas} ai={mockAi} aws={mockAws} />); });
     const pills = div.querySelectorAll('.skill-pill--ai');
     const pillTexts = Array.from(pills).map(p => p.textContent);
     expect(pillTexts).toEqual(['Claude', 'Groq', 'OpenCode']);
 });
 
 it('renders SaaS tools', () => {
-    act(() => { root.render(<Skills skills={mockSkills} some_experience={mockSomeExperience} saas={mockSaas} ai={mockAi} />); });
+    act(() => { root.render(<Skills skills={mockSkills} some_experience={mockSomeExperience} saas={mockSaas} ai={mockAi} aws={mockAws} />); });
     const pills = div.querySelectorAll('.skill-pill');
     const pillTexts = Array.from(pills).map(p => p.textContent);
     expect(pillTexts).toContain('Google Analytics');
@@ -54,13 +63,13 @@ it('renders SaaS tools', () => {
 });
 
 it('renders proficient skills', () => {
-    act(() => { root.render(<Skills skills={mockSkills} some_experience={mockSomeExperience} saas={mockSaas} ai={mockAi} />); });
+    act(() => { root.render(<Skills skills={mockSkills} some_experience={mockSomeExperience} saas={mockSaas} ai={mockAi} aws={mockAws} />); });
     const pills = div.querySelectorAll('.skill-pill--proficient');
     expect(pills.length).toBeGreaterThan(0);
 });
 
 it('shows show-more button when proficient skills exceed 10', () => {
-    act(() => { root.render(<Skills skills={mockSkills} some_experience={mockSomeExperience} saas={mockSaas} ai={mockAi} />); });
+    act(() => { root.render(<Skills skills={mockSkills} some_experience={mockSomeExperience} saas={mockSaas} ai={mockAi} aws={mockAws} />); });
     const buttons = div.querySelectorAll('.skills-show-all');
     expect(buttons.length).toBeGreaterThan(0);
     expect(buttons[0].textContent).toMatch(/\+\d+ more/);
@@ -69,5 +78,5 @@ it('shows show-more button when proficient skills exceed 10', () => {
 it('renders gracefully with no props', () => {
     act(() => { root.render(<Skills />); });
     const labels = div.querySelectorAll('.skills-label');
-    expect(labels.length).toBe(4);
+    expect(labels.length).toBe(5);
 });
