@@ -20,10 +20,10 @@ afterEach(() => {
 it('renders a card linking to each site', () => {
     act(() => { root.render(<OnwardCode />); });
     const links = [...div.querySelectorAll('.onward-code-card')].map(a => a.getAttribute('href'));
-    expect(links).toEqual(['https://mtbdash.com', 'https://carcritical.com']);
+    expect(links).toEqual(['https://mtbdash.com', 'https://carcritical.com', 'https://stockory.com']);
 });
 
 it('renders a screenshot in each card', () => {
     act(() => { root.render(<OnwardCode />); });
-    expect(div.querySelectorAll('.onward-code-card img').length).toBe(2);
+    expect(div.querySelectorAll('.onward-code-card img').length).toBe(3);
 });

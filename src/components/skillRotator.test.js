@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { act } from 'react';
 import SkillRotator from './skillRotator';
 
-const SKILLS = ['React', 'PHP & Laravel', 'Python', 'Django', 'AWS', 'Docker', 'Playwright Testing', 'Claude'];
+const SKILLS = ['React', 'Next.js', 'PHP & Laravel', 'Python', 'Django', 'AWS', 'Docker', 'Playwright Testing', 'Claude'];
 
 let div;
 let root;

@@ -46,3 +46,11 @@ it('MTBDASH links to mtbdash.com', () => {
     const link = div.querySelector('.in-progress-title');
     expect(link.getAttribute('href')).toBe('https://mtbdash.com');
 });
+
+it('renders a Stockory.com card linking to stockory.com', () => {
+    act(() => { root.render(<RecentProjects />); });
+    const titles = Array.from(div.querySelectorAll('.in-progress-title'));
+    const stockory = titles.find(t => t.textContent === 'Stockory.com');
+    expect(stockory).toBeDefined();
+    expect(stockory.getAttribute('href')).toBe('https://stockory.com');
+});

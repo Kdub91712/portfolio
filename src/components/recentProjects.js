@@ -16,6 +16,12 @@ const IN_PROGRESS = [
         description: 'Video catalog, specs, shops and social media for the automotive community.',
         tech: ['React', 'Django', 'PostgreSQL', 'Docker'],
         link: 'https://carcritical.com'
+    },
+    {
+        title: 'Stockory.com',
+        description: 'Stock research and portfolio tracking platform for individual investors.',
+        tech: ['React', 'Next.js', 'Django', 'PostgreSQL', 'Docker'],
+        link: 'https://stockory.com'
     }
 ]
 
@@ -25,6 +31,7 @@ const TECH_DESCRIPTIONS = {
     'Django':      'High-level Python web framework for rapid development',
     'PostgreSQL':  'Powerful open-source relational database system',
     'React':       'JavaScript library for building user interfaces',
+    'Next.js':     'React framework for server-rendered and static web apps',
     'PHP':         'Server-side scripting language for web development',
     'Laravel':     'PHP framework for elegant web application development',
     'Python':      'Versatile language for web, data, and automation',

@@ -219,7 +219,7 @@ export default function App() {
         </>
       ) : (
         <>
-          { showAbout && <About /> }
+          { showAbout && <About navLinkHandler={navLinkHandler} /> }
 
           { showProjects &&
             <Projects
@@ -240,6 +240,7 @@ export default function App() {
               skills={data.skills}
               some_experience={data.some_experience}
               saas={data.saas}
+              ai={data.ai}
             />
           }
 

@@ -4,7 +4,7 @@ import PageLayout from './pageLayout';
 
 const INITIAL_VISIBLE = 10;
 
-export default function Skills({ skills, some_experience, saas }) {
+export default function Skills({ skills, some_experience, saas, ai }) {
     const [showAllProficient, setShowAllProficient] = useState(false);
     const [showAllSome, setShowAllSome] = useState(false);
     const [showAllSaas, setShowAllSaas] = useState(false);
@@ -12,6 +12,7 @@ export default function Skills({ skills, some_experience, saas }) {
     const proficient = skills || [];
     const some = some_experience || [];
     const saasTools = saas || [];
+    const aiTools = ai || [];
     const visibleProficient = showAllProficient ? proficient : proficient.slice(0, INITIAL_VISIBLE);
     const visibleSome = showAllSome ? some : some.slice(0, INITIAL_VISIBLE);
     const visibleSaas = showAllSaas ? saasTools : saasTools.slice(0, INITIAL_VISIBLE);
@@ -72,6 +73,18 @@ export default function Skills({ skills, some_experience, saas }) {
                             </button>
                         }
                     </div>
+                    <div className="skills-group">
+                        <p className="skills-label">AI</p>
+                        <div className="skills-pills">
+                            { aiTools.map((tool, index) =>
+                                <span
+                                    key={index}
+                                    className="skill-pill skill-pill--ai"
+                                    style={{ animationDelay: `${index * 0.05}s` }}
+                                >{tool}</span>
+                            )}
+                        </div>
+                    </div>
                 </div>
             </div>
         </PageLayout>
@@ -81,5 +94,6 @@ export default function Skills({ skills, some_experience, saas }) {
 Skills.propTypes = {
     skills: PropTypes.array,
     some_experience: PropTypes.array,
-    saas: PropTypes.array
+    saas: PropTypes.array,
+    ai: PropTypes.array
 }

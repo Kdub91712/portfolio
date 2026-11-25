@@ -32,6 +32,16 @@ const STRATEGIES = [
         title: "Don't give AI the keys to the castle",
         body: "In 2026, there is no reason AI should be writing/reading prod data or have access to hosting/deploying configuration. Your local environment and/or development environments should give you all you need to reproduce an issue or test a new configuration. Make sure test data is seeded and/or mocked regardless of the test suite you're running. I personally avoid letting the AI run git commands to prevent costly mistakes to the repo(s), accidental or not.",
     },
+    {
+        number: '07',
+        title: 'Write down the why, not just the what',
+        body: "AI is good at producing code and bad at remembering the reasoning behind it. Architecture Decision Records (ADRs) capture the context, options and tradeoffs behind each significant choice, so the next AI session (or the next engineer) inherits the reasoning instead of re-litigating it. A short markdown file per decision in the repo is usually enough, and I have the AI draft it while the reasoning is still fresh.",
+    },
+    {
+        number: '08',
+        title: 'Climb the testing pyramid',
+        body: "Lots of fast unit tests, a healthy layer of integration tests, and a thin top of end-to-end tests that cover the critical paths. AI makes it cheap to write tests, so it is tempting to skip straight to the slow, brittle ones at the top. Don't. Keep the pyramid's shape intact and the suite stays fast enough that the AI actually runs it, and failures still point at a small piece of code.",
+    },
 ]
 
 const AiStrategies = () => (

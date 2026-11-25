@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const SKILLS = ['React', 'PHP & Laravel', 'Python', 'Django', 'AWS', 'Docker', 'Playwright Testing', 'Claude'];
+const SKILLS = ['React', 'Next.js', 'PHP & Laravel', 'Python', 'Django', 'AWS', 'Docker', 'Playwright Testing', 'Claude'];
 
 const SkillRotator = () => {
     const [index, setIndex] = useState(0);

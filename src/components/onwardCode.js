@@ -2,6 +2,7 @@ import React from 'react';
 import PageLayout from './pageLayout';
 import mtbdashScreenshot from '../images/mtbdash.jpg';
 import carcriticalScreenshot from '../images/carcritical.jpg';
+import stockoryScreenshot from '../images/stockory.jpg';
 
 const SITES = [
     {
@@ -15,6 +16,12 @@ const SITES = [
         description: 'Video catalog, specs, shops and social media for the automotive community.',
         link: 'https://carcritical.com',
         image: carcriticalScreenshot,
+    },
+    {
+        title: 'Stockory.com',
+        description: 'Stock research and portfolio tracking platform for individual investors.',
+        link: 'https://stockory.com',
+        image: stockoryScreenshot,
     },
 ]
 

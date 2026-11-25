@@ -1,5 +1,7 @@
 {
   "skills": [
+    "Python",
+    "PostgreSQL",
     "PHP",
     "HTML 5",
     "CSS",
@@ -13,8 +15,12 @@
     "Java",
     "Hibernate",
     "JUnit",
-    "Jest",
-    "Claude"
+    "Jest"
+  ],
+  "ai": [
+    "Claude",
+    "Groq",
+    "OpenCode"
   ],
   "saas": [
     "Google Analytics",
@@ -23,12 +29,10 @@
     "Zoho"
   ],
   "some_experience": [
-    "Python",
     "NodeJS",
     "Ruby on Rails",
     "C#",
     "Firebase",
-    "PostgreSQL",
     "SASS",
     "Webpack",
     "New Relic",
@@ -36,7 +40,8 @@
     "Grafana",
     "Jenkins",
     "Kubernetes",
-    "Heroku"
+    "Heroku",
+    "Next.js"
   ],
   "projects": {
     "professional_services": [
@@ -69,6 +74,7 @@
     "all_projects": [
       "MTBDASH.com",
       "CarCritical.com",
+      "Stockory.com",
       "Area Service for Neighborhoods.com",
       "Amazon Connect Integration for DialogTech",
       "Adobe Analytics Integration for DialogTech",
